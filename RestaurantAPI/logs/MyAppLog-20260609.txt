@@ -1,0 +1,21 @@
+2026-06-09 16:23:54.457 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-09 16:23:54.588 +05:30 [INF] Now listening on: http://localhost:5178
+2026-06-09 16:23:54.590 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-09 16:23:54.590 +05:30 [INF] Hosting environment: Development
+2026-06-09 16:23:54.590 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI
+2026-06-09 16:23:58.799 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/ - null null
+2026-06-09 16:23:58.828 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-06-09 16:23:58.874 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/ - 404 0 null 75.4841ms
+2026-06-09 16:23:58.880 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5178/, Response status code: 404
+2026-06-09 16:24:00.157 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/ - null null
+2026-06-09 16:24:00.159 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/ - 404 0 null 2.7787ms
+2026-06-09 16:24:00.159 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5178/, Response status code: 404
+2026-06-09 16:24:10.251 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/swagger/index.html - null null
+2026-06-09 16:24:10.298 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/index.html - 200 null text/html;charset=utf-8 47.209ms
+2026-06-09 16:24:10.663 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - null null
+2026-06-09 16:24:10.779 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 116.1481ms
+2026-06-09 16:24:17.214 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/swagger/index.html - null null
+2026-06-09 16:24:17.215 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/index.html - 200 null text/html;charset=utf-8 1.2422ms
+2026-06-09 16:24:17.325 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - null null
+2026-06-09 16:24:17.355 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 29.9333ms
+2026-06-09 16:24:28.234 +05:30 [INF] Application is shutting down...

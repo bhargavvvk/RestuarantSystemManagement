@@ -1,0 +1,88 @@
+2026-06-04 23:20:42.522 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-04 23:20:44.015 +05:30 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address http://127.0.0.1:5178: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Address already in use
+ ---> System.Net.Sockets.SocketException (48): Address already in use
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(ListenOptions[] listenOptions, AddressBindContext context, Func`2 useHttps, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-06-04 23:21:24.782 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-04 23:21:25.166 +05:30 [INF] Now listening on: https://localhost:7098
+2026-06-04 23:21:25.166 +05:30 [INF] Now listening on: http://localhost:5178
+2026-06-04 23:21:25.168 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 23:21:25.168 +05:30 [INF] Hosting environment: Development
+2026-06-04 23:21:25.168 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/bin/Debug/net8.0
+2026-06-04 23:21:48.829 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-04 23:21:48.857 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 307 0 null 28.8663ms
+2026-06-04 23:21:48.923 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - null null
+2026-06-04 23:21:48.973 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-04 23:21:48.973 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-04 23:21:48.974 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - 405 0 text/plain 51.0666ms
+2026-06-04 23:21:53.549 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/test-signalr.html - null null
+2026-06-04 23:21:53.553 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/test-signalr.html - 307 0 null 3.8489ms
+2026-06-04 23:21:53.591 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7098/test-signalr.html - null null
+2026-06-04 23:21:53.641 +05:30 [INF] Sending file. Request path: '/test-signalr.html'. Physical path: '/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/test-signalr.html'
+2026-06-04 23:21:53.643 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7098/test-signalr.html - 200 1022 text/html 53.1739ms
+2026-06-04 23:21:53.715 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7098/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-06-04 23:21:53.718 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7098/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 28.71ms
+2026-06-04 23:21:53.719 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7098/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-06-04 23:21:53.874 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7098/favicon.ico - null null
+2026-06-04 23:21:53.874 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7098/favicon.ico - 404 0 null 0.6297ms
+2026-06-04 23:21:53.875 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7098/favicon.ico, Response status code: 404
+2026-06-04 23:22:05.746 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-04 23:22:05.798 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-04 23:22:05.804 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-04 23:22:05.804 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 58.32ms
+2026-06-04 23:22:05.807 +05:30 [INF] Request starting HTTP/2 CONNECT https://localhost:7098/notificationHub?id=1OnEqNmnU3bqmmim47NwxQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV2FpdGVyIiwiZXhwIjoxNzgwNjIyOTk5LCJpc3MiOiJSZXN0YXVyYW50QVBJIn0.5S0BiYlAv36V7csAeRb0hPj6ivxAh0hazUVV1GhZ25E - null null
+2026-06-04 23:22:05.807 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-04 23:22:36.598 +05:30 [INF] Executed endpoint '/notificationHub'
+2026-06-04 23:22:36.599 +05:30 [INF] Request finished HTTP/2 CONNECT https://localhost:7098/notificationHub?id=1OnEqNmnU3bqmmim47NwxQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV2FpdGVyIiwiZXhwIjoxNzgwNjIyOTk5LCJpc3MiOiJSZXN0YXVyYW50QVBJIn0.5S0BiYlAv36V7csAeRb0hPj6ivxAh0hazUVV1GhZ25E - 200 null null 30804.2625ms
+2026-06-04 23:22:36.600 +05:30 [INF] Connection id "0HNM2C7PPQCT2", Request id "0HNM2C7PPQCT2:00000009": the application completed without reading the entire request body.
+2026-06-04 23:23:04.650 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-04 23:23:05.065 +05:30 [INF] Now listening on: https://localhost:7098
+2026-06-04 23:23:05.066 +05:30 [INF] Now listening on: http://localhost:5178
+2026-06-04 23:23:05.068 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 23:23:05.068 +05:30 [INF] Hosting environment: Development
+2026-06-04 23:23:05.068 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/bin/Debug/net8.0
+2026-06-04 23:23:15.093 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-04 23:23:15.186 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-04 23:23:15.196 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-04 23:23:15.197 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 104.8657ms
+2026-06-04 23:23:15.201 +05:30 [INF] Request starting HTTP/2 CONNECT https://localhost:7098/notificationHub?id=sthcgGeU9wDG6oyczKPZkA&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV2FpdGVyIiwiZXhwIjoxNzgwNjIyOTk5LCJpc3MiOiJSZXN0YXVyYW50QVBJIn0.5S0BiYlAv36V7csAeRb0hPj6ivxAh0hazUVV1GhZ25E - null null
+2026-06-04 23:23:15.202 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-04 23:25:01.420 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-04 23:25:01.429 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-04 23:25:01.430 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-04 23:25:01.430 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 38.2585ms
+2026-06-04 23:25:01.457 +05:30 [INF] Request starting HTTP/2 CONNECT https://localhost:7098/notificationHub?id=rZ6uhcTCF5SeO5JnwEJA-A&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV2FpdGVyIiwiZXhwIjoxNzgwNjIyOTk5LCJpc3MiOiJSZXN0YXVyYW50QVBJIn0.5S0BiYlAv36V7csAeRb0hPj6ivxAh0hazUVV1GhZ25E - null null
+2026-06-04 23:25:01.458 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-04 23:31:25.663 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-04 23:31:26.049 +05:30 [INF] Now listening on: https://localhost:7098
+2026-06-04 23:31:26.050 +05:30 [INF] Now listening on: http://localhost:5178
+2026-06-04 23:31:26.052 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-04 23:31:26.052 +05:30 [INF] Hosting environment: Development
+2026-06-04 23:31:26.052 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/bin/Debug/net8.0
+2026-06-04 23:31:47.661 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-04 23:31:47.766 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-04 23:31:47.771 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-04 23:31:47.772 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7098/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 111.7708ms
+2026-06-04 23:31:47.776 +05:30 [INF] Request starting HTTP/2 CONNECT https://localhost:7098/notificationHub?id=PpFwST5SNlnlHGZxCLILIw&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV2FpdGVyIiwiZXhwIjoxNzgwNjIyOTk5LCJpc3MiOiJSZXN0YXVyYW50QVBJIn0.5S0BiYlAv36V7csAeRb0hPj6ivxAh0hazUVV1GhZ25E - null null
+2026-06-04 23:31:47.780 +05:30 [INF] Executing endpoint '/notificationHub'

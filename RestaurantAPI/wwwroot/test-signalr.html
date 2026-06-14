@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Test</title>
+</head>
+<body>
+
+<h2>Waiter SignalR Test</h2>
+
+<button onclick="connect()">Connect</button>
+
+<div id="messages"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+<script>
+
+let connection;
+
+async function connect() {
+
+    const token = prompt("Paste Waiter JWT");
+
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("/notificationHub", {
+            accessTokenFactory: () => token
+        })
+        .withAutomaticReconnect()
+        .build();
+
+    connection.on(
+        "ReceiveCustomerRequest",
+        function (data) {
+
+            document
+                .getElementById("messages")
+                .innerHTML +=
+                `<p>
+                    Table : ${data.tableNumber}
+                    |
+                    Request : ${data.requestType}
+                 </p>`;
+        });
+    connection.on(
+    "ReceiveOrderPlaced",
+    data => {
+        console.log(data);
+        alert(JSON.stringify(data));
+    });
+    connection.on(
+     "ReceiveOrderCancelled",
+    data => {
+        console.log(data);
+        alert(JSON.stringify(data));
+    });
+connection.on(
+     "OrderItemReady",
+    data => {
+        console.log(data);
+        alert(JSON.stringify(data));
+    });
+    connection.on(
+     "OrderCancelled",
+    data => {
+        console.log(data);
+        alert(JSON.stringify(data));
+    });
+    
+    await connection.start();
+
+    alert("Connected");
+};
+
+</script>
+
+</body>
+</html>
