@@ -138,3 +138,4 @@
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/Debug/net8.0/RestaurantAPI.pdb
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/Debug/net8.0/RestaurantAPI.genruntimeconfig.cache
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/Debug/net8.0/ref/RestaurantAPI.dll
+/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/Debug/net8.0/RestaurantAPI.sourcelink.json

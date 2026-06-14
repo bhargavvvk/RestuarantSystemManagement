@@ -177,3 +177,4 @@
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/Debug/net8.0/RestaurantAPI.Tests.pdb
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/Debug/net8.0/RestaurantAPI.Tests.genruntimeconfig.cache
 /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/Debug/net8.0/ref/RestaurantAPI.Tests.dll
+/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/Debug/net8.0/RestaurantAPI.Tests.sourcelink.json
