@@ -57,7 +57,7 @@ public class OrderService : IIOrderService
         {
             throw new CartException("Cart is empty");
         }
-        _logger.LogError("Checking if the menu items exists and available");
+        _logger.LogInformation("Checking if the menu items exists and available");
         foreach(var cartItem in cartItems)
         {
             if(cartItem.MenuItem == null)
@@ -85,7 +85,7 @@ public class OrderService : IIOrderService
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            _logger.LogError("Creating the order");
+            _logger.LogInformation("Creating the order");
             var order =await _orderRepository.Create(
                 new Order
                 {
@@ -124,7 +124,7 @@ public class OrderService : IIOrderService
             }
             await _cartItemRepository.SaveChangesAsync();
             await transaction.CommitAsync();
-            _logger.LogError("Creating the notification");
+            _logger.LogInformation("Creating the notification");
             _logger.LogInformation("Session Id: {Id}", session.Id);
             _logger.LogInformation("Table loaded: {Loaded}", session.Table != null);
             var table=await _restaurentTableRepository.Get(session.TableId);
@@ -134,11 +134,11 @@ public class OrderService : IIOrderService
                 TableNumber = table!.TableNumber,
                 Message = "New order placed"
             };
-            _logger.LogError("Created the notification");
+            _logger.LogInformation("Created the notification");
              var kitchenId = await _userRepository.GetKitchenStaffId();
             await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
             await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
-            _logger.LogError("notification sent");
+            _logger.LogInformation("notification sent");
         }
         catch (Exception e)
         {
@@ -146,8 +146,9 @@ public class OrderService : IIOrderService
             throw;
         }
     }
-      public async Task<ICollection<OrderResponseDto>> GetOrders(int sessionId)
+    public async Task<ICollection<OrderResponseDto>> GetOrders(int sessionId)
     {
+        _logger.LogInformation("Fetching orders for session {SessionId}", sessionId);
         var session =await _diningSessionRepository.Get(sessionId);
         if(session == null)
         {

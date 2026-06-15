@@ -56,6 +56,7 @@ public class KitchenService:IKitchenService
     }
     public async Task StartPreparing(int orderId)
     {
+        _logger.LogInformation("Starting preparation for order {OrderId}", orderId);
         var order = await _orderRepository.GetOrderWithItems(orderId);
         if (order == null) throw new OrderNotFoundException();
 
@@ -71,5 +72,6 @@ public class KitchenService:IKitchenService
         }
 
         await _orderRepository.SaveChangesAsync();
+        _logger.LogInformation("Order {OrderId} is now being prepared", orderId);
     }
 }

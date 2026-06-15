@@ -48,6 +48,7 @@ public class BillService : IBillService
     }
     public async Task<BillResponseDto> MarkBillAsPaid(int sessionId,PaymentMethod paymentMethod)
     {
+        _logger.LogInformation("Marking bill as paid for session {SessionId} with payment method {PaymentMethod}", sessionId, paymentMethod);
         var session = await _diningSessionRepository.Get(sessionId);
 
         if (session == null)
@@ -77,6 +78,7 @@ public class BillService : IBillService
 
         await _billRepository.SaveChangesAsync();
 
+        _logger.LogInformation("Bill {BillId} marked as paid for session {SessionId}", bill.Id, sessionId);
         return _mapper.Map<BillResponseDto>(bill);
     }
     public ICollection<LookupDto>GetPaymentMethods()
@@ -91,6 +93,7 @@ public class BillService : IBillService
     }
     public async Task<BillResponseDto> UpdateServiceCharge(int sessionId,bool includeServiceCharge)
     {
+        _logger.LogInformation("Updating service charge for session {SessionId} (include={IncludeServiceCharge})", sessionId, includeServiceCharge);
         var bill =await _billRepository.GetBySessionId(sessionId);
         if (bill == null)
         {
@@ -140,10 +143,12 @@ public class BillService : IBillService
 
         await _billRepository.SaveChangesAsync();
 
+        _logger.LogInformation("Service charge updated for session {SessionId}. Grand total: {GrandTotal}", sessionId, bill.GrandTotal);
         return _mapper.Map<BillResponseDto>(bill);
     }
     public async Task RecalculateBill(int sessionId)
     {
+        _logger.LogInformation("Recalculating bill for session {SessionId}", sessionId);
         var bill =await _billRepository.GetBySessionId(sessionId);
         if (bill == null)
         {
@@ -168,9 +173,11 @@ public class BillService : IBillService
 
         bill.GrandTotal =foodTotal +bill.CgstAmount +bill.SgstAmount +bill.ServiceChargeAmount;
         await _billRepository.SaveChangesAsync();
+        _logger.LogInformation("Bill recalculated for session {SessionId}. Grand total: {GrandTotal}", sessionId, bill.GrandTotal);
     }
     public async Task<PagedResponseDto<BillRegistryDto>>GetBills(string search,DateOnly? date,int pageNumber,int pageSize)
     {
+        _logger.LogInformation("Fetching bills registry (search={Search}, date={Date}, page={Page})", search, date, pageNumber);
         var query =_billRepository.GetBillsQuery();if(pageNumber < 1)
         {
             pageNumber = 1;
@@ -219,6 +226,7 @@ public class BillService : IBillService
     }
     public async Task<BillDashboardSummaryDto>GetBillDashboardSummary(DateOnly? date)
     {
+        _logger.LogInformation("Fetching bill dashboard summary for date {Date}", date);
         var query =_billRepository.GetBillsQuery();
         if (date.HasValue)
         {
@@ -232,6 +240,7 @@ public class BillService : IBillService
     }
     public async Task<BillDetailsDto>GetBillDetails(int billId)
     {
+        _logger.LogInformation("Fetching bill details for bill {BillId}", billId);
         var bill =await _billRepository.GetBillDetails(billId);
         if (bill == null)
         {

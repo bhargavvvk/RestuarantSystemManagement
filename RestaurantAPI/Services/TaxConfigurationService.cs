@@ -13,16 +13,19 @@ public class TaxConfigurationService:ITaxConfigurationService
     private readonly IMapper _mapper;
     private readonly RestaurantContext _context;
     private readonly IAuditService _auditService;
+    private readonly ILogger<TaxConfigurationService> _logger;
     public TaxConfigurationService(ITaxConfigurationRepository taxConfigurationRepository,
-    IMapper mapper,RestaurantContext context,IAuditService auditService)
+    IMapper mapper,RestaurantContext context,IAuditService auditService,ILogger<TaxConfigurationService> logger)
     {
         _taxConfigurationRepository = taxConfigurationRepository;
         _mapper = mapper;
         _context = context;
         _auditService=auditService;
+        _logger = logger;
     }
     public async Task<TaxConfigurationResponseDto> GetTaxConfiguration()
     {
+        _logger.LogInformation("Fetching active tax configuration");
         var configuration = await _taxConfigurationRepository.GetActiveConfiguration();
 
         if (configuration == null)
@@ -33,6 +36,7 @@ public class TaxConfigurationService:ITaxConfigurationService
     }
     public async Task UpdateTaxConfiguration(UpdateTaxConfigurationDto request)
     {
+        _logger.LogInformation("Updating tax configuration");
         var currentConfiguration =await _taxConfigurationRepository.GetActiveConfiguration();
 
         if (currentConfiguration == null)
@@ -115,6 +119,7 @@ public class TaxConfigurationService:ITaxConfigurationService
 
             await _taxConfigurationRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Tax configuration updated. New config ID: {ConfigId}", newConfiguration.Id);
         }
         catch
         {

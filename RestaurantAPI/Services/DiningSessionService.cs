@@ -47,6 +47,7 @@ public class DiningSessionService:IDiningSessionService
     }
     public async Task CloseSession(int waiterId,int tableId)
     {
+        _logger.LogInformation("Waiter {WaiterId} closing session for table {TableId}", waiterId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
 
         if (session == null)
@@ -85,6 +86,7 @@ public class DiningSessionService:IDiningSessionService
             await _diningSessionRepository.Update(session.Id,session);
             await _diningSessionRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Session {SessionId} closed for table {TableId}", session.Id, tableId);
             var affectedOrderIds = pendingOrderItems.Select(oi => oi.OrderId).Distinct().ToList();
             foreach(var orderId in affectedOrderIds)
             {
@@ -201,7 +203,7 @@ public class DiningSessionService:IDiningSessionService
                         StartedAt = DateTime.Now
                     });
             await _diningSessionRepository.SaveChangesAsync();
-             _logger.LogInformation("creating new cart associated with session {session.id}");
+             _logger.LogInformation("creating new cart associated with session {SessionId}", session.Id);
             var cart =await _cartRepository.Create(
                 new Cart
                 {

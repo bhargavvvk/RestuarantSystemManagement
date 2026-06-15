@@ -28,9 +28,9 @@ public class TableService:ITableService
 
     public async Task<IEnumerable<WaiterTableResponseDto>> GetAssignedTablesAsync(int waiterId)
     {
+        _logger.LogInformation("Fetching assigned tables for waiter {WaiterId}", waiterId);
         var tables =
         await _restaurentTableRepository.GetAssignedTablesWithSessions(waiterId);
-        _logger.LogInformation("Getting the statuses of the table");
         var result = tables.Select(table =>
         {
             string status;
@@ -60,11 +60,11 @@ public class TableService:ITableService
     }
     public async Task<TableStatusResponseDto> GetTableStatus(string qrIdentifier)
     {
+        _logger.LogInformation("Checking table status for QR identifier {QrIdentifier}", qrIdentifier);
         var table = await _restaurentTableRepository.GetByQrIdentifier(qrIdentifier);
-        _logger.LogInformation("Checking table status for QR Identifier: {QrIdentifier}",qrIdentifier);
         if(table == null)
         {
-            _logger.LogInformation("Checking table status for QR Identifier: {QrIdentifier}",qrIdentifier);
+            _logger.LogWarning("Table not found for QR identifier {QrIdentifier}", qrIdentifier);
             throw new TableNotFoundException();
         }
         if(table.Status == TableStatus.Unavailable)
@@ -88,6 +88,7 @@ public class TableService:ITableService
     }
     public async Task<TableDashboardResponseDto> GetTableDashboard()
     {
+        _logger.LogInformation("Fetching table dashboard");
         var tables = await _restaurentTableRepository.GetAllNonDeletedTables();
 
         var occupiedTableIds =(await _diningSessionRepository.GetActiveTableIds()).ToHashSet();
@@ -138,6 +139,7 @@ public class TableService:ITableService
     }
     public async Task<RestaurantTable> UpdateTableAvailability(int tableId,TableStatus status)
     {
+        _logger.LogInformation("Updating availability of table {TableId} to {Status}", tableId, status);
         var table = await _restaurentTableRepository.Get(tableId);
 
         if (table == null || table.IsDeleted)   throw new TableNotFoundException();
@@ -170,10 +172,12 @@ public class TableService:ITableService
 
         await _restaurentTableRepository.SaveChangesAsync();
 
+        _logger.LogInformation("Table {TableId} availability updated to {Status}", tableId, status);
         return table;
     }
     public async Task DeleteTable(int tableId)
     {
+        _logger.LogInformation("Deleting table {TableId}", tableId);
         var table = await _restaurentTableRepository.Get(tableId);
 
         if (table == null || table.IsDeleted)
@@ -199,9 +203,11 @@ public class TableService:ITableService
             $"Table {table.TableNumber} soft deleted");
 
         await _restaurentTableRepository.SaveChangesAsync();
+        _logger.LogInformation("Table {TableId} deleted", tableId);
     }
     public async Task<TableResponseDto> AddTable(AddTableRequestDto request)
     {
+        _logger.LogInformation("Adding new table {TableNumber} with capacity {Capacity}", request.TableNumber, request.Capacity);
         if (request.Capacity <= 0)
         {
             throw new ValidationException("Capacity must be greater than zero");
@@ -250,6 +256,7 @@ public class TableService:ITableService
 
         await _restaurentTableRepository.SaveChangesAsync();
 
+        _logger.LogInformation("Table {TableNumber} created with ID {TableId}", table.TableNumber, table.Id);
         return new TableResponseDto
         {
             Id = table.Id,
@@ -262,6 +269,7 @@ public class TableService:ITableService
     }
     public async Task<TableDetailsDto> GetTableDetails(int tableId)
     {
+        _logger.LogInformation("Fetching details for table {TableId}", tableId);
         var table =await _restaurentTableRepository.GetTableDetails(tableId);
         if (table == null)
             throw new TableNotFoundException();

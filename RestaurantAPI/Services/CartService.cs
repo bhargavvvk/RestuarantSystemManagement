@@ -72,7 +72,7 @@ public class CartService : ICartService
     {
         var cartItems =
             await _cartItemRepository.GetByCartId(cartId);
-        _logger.LogInformation("retrived cart items");
+        _logger.LogInformation("Retrieved {ItemCount} cart items for cart {CartId}", cartItems.Count, cartId);
         return cartItems
             .Select(ci =>
                 new CartItemResponseDto

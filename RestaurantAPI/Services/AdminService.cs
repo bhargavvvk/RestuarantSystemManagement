@@ -19,7 +19,8 @@ public class AdminService : IAdminService
     private readonly IDiningSessionRepository _diningSessionRepository;
     private readonly IAuditService _auditService;
     private readonly RestaurantContext _context;
-   private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly ILogger<AdminService> _logger;
     public AdminService(
         IRestaurentTableRepository restaurentTableRepository,
         IIOrderService orderService,
@@ -28,7 +29,9 @@ public class AdminService : IAdminService
         IUserRepository userRepository,
         IDiningSessionRepository diningSessionRepository,
         IAuditService auditService,
-        RestaurantContext context, IHubContext<NotificationHub> hubContext)
+        RestaurantContext context,
+        IHubContext<NotificationHub> hubContext,
+        ILogger<AdminService> logger)
     {
         _restaurentTableRepository = restaurentTableRepository;
         _orderService = orderService;
@@ -38,26 +41,26 @@ public class AdminService : IAdminService
         _diningSessionRepository = diningSessionRepository;
         _auditService = auditService;
         _context = context;
-        _hubContext=hubContext;
+        _hubContext = hubContext;
+        _logger = logger;
     }
     public async Task<ICollection<OrderResponseDto>>GetTableOrders(int tableId)
     {
-        var session =
-        await GetActiveSessionForTable(tableId);
-
-        return await _orderService
-        .GetOrders(session.Id);
+        _logger.LogInformation("Getting orders for table {TableId}", tableId);
+        var session = await GetActiveSessionForTable(tableId);
+        return await _orderService.GetOrders(session.Id);
     }
     public async Task<BillResponseDto>GetTableBill(int tableId)
     {
-         var session =await GetActiveSessionForTable(tableId);
+        _logger.LogInformation("Getting bill for table {TableId}", tableId);
+        var session = await GetActiveSessionForTable(tableId);
         return await _billService.GetBill(session.Id);
     }
 
     public async Task<BillResponseDto> UpdateServiceCharge(int tableId,bool includeServiceCharge)
     {
-        var session =await GetActiveSessionForTable(tableId);
-
+        _logger.LogInformation("Updating service charge for table {TableId} to {IncludeServiceCharge}", tableId, includeServiceCharge);
+        var session = await GetActiveSessionForTable(tableId);
         return await _billService.UpdateServiceCharge(session.Id,includeServiceCharge);
     }
 
@@ -72,6 +75,7 @@ public class AdminService : IAdminService
 
     public async Task CancelOrder(int tableId,int orderId)
     {
+        _logger.LogInformation("Admin cancelling order {OrderId} for table {TableId}", orderId, tableId);
         var session =await GetActiveSessionForTable(tableId);
         var order =await _orderRepository.Get(orderId);
         if (order == null)
@@ -83,10 +87,12 @@ public class AdminService : IAdminService
             throw new Exception("Order does not belong to the specified table");
         }
         await _orderService.CancelOrder(orderId);
+        _logger.LogInformation("Order {OrderId} cancelled by admin for table {TableId}", orderId, tableId);
     }
 
     public async Task CancelOrderItem(int tableId,int orderId,int orderItemId)
     {
+        _logger.LogInformation("Admin cancelling order item {OrderItemId} from order {OrderId} for table {TableId}", orderItemId, orderId, tableId);
         var session =await GetActiveSessionForTable(tableId);
         var order =await _orderRepository.Get(orderId);
         if (order == null)
@@ -98,10 +104,12 @@ public class AdminService : IAdminService
             throw new Exception("Order does not belong to the specified table");
         }
         await _orderService.CancelOrderItem(orderId,orderItemId);
+        _logger.LogInformation("Order item {OrderItemId} cancelled by admin", orderItemId);
     }
 
     public async Task UpdateOrderItemQuantity(int tableId,int orderId,int orderItemId,int quantity)
     {
+        _logger.LogInformation("Admin updating quantity of order item {OrderItemId} to {Quantity} for table {TableId}", orderItemId, quantity, tableId);
         var session =await GetActiveSessionForTable(tableId);
         var order =await _orderRepository.Get(orderId);
         if (order == null)
@@ -113,10 +121,12 @@ public class AdminService : IAdminService
             throw new Exception("Order does not belong to the specified table");
         }
         await _orderService.UpdateOrderItemQuantity(orderId,orderItemId,quantity);
+        _logger.LogInformation("Order item {OrderItemId} quantity updated to {Quantity} by admin", orderItemId, quantity);
     }
 
     public async Task<WaiterManagementResponseDto> GetWaiters(string? search,bool? isActive)
     {
+        _logger.LogInformation("Getting waiters list (search={Search}, isActive={IsActive})", search, isActive);
         var query =_userRepository.GetWaitersQuery();
         var summary = new WaiterSummaryDto
         {
@@ -162,6 +172,7 @@ public class AdminService : IAdminService
 
     public async Task<TableResponseDto> AssignWaiter(int tableId,int waiterId)
     {
+        _logger.LogInformation("Assigning waiter {WaiterId} to table {TableId}", waiterId, tableId);
         var table = await _restaurentTableRepository.Get(tableId);
         if (table == null || table.IsDeleted)throw new TableNotFoundException();
         if (await _diningSessionRepository.HasActiveSession(tableId))   throw new Exception("Cannot change waiter assignment during active dining session");
@@ -185,6 +196,7 @@ public class AdminService : IAdminService
        var tableNumber=table.TableNumber;
         await _hubContext.Clients.User(waiterId.ToString()).SendAsync("tableassinged", $"{tableNumber} is assinged to you");
         await _hubContext.Clients.User(waiter.Id.ToString()).SendAsync("tableremoved",$"{tableNumber} is reassinged to other");
+        _logger.LogInformation("Waiter {WaiterId} assigned to table {TableId}", waiterId, tableId);
         return new TableResponseDto
         {
             Id = table.Id,
@@ -197,6 +209,7 @@ public class AdminService : IAdminService
     }
     public async Task<TableResponseDto> RemoveWaiter(int tableId)
     {
+        _logger.LogInformation("Removing waiter from table {TableId}", tableId);
         var table = await _restaurentTableRepository.Get(tableId);
         if (table == null || table.IsDeleted)throw new TableNotFoundException();
         if (await _diningSessionRepository.HasActiveSession(tableId))
@@ -219,6 +232,7 @@ public class AdminService : IAdminService
 
         await _restaurentTableRepository.SaveChangesAsync();
         await _hubContext.Clients.User(table.AssignedWaiterId.ToString()!).SendAsync("tableremoved",$"{table.TableNumber} is removed");
+        _logger.LogInformation("Waiter removed from table {TableId}", tableId);
         return new TableResponseDto
         {
             Id = table.Id,
@@ -231,6 +245,7 @@ public class AdminService : IAdminService
     }
     public async Task UpdateWaiterStatus(int waiterId, bool isActive)
     {
+        _logger.LogInformation("Updating waiter {WaiterId} status to {IsActive}", waiterId, isActive);
         var waiter = await _userRepository.Get(waiterId);
 
         if (waiter == null || waiter.Role != UserRole.Waiter)
@@ -255,9 +270,11 @@ public class AdminService : IAdminService
             isActive ? "Waiter activated" : "Waiter deactivated");
         await _hubContext.Clients.User(waiterId.ToString()).SendAsync("statuschange", "your account status as changed");
         await _userRepository.SaveChangesAsync();
+        _logger.LogInformation("Waiter {WaiterId} status updated to {IsActive}", waiterId, isActive);
     }
     public async Task DeleteWaiter(int waiterId)
     {
+        _logger.LogInformation("Deleting waiter {WaiterId}", waiterId);
         var waiter = await _userRepository.Get(waiterId);
 
         if (waiter == null || waiter.Role != UserRole.Waiter) throw new WaiterNotFoundException("Waiter not found");
@@ -287,6 +304,7 @@ public class AdminService : IAdminService
             await _userRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             await _hubContext.Clients.User(waiterId.ToString()).SendAsync("accountdeleted", "your account is deleted contact admin for recovery");
+            _logger.LogInformation("Waiter {WaiterId} deleted", waiterId);
         }
         catch
         {

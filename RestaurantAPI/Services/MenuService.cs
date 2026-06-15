@@ -31,6 +31,7 @@ public class MenuService : IMenuService
     }
     public async Task ToggleMenuAvailability(int menuItemId,bool isAvailable)
     {
+        _logger.LogInformation("Toggling menu item {MenuItemId} availability to {IsAvailable}", menuItemId, isAvailable);
         var item =await _menuItemRepository.Get(menuItemId);
     if(item == null)
     {
@@ -55,10 +56,12 @@ public class MenuService : IMenuService
             ? "Menu item enabled"
             : "Menu item disabled");
     await _menuItemRepository.SaveChangesAsync();
+        _logger.LogInformation("Menu item {MenuItemId} availability set to {IsAvailable}", menuItemId, isAvailable);
     }
 
     public async Task ToggleCategoryAvailability(int categoryId, bool isAvailable)
     {
+        _logger.LogInformation("Toggling category {CategoryId} availability to {IsAvailable}", categoryId, isAvailable);
         var category =await _categoryRepository.Get(categoryId);
         if(category == null)
         {
@@ -95,6 +98,7 @@ public class MenuService : IMenuService
             $"Category disabled. {category.MenuItems!.Count} menu items automatically marked unavailable");
             await _menuItemRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Category {CategoryId} availability set to {IsAvailable}", categoryId, isAvailable);
         }
         catch (Exception e)
         {
@@ -213,11 +217,8 @@ public class MenuService : IMenuService
 
         try
         {
-            _logger.LogInformation("Started Try");
             await _categoryRepository.Create(category);
-            _logger.LogInformation("created category");
             await _categoryRepository.SaveChangesAsync();
-            _logger.LogInformation("saved changes");
             await _auditService.LogAsync(
                 nameof(Category),
                 category.Id.ToString(),
@@ -229,11 +230,9 @@ public class MenuService : IMenuService
                     category.IsAvailable
                 },
                 "Category created");
-            _logger.LogInformation("log updated");
             await _categoryRepository.SaveChangesAsync();
-            _logger.LogInformation("log updated");
             await transaction.CommitAsync();
-            _logger.LogInformation("Category {CategoryId} created",category.Id);
+            _logger.LogInformation("Category {CategoryId} '{CategoryName}' created", category.Id, category.Name);
             return _mapper.Map<CategoryResponseDto>(category);
         }
         catch
@@ -439,6 +438,7 @@ public class MenuService : IMenuService
     }
     public async Task DeleteCategory(int categoryId)
     {
+        _logger.LogInformation("Deleting category {CategoryId}", categoryId);
         var category =await _categoryRepository.Get(categoryId);
         if (category == null)
         {
@@ -478,6 +478,7 @@ public class MenuService : IMenuService
 
             await _categoryRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Category {CategoryId} and {MenuItemCount} menu items deleted", categoryId, category.MenuItems.Count);
         }
         catch
         {

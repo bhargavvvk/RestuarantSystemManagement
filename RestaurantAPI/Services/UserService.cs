@@ -20,8 +20,9 @@ public class UserService : IUserService
     private readonly IAuditService _auditService;
     private readonly RestaurantContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ILogger<UserService> _logger;
     public UserService(IUserRepository userRepository, IEncryptionService encryptionService, ITokenService tokenService, IAuditService auditService, RestaurantContext context,
-    IHttpContextAccessor httpContextAccessor)
+    IHttpContextAccessor httpContextAccessor, ILogger<UserService> logger)
     {
         _userRepository = userRepository;
         _encryptionService = encryptionService;
@@ -29,9 +30,11 @@ public class UserService : IUserService
         _auditService = auditService;
         _context = context;
         _httpContextAccessor = httpContextAccessor;
+        _logger = logger;
     }
    public async Task<SystemUsersCreatedResponseDto> CreateSystemUsersAsync(CreateSystemUsersRequestDto request)
     {
+        _logger.LogInformation("Creating system users (admin + kitchen)");
         var adminExists = await _userRepository.GetByUsernameAsync("admin");
 
         var kitchenExists = await _userRepository.GetByUsernameAsync("kitchen");
@@ -69,6 +72,7 @@ public class UserService : IUserService
         await _userRepository.Create(admin);
         await _userRepository.Create(kitchen);
         await _userRepository.SaveChangesAsync();
+        _logger.LogInformation("System users created successfully");
         return new SystemUsersCreatedResponseDto
         {
             Message = "System users created successfully."
@@ -76,6 +80,7 @@ public class UserService : IUserService
     }
     public async Task<WaiterResponseDto> CreateWaiterAsync(CreateWaiterRequestDto request)
     {
+        _logger.LogInformation("Creating waiter with username '{Username}'", request.Username);
         var existingUser =await _userRepository.GetByUsernameAsync(request.Username);
         if (existingUser != null)
             throw new DuplicateEntityException($"Username {request.Username} already exists.");
@@ -125,6 +130,7 @@ public class UserService : IUserService
 
             await _userRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Waiter '{Username}' created with ID {WaiterId}", createdWaiter.Username, createdWaiter.Id);
             return new WaiterResponseDto
             {
                 Id = createdWaiter.Id,
@@ -140,6 +146,7 @@ public class UserService : IUserService
     }
     public async Task<LoginResponseDto> LoginAsync(LoginRequestDto request)
     {
+        _logger.LogInformation("Login attempt for username '{Username}'", request.Username);
         if (string.IsNullOrEmpty(request.Username) ||
             string.IsNullOrEmpty(request.Password))
         {
@@ -167,6 +174,7 @@ public class UserService : IUserService
             Role = user.Role.ToString()
         };
         var token =_tokenService.CreateEmployeeToken(tokenRequest);
+        _logger.LogInformation("User '{Username}' logged in successfully with role {Role}", user.Username, user.Role);
         return new LoginResponseDto
         {
             Token = token,
@@ -196,6 +204,7 @@ public class UserService : IUserService
     }
     public async Task UpdateProfile(UpdateProfileDto request)
     {
+        _logger.LogInformation("Updating profile for current user");
         if (string.IsNullOrWhiteSpace(request.Name))
         {
             throw new Exception("Name is required");
@@ -246,6 +255,7 @@ public class UserService : IUserService
                 "Profile updated");
             await _userRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Profile updated for user {UserId}", user.Id);
         }
         catch
         {
@@ -255,6 +265,7 @@ public class UserService : IUserService
     }
     public async Task ChangePassword(ChangePasswordDto request)
     {
+        _logger.LogInformation("Password change requested by current user");
         if (string.IsNullOrWhiteSpace(request.CurrentPassword))
         {
             throw new Exception("Current password is required");
@@ -308,6 +319,7 @@ public class UserService : IUserService
             await _userRepository.SaveChangesAsync();
 
             await transaction.CommitAsync();
+            _logger.LogInformation("Password changed for user {UserId}", user.Id);
         }
         catch
         {

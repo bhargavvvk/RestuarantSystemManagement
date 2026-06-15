@@ -26,6 +26,7 @@ public class CustomerRequestService:ICustomerRequestService
     }
     public async Task CompleteRequest(int waiterId, int requestId)
     {
+        _logger.LogInformation("Waiter {WaiterId} completing request {RequestId}", waiterId, requestId);
         var request =await _customerRequestRepository.GetRequestWithSession(requestId);
         if(request == null)
         {
@@ -44,11 +45,14 @@ public class CustomerRequestService:ICustomerRequestService
             return;
         }
         request.Status =CustomerRequestStatus.Completed;
-        request.CompletedAt = DateTime.Now;await _customerRequestRepository.Update(request.Id, request);
+        request.CompletedAt = DateTime.Now;
+        await _customerRequestRepository.Update(request.Id, request);
         await _customerRequestRepository.SaveChangesAsync();
+        _logger.LogInformation("Request {RequestId} marked as completed", requestId);
     }
     public async Task<ICollection<CustomerRequestResponseDto>>GetActiveRequests(int waiterId)
     {
+        _logger.LogInformation("Fetching active requests for waiter {WaiterId}", waiterId);
         var requests =await _customerRequestRepository.GetActiveRequestsByWaiterId(waiterId);
         return requests.Select(r =>new CustomerRequestResponseDto
                 {
@@ -85,7 +89,7 @@ public class CustomerRequestService:ICustomerRequestService
             TableNumber = table.TableNumber,
             RequestType =request.RequestType.ToString()
         };
-        _logger.LogInformation("Creating customerequest");
+        _logger.LogInformation("Creating {RequestType} request for session {SessionId}", request.RequestType, sessionId);
         await _customerRequestRepository.Create(new CustomerRequest
             {
                 DiningSessionId = sessionId,

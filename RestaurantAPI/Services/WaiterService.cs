@@ -51,6 +51,7 @@ public class WaiterService:IWaiterService
     }
     public async Task AddItemToTableCart(int waiterId, int tableId, AddToCartDto request)
     {
+        _logger.LogInformation("Waiter {WaiterId} adding menu item {MenuItemId} to cart for table {TableId}", waiterId, request.MenuItemId, tableId);
          var session = await _diningSessionRepository.GetActiveSessionWithCartByTableId(tableId);
 
         if (session == null)
@@ -63,6 +64,7 @@ public class WaiterService:IWaiterService
     }
     public async Task UpdateTableCartItem(int waiterId, int tableId, int cartItemId, UpdateCartItemDto request)
     {
+        _logger.LogInformation("Waiter {WaiterId} updating cart item {CartItemId} for table {TableId}", waiterId, cartItemId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionWithCartByTableId(tableId);
             if (session == null)
             {
@@ -81,6 +83,7 @@ public class WaiterService:IWaiterService
     }
     public async Task RemoveTableCartItem(int waiterId, int tableId, int cartItemId)
     {
+        _logger.LogInformation("Waiter {WaiterId} removing cart item {CartItemId} for table {TableId}", waiterId, cartItemId, tableId);
          var session = await _diningSessionRepository.GetActiveSessionWithCartByTableId(tableId);
 
         if (session == null)
@@ -97,6 +100,7 @@ public class WaiterService:IWaiterService
     }
     public async Task<ICollection<OrderResponseDto>> GetTableOrders(int waiterId, int tableId)
     {
+        _logger.LogInformation("Waiter {WaiterId} retrieving orders for table {TableId}", waiterId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
         if (session == null)
         {
@@ -110,6 +114,7 @@ public class WaiterService:IWaiterService
     }
     public async Task PlaceOrder(int waiterId, int tableId, PlaceOrderRequestDto request)
     {
+        _logger.LogInformation("Waiter {WaiterId} placing order for table {TableId}", waiterId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionWithCartByTableId(tableId);
 
             if (session == null)
@@ -126,6 +131,7 @@ public class WaiterService:IWaiterService
     }
     public async Task<BillResponseDto> GetTableBill(int waiterId,int tableId)
     {
+        _logger.LogInformation("Waiter {WaiterId} retrieving bill for table {TableId}", waiterId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
         if (session == null)
         {
@@ -140,6 +146,7 @@ public class WaiterService:IWaiterService
     }
     public async Task<BillResponseDto> MarkTableBillAsPaid(int waiterId, int tableId, MarkBillPaidDto request)
     {
+        _logger.LogInformation("Waiter {WaiterId} marking bill as paid for table {TableId}", waiterId, tableId);
         if (!Enum.IsDefined(typeof(PaymentMethod),request.PaymentMethod))
         {
             throw new ValidationException("Invalid payment method.");
@@ -194,6 +201,7 @@ public class WaiterService:IWaiterService
         await _orderItemRepository.Update(orderItem.Id, orderItem);
         await _orderItemRepository.SaveChangesAsync();
         await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("itemserved",$"{orderItem.ItemName} is served");
+        _logger.LogInformation("Order item {OrderItemId} marked as served by waiter {WaiterId} for table {TableId}", orderItemId, waiterId, tableId);
         return _mapper.Map<OrderItemResponseDto>(orderItem);
     }
 }

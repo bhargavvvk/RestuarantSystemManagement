@@ -13,15 +13,18 @@ public class InventoryService:IInventoryService
     private readonly IInventoryItemRepository _inventoryRepository;
     private readonly RestaurantContext _context;
     private readonly IAuditService _auditService;
-    public InventoryService(IInventoryItemRepository inventoryRepository,RestaurantContext context,IAuditService auditService)
+    private readonly ILogger<InventoryService> _logger;
+    public InventoryService(IInventoryItemRepository inventoryRepository,RestaurantContext context,IAuditService auditService,ILogger<InventoryService> logger)
     {
         _inventoryRepository =inventoryRepository;
         _context = context;
         _auditService=auditService;
+        _logger = logger;
     }
     public async Task<InventoryManagementResponseDto>GetInventoryItems(string? search,bool lowStockOnly,
             int pageNumber,int pageSize)
     {
+        _logger.LogInformation("Fetching inventory items (search={Search}, lowStockOnly={LowStockOnly})", search, lowStockOnly);
         var query =_inventoryRepository.GetInventoryQuery();
         var summary =new InventorySummaryDto
             {
@@ -70,6 +73,7 @@ public class InventoryService:IInventoryService
     }
     public async Task UpdateInventoryQuantity(int inventoryItemId,decimal quantity)
     {
+        _logger.LogInformation("Updating inventory quantity for item {InventoryItemId} to {Quantity}", inventoryItemId, quantity);
         if (quantity < 0)
         {
             throw new Exception("Quantity cannot be negative");
@@ -93,9 +97,11 @@ public class InventoryService:IInventoryService
                 CurrentQuantity = quantity
             },
             "Inventory quantity updated");
+        _logger.LogInformation("Inventory quantity updated for item {InventoryItemId}", inventoryItemId);
     }
     public async Task UpdateInventoryThreshold(int inventoryItemId,decimal thresholdQuantity)
     {
+        _logger.LogInformation("Updating inventory threshold for item {InventoryItemId} to {ThresholdQuantity}", inventoryItemId, thresholdQuantity);
         if (thresholdQuantity < 0)
         {
             throw new Exception("Threshold quantity cannot be negative");
@@ -121,6 +127,7 @@ public class InventoryService:IInventoryService
                     thresholdQuantity
             },
             "Inventory threshold updated");
+        _logger.LogInformation("Inventory threshold updated for item {InventoryItemId}", inventoryItemId);
     }
     private async Task UpdateInventoryField(int inventoryItemId,Action<InventoryItem> updateAction,object oldValues,
         object newValues,string remarks)
@@ -154,6 +161,7 @@ public class InventoryService:IInventoryService
     }
     public async Task AddInventoryItem(AddInventoryItemDto request)
     {
+        _logger.LogInformation("Adding inventory item '{ItemName}'", request.ItemName);
         if(string.IsNullOrWhiteSpace(request.ItemName))
         {
             throw new Exception("Item name is required");
@@ -207,6 +215,7 @@ public class InventoryService:IInventoryService
 
             await _inventoryRepository.SaveChangesAsync();
             await transaction.CommitAsync();
+            _logger.LogInformation("Inventory item {InventoryItemId} '{ItemName}' created", item.Id, item.Name);
         }
         catch
         {
@@ -216,6 +225,7 @@ public class InventoryService:IInventoryService
     }
     public async Task DeleteInventoryItem(int inventoryItemId)
     {
+        _logger.LogInformation("Deleting inventory item {InventoryItemId}", inventoryItemId);
         var inventoryItem =await _inventoryRepository.Get(inventoryItemId);
         if(inventoryItem == null)
         {
@@ -249,6 +259,7 @@ public class InventoryService:IInventoryService
             await _inventoryRepository.SaveChangesAsync();
 
             await transaction.CommitAsync();
+            _logger.LogInformation("Inventory item {InventoryItemId} deleted", inventoryItemId);
         }
         catch
         {
