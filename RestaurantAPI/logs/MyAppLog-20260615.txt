@@ -242,3 +242,172 @@ ORDER BY t."GeneratedAt" DESC
 2026-06-15 09:51:12.360 +05:30 [INF] Hosting environment: Development
 2026-06-15 09:51:12.360 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI
 2026-06-15 09:51:31.820 +05:30 [INF] Application is shutting down...
+2026-06-15 14:09:35.624 +05:30 [INF] User profile is available. Using '/Users/bhargavkokkula/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-06-15 14:09:35.743 +05:30 [INF] Now listening on: http://localhost:5178
+2026-06-15 14:09:35.744 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-15 14:09:35.745 +05:30 [INF] Hosting environment: Development
+2026-06-15 14:09:35.745 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI
+2026-06-15 14:09:58.852 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/user/login - application/json 51
+2026-06-15 14:09:58.876 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-06-15 14:09:58.909 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:09:58.921 +05:30 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.LoginResponseDto]] Login(RestaurantAPI.Models.DTOs.LoginRequestDto) on controller RestaurantAPI.Controllers.UserController (RestaurantAPI).
+2026-06-15 14:09:59.043 +05:30 [INF] Login attempt for username 'ravi'
+2026-06-15 14:09:59.805 +05:30 [INF] Executed DbCommand (35ms) [Parameters=[@__normalizedUsername_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."EncryptedMobileNumber", u."HashKey", u."IsActive", u."IsDeleted", u."MobileNumberHash", u."MustChangePassword", u."Name", u."PasswordHash", u."Role", u."Username"
+FROM "Users" AS u
+WHERE NOT (u."IsDeleted") AND upper(u."Username") = @__normalizedUsername_0
+LIMIT 2
+2026-06-15 14:09:59.857 +05:30 [INF] User 'ravi' logged in successfully with role "Waiter"
+2026-06-15 14:09:59.860 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.LoginResponseDto'.
+2026-06-15 14:09:59.869 +05:30 [INF] Executed action RestaurantAPI.Controllers.UserController.Login (RestaurantAPI) in 946.6997ms
+2026-06-15 14:09:59.870 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:09:59.874 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/user/login - 200 null application/json; charset=utf-8 1021.9712ms
+2026-06-15 14:10:23.401 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/user/login - application/json 56
+2026-06-15 14:10:23.406 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:10:23.407 +05:30 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.LoginResponseDto]] Login(RestaurantAPI.Models.DTOs.LoginRequestDto) on controller RestaurantAPI.Controllers.UserController (RestaurantAPI).
+2026-06-15 14:10:23.408 +05:30 [INF] Login attempt for username 'kitchen'
+2026-06-15 14:10:23.420 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUsername_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."EncryptedMobileNumber", u."HashKey", u."IsActive", u."IsDeleted", u."MobileNumberHash", u."MustChangePassword", u."Name", u."PasswordHash", u."Role", u."Username"
+FROM "Users" AS u
+WHERE NOT (u."IsDeleted") AND upper(u."Username") = @__normalizedUsername_0
+LIMIT 2
+2026-06-15 14:10:23.421 +05:30 [INF] User 'kitchen' logged in successfully with role "KitchenStaff"
+2026-06-15 14:10:23.422 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.LoginResponseDto'.
+2026-06-15 14:10:23.422 +05:30 [INF] Executed action RestaurantAPI.Controllers.UserController.Login (RestaurantAPI) in 15.4593ms
+2026-06-15 14:10:23.422 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:10:23.422 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/user/login - 200 null application/json; charset=utf-8 22.0451ms
+2026-06-15 14:10:53.185 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/user/login - application/json 52
+2026-06-15 14:10:53.189 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:10:53.190 +05:30 [INF] Route matched with {action = "Login", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.LoginResponseDto]] Login(RestaurantAPI.Models.DTOs.LoginRequestDto) on controller RestaurantAPI.Controllers.UserController (RestaurantAPI).
+2026-06-15 14:10:53.193 +05:30 [INF] Login attempt for username 'admin'
+2026-06-15 14:10:53.222 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedUsername_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."EncryptedMobileNumber", u."HashKey", u."IsActive", u."IsDeleted", u."MobileNumberHash", u."MustChangePassword", u."Name", u."PasswordHash", u."Role", u."Username"
+FROM "Users" AS u
+WHERE NOT (u."IsDeleted") AND upper(u."Username") = @__normalizedUsername_0
+LIMIT 2
+2026-06-15 14:10:53.222 +05:30 [INF] User 'admin' logged in successfully with role "Admin"
+2026-06-15 14:10:53.223 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.LoginResponseDto'.
+2026-06-15 14:10:53.223 +05:30 [INF] Executed action RestaurantAPI.Controllers.UserController.Login (RestaurantAPI) in 33.0692ms
+2026-06-15 14:10:53.223 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.UserController.Login (RestaurantAPI)'
+2026-06-15 14:10:53.223 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/user/login - 200 null application/json; charset=utf-8 38.4284ms
+2026-06-15 14:12:42.119 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions - application/json 62
+2026-06-15 14:12:42.123 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI)'
+2026-06-15 14:12:42.129 +05:30 [INF] Route matched with {action = "CreateSession", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.CreateSessionResponseDto]] CreateSession(System.String, RestaurantAPI.Models.DTOs.CreateSessionRequestDto) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-15 14:12:42.163 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-15 14:12:42.199 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-15 14:12:42.218 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI) in 88.693ms
+2026-06-15 14:12:42.218 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI)'
+2026-06-15 14:12:42.218 +05:30 [ERR] An unhandled exception occurred while processing the request.
+RestaurantAPI.Exceptions.ActiveDiningSessionExistsException: An active dining session already exists for this table.
+   at RestaurantAPI.Services.DiningSessionService.CreateSession(String qrIdentifier, CreateSessionRequestDto request) in /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/Services/DiningSessionService.cs:line 171
+   at RestaurantAPI.Controllers.CustomerController.CreateSession(String qrIdentifier, CreateSessionRequestDto request) in /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/Controllers/CustomerController.cs:line 37
+   at lambda_method181(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at RestaurantAPI.Middlewares.ExceptionMiddleware.InvokeAsync(HttpContext context) in /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/Middlewares/ExceptionMiddleware.cs:line 22
+2026-06-15 14:12:42.232 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions - 500 null application/json 113.8048ms
+2026-06-15 14:13:45.520 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions - application/json 62
+2026-06-15 14:13:45.531 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI)'
+2026-06-15 14:13:45.532 +05:30 [INF] Route matched with {action = "CreateSession", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.CreateSessionResponseDto]] CreateSession(System.String, RestaurantAPI.Models.DTOs.CreateSessionRequestDto) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-15 14:13:45.542 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-15 14:13:45.548 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-15 14:13:45.549 +05:30 [INF] Creating session for table 1
+2026-06-15 14:13:45.563 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__phoneNumberHash_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CreatedAt", c."EncryptedMobileNumber", c."MobileNumberHash", c."Name"
+FROM "Customers" AS c
+WHERE c."MobileNumberHash" = @__phoneNumberHash_0
+LIMIT 1
+2026-06-15 14:13:45.583 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__otp_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."SessionOtp" = @__otp_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-15 14:13:45.584 +05:30 [INF] session otp is generated
+2026-06-15 14:13:45.584 +05:30 [INF] creating new session
+2026-06-15 14:13:45.660 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?', @p3='?' (DbType = DateTime2), @p4='?' (DbType = Int32), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "DiningSessions" ("CustomerId", "EndedAt", "SessionOtp", "StartedAt", "TableId", "WaiterId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5)
+RETURNING "Id", "Status";
+2026-06-15 14:13:45.674 +05:30 [INF] creating new cart associated with session 37
+2026-06-15 14:13:45.683 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Carts" ("CreatedAt", "DiningSessionId")
+VALUES (@p0, @p1)
+RETURNING "Id";
+2026-06-15 14:13:45.690 +05:30 [INF] creating bill associated with session 37
+2026-06-15 14:13:45.706 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__today_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT b."BillNumber"
+FROM "Bills" AS b
+WHERE date_trunc('day', b."GeneratedAt") = @__today_0
+ORDER BY b."BillNumber" DESC
+LIMIT 1
+2026-06-15 14:13:45.714 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT t."Id", t."CgstPercentage", t."CreatedAt", t."EffectiveFrom", t."IsActive", t."ServiceChargePercentage", t."SgstPercentage"
+FROM "TaxConfigurations" AS t
+WHERE t."IsActive"
+LIMIT 1
+2026-06-15 14:13:45.756 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?', @p1='?' (DbType = Decimal), @p2='?' (DbType = Int32), @p3='?' (DbType = Decimal), @p4='?' (DbType = DateTime2), @p5='?' (DbType = Decimal), @p6='?' (DbType = DateTime2), @p7='?', @p8='?' (DbType = Decimal), @p9='?' (DbType = Decimal), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Bills" ("BillNumber", "CgstAmount", "DiningSessionId", "FoodTotal", "GeneratedAt", "GrandTotal", "PaidAt", "PaymentMethod", "ServiceChargeAmount", "SgstAmount", "TaxConfigurationId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id", "PaymentStatus";
+2026-06-15 14:13:45.759 +05:30 [INF] token is generated
+2026-06-15 14:13:45.766 +05:30 [INF] Executing CreatedResult, writing value of type 'RestaurantAPI.Models.DTOs.CreateSessionResponseDto'.
+2026-06-15 14:13:45.767 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI) in 235.2481ms
+2026-06-15 14:13:45.767 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.CreateSession (RestaurantAPI)'
+2026-06-15 14:13:45.767 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions - 201 null application/json; charset=utf-8 247.3077ms
+2026-06-15 14:14:28.689 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions/join - application/json 26
+2026-06-15 14:14:28.721 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '12/06/2026 4:51:11 PM', Current time (UTC): '15/06/2026 8:44:28 AM'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-06-15 14:14:28.726 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '12/06/2026 4:51:11 PM', Current time (UTC): '15/06/2026 8:44:28 AM'.
+2026-06-15 14:14:28.726 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.JoinSession (RestaurantAPI)'
+2026-06-15 14:14:28.731 +05:30 [INF] Route matched with {action = "JoinSession", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.JoinSessionResponseDto]] JoinSession(System.String, RestaurantAPI.Models.DTOs.JoinSessionRequestDto) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-15 14:14:28.746 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-15 14:14:28.747 +05:30 [INF] Joining session for table T1
+2026-06-15 14:14:28.751 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-15 14:14:28.758 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__diningSessionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CreatedAt", c."DiningSessionId"
+FROM "Carts" AS c
+WHERE c."DiningSessionId" = @__diningSessionId_0
+LIMIT 1
+2026-06-15 14:14:28.760 +05:30 [INF] Customer joined session 37
+2026-06-15 14:14:28.760 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.JoinSessionResponseDto'.
+2026-06-15 14:14:28.761 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.JoinSession (RestaurantAPI) in 29.4079ms
+2026-06-15 14:14:28.761 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.JoinSession (RestaurantAPI)'
+2026-06-15 14:14:28.761 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/api/Customer/tables/TBL_001/sessions/join - 200 null application/json; charset=utf-8 71.9477ms

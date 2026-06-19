@@ -6,5 +6,6 @@ public interface IDiningSessionService
 {
     Task CloseSession(int waiterId, int tableId);
     Task<JoinSessionResponseDto> JoinSession(string qrIdentifier,JoinSessionRequestDto request);
-    Task<CreateSessionResponseDto> CreateSession(string qrIdentifier,CreateSessionRequestDto request);
+    Task<CreateSessionResponseDto> CreateSession(string qrIdentifier, CreateSessionRequestDto request);
+    Task<SessionValidationResponseDto> ValidateSession(int sessionId);
 }

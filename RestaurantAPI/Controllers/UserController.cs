@@ -10,9 +10,11 @@ namespace RestaurantAPI.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    public UserController(IUserService userService)
+    private readonly IDiningSessionService _diningSessionService;
+    public UserController(IUserService userService,IDiningSessionService diningSessionService)
     {
         _userService = userService;
+        _diningSessionService = diningSessionService;
     }
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto request)
@@ -47,5 +49,12 @@ public class UserController : ControllerBase
     {
         await _userService.ChangePassword(request);
         return NoContent();
+    }
+    [Authorize(Roles = "Customer")]
+    [HttpGet("session/validate")]
+    public async Task<ActionResult<SessionValidationResponseDto>>ValidateSession()
+    {
+        var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
+        return Ok(await _diningSessionService.ValidateSession(sessionId));
     }
 }

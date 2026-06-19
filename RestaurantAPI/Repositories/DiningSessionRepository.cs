@@ -40,4 +40,8 @@ public class DiningSessionRepository:AbstractRepository<int,DiningSession>,IDini
                 ds.TableId == tableId &&
                 ds.Status == DiningSessionStatus.Active);
     }
-}
+    public override async Task<DiningSession?> Get(int sessionId)
+    {
+        return await _context.DiningSessions.Include(ds => ds.Table).FirstOrDefaultAsync(ds => ds.Id == sessionId);
+    }
+    }

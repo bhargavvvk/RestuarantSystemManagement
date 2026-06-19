@@ -25,4 +25,11 @@ public class CategoryRepository : AbstractRepository<int, Category>, ICategoryRe
                 c => c.Name.ToLower() ==
                     name.ToLower() && !c.IsDeleted);
     }
+    public override async Task<ICollection<Category>>
+    GetAll()
+{
+    return await _context.Categories
+        .Where(c => !c.IsDeleted)
+        .ToListAsync();
+}
 }

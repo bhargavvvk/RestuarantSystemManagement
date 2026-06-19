@@ -20,7 +20,16 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 builder.Host.UseSerilog();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("https://localhost:4200", "http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+             .AllowCredentials();
+    });
+});
 
 builder.Services.AddControllers();
 
@@ -60,7 +69,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddSignalR();
-builder.Services.AddAutoMapper(a=> a.AddProfile<Mapping>());
+builder.Services.AddAutoMapper(a => a.AddProfile<Mapping>());
+
+
 
 #region Contexts
 builder.Services.AddDbContext<RestaurantContext>(options =>
@@ -152,6 +163,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();

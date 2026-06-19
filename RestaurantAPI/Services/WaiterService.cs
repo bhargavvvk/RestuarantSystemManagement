@@ -116,8 +116,7 @@ public class WaiterService:IWaiterService
     {
         _logger.LogInformation("Waiter {WaiterId} placing order for table {TableId}", waiterId, tableId);
         var session = await _diningSessionRepository.GetActiveSessionWithCartByTableId(tableId);
-
-            if (session == null)
+        if (session == null)
             {
                 throw new SessionNotFoundException();
             }
@@ -125,9 +124,8 @@ public class WaiterService:IWaiterService
             if (session.WaiterId != waiterId)
             {
                 throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
-            }
-
-            await _orderService.PlaceOrder(session.Cart!.Id,request);
+        }
+        await _orderService.PlaceOrder(session.Id,request);
     }
     public async Task<BillResponseDto> GetTableBill(int waiterId,int tableId)
     {

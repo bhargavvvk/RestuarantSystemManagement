@@ -46,13 +46,26 @@ public class OrderService : IIOrderService
     }
     public async Task PlaceOrder(int sessionId,PlaceOrderRequestDto request)
     {
+        _logger.LogInformation("Placing order for session");
+        _logger.LogInformation($"{sessionId}");
         var session =await _diningSessionRepository.Get(sessionId);
         if(session == null)
         {
             throw new SessionNotFoundException();
         }
+        _logger.LogInformation("session found");
         var cart = await _cartRepository.GetByDiningSessionId(sessionId);
+        if(cart == null)
+        {
+            throw new CartNotFoundException();
+        }
+        _logger.LogInformation("cart found");
+        _logger.LogInformation($"{cart}");
+        _logger.LogInformation("Cart Id = {Id}", cart.Id);
+        _logger.LogInformation("Before GetByCartId");
         var cartItems = await _cartItemRepository.GetByCartId(cart!.Id);
+        _logger.LogInformation("After GetByCartId");
+        _logger.LogInformation("Cart items found");
         if(!cartItems.Any())
         {
             throw new CartException("Cart is empty");

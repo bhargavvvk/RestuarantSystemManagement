@@ -511,4 +511,16 @@ public class MenuService : IMenuService
         var menuItems =await query.OrderBy(m => m.Name).ToListAsync();
         return _mapper.Map<ICollection<MenuItemResponseDto>>(menuItems);
     }
+    public async Task<ICollection<CategoryResponseDto>> GetCategories()
+    {
+        var categories =await _categoryRepository.GetAll();
+        return categories.Select(c =>
+                new CategoryResponseDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    IsAvailable=c.IsAvailable
+                })
+            .ToList();
+    }
 }

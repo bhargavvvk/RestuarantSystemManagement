@@ -105,6 +105,7 @@ public class DiningSessionService:IDiningSessionService
             await transaction.RollbackAsync();
             throw;
         }
+        await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("SessionClosed");
     }
     public async Task<JoinSessionResponseDto> JoinSession(string qrIdentifier,JoinSessionRequestDto request)
     {
@@ -135,7 +136,8 @@ public class DiningSessionService:IDiningSessionService
         _logger.LogInformation("Customer joined session {SessionId}", session.Id);
         return new JoinSessionResponseDto
         {
-            Token = token
+            Token = token,
+            SessionOtp=session.SessionOtp
         };
     }
     public async Task<CreateSessionResponseDto> CreateSession(string qrIdentifier,CreateSessionRequestDto request)
@@ -271,5 +273,21 @@ public class DiningSessionService:IDiningSessionService
         var sequencePart =latestBillNumber[^3..];
         var nextSequence =(int.Parse(sequencePart) + 1).ToString("D3");
         return $"{todayPart}{nextSequence}";
+    }
+    public async Task<SessionValidationResponseDto>ValidateSession(int sessionId)
+    {
+        var session =await _diningSessionRepository.Get(sessionId);
+        if (session == null)
+        {
+            return new SessionValidationResponseDto
+            {
+                IsActive = false
+            };
+        }
+        return new SessionValidationResponseDto
+        {
+            IsActive = session.Status == DiningSessionStatus.Active,
+            TableIdentifier = session.Table?.QrIdentifier
+        };
     }
 }

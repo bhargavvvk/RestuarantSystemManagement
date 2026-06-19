@@ -30,4 +30,9 @@ public class MenuController : ControllerBase
                 foodType);
         return Ok(result);
     }
+    [HttpGet("categories")]
+    public async Task<ActionResult<ICollection<CategoryResponseDto>>>GetCategories()
+    {
+        return Ok(await _menuService.GetCategories());
+    }
 }

@@ -15,4 +15,5 @@ public interface IMenuService
     Task<CategoryResponseDto> UpdateCategory(int categoryId,UpdateCategoryDto request);
     Task DeleteMenuItem(int menuItemId);
     Task DeleteCategory(int categoryId);
+    Task<ICollection<CategoryResponseDto>> GetCategories();
 }
