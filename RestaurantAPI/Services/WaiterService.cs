@@ -60,7 +60,7 @@ public class WaiterService:IWaiterService
         if (session.WaiterId != waiterId)
             throw new UnauthorizedAccessException( "Table is not assigned to the logged-in waiter.");
 
-        await _cartService.AddToCart(session.Cart!.Id,request);
+        await _cartService.AddToCart(session.Id,session.Cart!.Id,request);
     }
     public async Task UpdateTableCartItem(int waiterId, int tableId, int cartItemId, UpdateCartItemDto request)
     {
@@ -76,7 +76,7 @@ public class WaiterService:IWaiterService
                 throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
             }
 
-            await _cartService.UpdateCartItem(
+            await _cartService.UpdateCartItem(session.Id,
                 session.Cart!.Id,
                 cartItemId,
                 request);
@@ -96,7 +96,7 @@ public class WaiterService:IWaiterService
             throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
         }
 
-        await _cartService.RemoveCartItem(session.Cart!.Id,cartItemId);
+        await _cartService.RemoveCartItem(session.Id,session.Cart!.Id,cartItemId);
     }
     public async Task<ICollection<OrderResponseDto>> GetTableOrders(int waiterId, int tableId)
     {

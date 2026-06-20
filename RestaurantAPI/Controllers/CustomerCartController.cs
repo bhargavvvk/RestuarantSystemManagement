@@ -26,23 +26,26 @@ public class CustomerCartController : ControllerBase
     [HttpPost("items")]
     public async Task<ActionResult>AddToCart(AddToCartDto request)
     {
-        
-             var cartId =int.Parse(User.FindFirst("CartId")!.Value);
-            await _cartService.AddToCart(cartId,request);
+
+        var cartId = int.Parse(User.FindFirst("CartId")!.Value);
+        var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
+        await _cartService.AddToCart(sessionId,cartId,request);
             return Created();
     }
     [HttpPatch("items/{cartItemId}")]
     public async Task<ActionResult>UpdateCartItem(int cartItemId,UpdateCartItemDto request)
     {
-        var cartId =int.Parse(User.FindFirst("CartId")!.Value);
-        await _cartService.UpdateCartItem(cartId,cartItemId,request);
+        var cartId = int.Parse(User.FindFirst("CartId")!.Value);
+        var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
+        await _cartService.UpdateCartItem(sessionId,cartId, cartItemId, request);
         return NoContent();
     }
     [HttpDelete("items/{cartItemId}")]
     public async Task<ActionResult>RemoveCartItem(int cartItemId)
     {
-        var cartId =int.Parse(User.FindFirst("CartId")!.Value);
-        await _cartService.RemoveCartItem(cartId,cartItemId);
+        var cartId = int.Parse(User.FindFirst("CartId")!.Value);
+        var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
+        await _cartService.RemoveCartItem(sessionId,cartId,cartItemId);
         return NoContent();
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using RestaurantAPI.Exceptions;
 using RestaurantAPI.Models;
 using RestaurantAPI.Models.DTOs;
@@ -13,16 +14,18 @@ public class CartService : ICartService
     private readonly ICartRepository _cartRepository;
     private readonly ILogger<CartService> _logger;
     private readonly IBillRepository _billRepository;
+    private readonly IHubContext<NotificationHub> _hubContext;
     public CartService(ICartItemRepository cartItemRepository, IMenuItemRepository menuItemRepository, ILogger<CartService> logger, ICartRepository cartRepository,
-    IBillRepository billRepository)
+    IBillRepository billRepository, IHubContext<NotificationHub> hubContext)
     {
         _cartItemRepository = cartItemRepository;
         _menuItemRepository=menuItemRepository;
         _logger = logger;
         _cartRepository = cartRepository;
-        _billRepository=billRepository;
+        _billRepository = billRepository;
+        _hubContext=hubContext;
     }
-    public async Task RemoveCartItem(int cartId, int cartItemId)
+    public async Task RemoveCartItem(int sessionId,int cartId, int cartItemId)
     {
         await ValidateBillNotPaid(cartId);
         var cartItem =await _cartItemRepository.Get(cartItemId);
@@ -36,10 +39,11 @@ public class CartService : ICartService
         }
         await _cartItemRepository.Delete(cartItemId);
         await _cartItemRepository.SaveChangesAsync();
+        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("CartUpdated");
         _logger.LogInformation("Cart item {CartItemId} removed",cartItemId);
     }
 
-    public async Task UpdateCartItem(int cartId,int cartItemId,UpdateCartItemDto request)
+    public async Task UpdateCartItem(int sessionId,int cartId,int cartItemId,UpdateCartItemDto request)
     {
         await ValidateBillNotPaid(cartId);
         var cartItem =await _cartItemRepository.GetWithMenuItem(cartItemId);
@@ -63,6 +67,7 @@ public class CartService : ICartService
         cartItem.Quantity = request.Quantity;
         await _cartItemRepository.Update(cartItem.Id,cartItem);
         await _cartItemRepository.SaveChangesAsync();
+         await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("CartUpdated");
         _logger.LogInformation(
             "Cart item {CartItemId} updated to quantity {Quantity}",
             cartItemId,
@@ -86,7 +91,7 @@ public class CartService : ICartService
                 })
             .ToList();
     }
-    public async Task AddToCart(int cartId, AddToCartDto request)
+    public async Task AddToCart(int sessionId,int cartId, AddToCartDto request)
     {   await ValidateBillNotPaid(cartId);
         var menuItem =await _menuItemRepository.Get(request.MenuItemId);
         if(menuItem == null)
@@ -112,6 +117,7 @@ public class CartService : ICartService
         };
         await _cartItemRepository.Create(cartItem);
         await _cartItemRepository.SaveChangesAsync();
+         await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("CartUpdated");
         _logger.LogInformation("Menu item {MenuItemId} added to cart {CartId}",request.MenuItemId,cartId);
     }
     private async Task ValidateBillNotPaid(int cartId)

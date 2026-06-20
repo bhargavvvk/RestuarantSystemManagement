@@ -20,4 +20,8 @@ public class NotificationHub:Hub
         }
         await base.OnConnectedAsync();
     }
+    public async Task JoinSessionGroup(int sessionId)
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId,$"session-{sessionId}");
+    }
 }
