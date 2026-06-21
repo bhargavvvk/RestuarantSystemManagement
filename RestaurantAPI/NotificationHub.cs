@@ -18,6 +18,12 @@ public class NotificationHub:Hub
                 await Groups.AddToGroupAsync(Context.ConnectionId,$"session-{sessionId}");
             }
         }
+
+        if (role == "KitchenStaff")
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "kitchen");
+        }
+
         await base.OnConnectedAsync();
     }
     public async Task JoinSessionGroup(int sessionId)

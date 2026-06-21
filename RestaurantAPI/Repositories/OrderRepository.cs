@@ -59,8 +59,10 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
             case OrderItemStatus.Ready:
 
                 query = query.Where(o =>
+                    o.OrderItems!.Any(i => i.Status == OrderItemStatus.Ready) &&
                     o.OrderItems!.All(i =>
-                        i.Status == OrderItemStatus.Ready));
+                        i.Status == OrderItemStatus.Ready ||
+                        i.Status == OrderItemStatus.Served));
                 break;
         }
 

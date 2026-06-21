@@ -151,7 +151,7 @@ public class OrderService : IIOrderService
             var kitchenId = await _userRepository.GetKitchenStaffId();
             await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("OrderPlaced");
             await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
-            await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
+            await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("OrderPlaced", notification);
             _logger.LogInformation("notification sent");
         }
         catch (Exception e)
@@ -282,7 +282,7 @@ public class OrderService : IIOrderService
             await transaction.RollbackAsync();
             throw;
         }
-        await SendOrderCancelNotificationAsync(session!, orderId, "Order Cancelled", "OrderCancelled");
+        await SendOrderCancelNotificationAsync(session!, order.OrderNumber, "Order Cancelled", "OrderCancelled");
     }
     public async Task CancelOrderItem(int orderId,int orderItemId)
     {
@@ -349,7 +349,7 @@ public class OrderService : IIOrderService
 
             var session = order.DiningSession;
 
-            await SendOrderCancelNotificationAsync(session!, newOrder.Id, $"Item '{item.ItemName}' removed from order", "OrderModified");
+            await SendOrderCancelNotificationAsync(session!, newOrder.OrderNumber, $"Item '{item.ItemName}' removed from order", "OrderModified");
         }
         catch
         {
@@ -452,7 +452,7 @@ public class OrderService : IIOrderService
                     TableNumber =
                         session!.Table!.TableNumber,
 
-                    OrderId = newOrder.Id,
+                    OrderNumber = order.OrderNumber,
 
                     Message =
                         $"Quantity updated for {item.ItemName}"
@@ -572,12 +572,12 @@ public class OrderService : IIOrderService
                 .ToList()
         };
     }
-    private async Task SendOrderCancelNotificationAsync(DiningSession session,int orderId,string message,string hubEvent)
+    private async Task SendOrderCancelNotificationAsync(DiningSession session,string orderNumber,string message,string hubEvent)
     {
         var notification = new OrderCancelNotificationDto
         {
             TableNumber = session.Table!.TableNumber,
-            OrderId = orderId,
+            OrderNumber = orderNumber,
             Message = message
         };
         var kitchenId = await _userRepository.GetKitchenStaffId();
