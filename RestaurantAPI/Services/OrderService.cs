@@ -148,7 +148,8 @@ public class OrderService : IIOrderService
                 Message = "New order placed"
             };
             _logger.LogInformation("Created the notification");
-             var kitchenId = await _userRepository.GetKitchenStaffId();
+            var kitchenId = await _userRepository.GetKitchenStaffId();
+            await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("OrderPlaced");
             await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
             await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
             _logger.LogInformation("notification sent");
@@ -359,9 +360,11 @@ public class OrderService : IIOrderService
 
     private async Task<Order> CreateReplacementOrder(Order originalOrder,IEnumerable<OrderItem> replacementItems)
     {
+        var orderNumber = await GenerateOrderNumber();
         var newOrder = new Order
         {
             DiningSessionId = originalOrder.DiningSessionId,
+            OrderNumber = orderNumber,
             SpecialInstructions = originalOrder.SpecialInstructions,
             PlacedAt = DateTime.Now,
             OrderItems = replacementItems.ToList()
@@ -467,8 +470,7 @@ public class OrderService : IIOrderService
                 .SendAsync(
                     "OrderModified",
                     notification);
-            await _hubContext.Clients.Group($"session-{session.Id}")
-                .SendAsync("OrderModified", notification);
+            await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("OrderModified", notification);
         }
         catch
         {

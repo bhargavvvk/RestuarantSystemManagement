@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Exceptions;
 using RestaurantAPI.Models;
@@ -18,8 +19,9 @@ public class BillService : IBillService
     private readonly ITaxConfigurationRepository _taxConfigurationRepository;
     private readonly IAuditService _auditService;
     private readonly IOrderRepository _orderRepository;
+    private readonly IHubContext<NotificationHub> _hubContext;
     public BillService(IDiningSessionRepository diningSessionRepository, ILogger<BillService> logger, IBillRepository billRepository, IMapper mapper,
-    ITaxConfigurationRepository taxConfigurationRepository,IAuditService auditService, IOrderRepository orderRepository)
+    ITaxConfigurationRepository taxConfigurationRepository,IAuditService auditService, IOrderRepository orderRepository,IHubContext<NotificationHub> hubContext)
     {
         _diningSessionRepository = diningSessionRepository;
         _logger = logger;
@@ -27,8 +29,8 @@ public class BillService : IBillService
         _mapper = mapper;
         _taxConfigurationRepository = taxConfigurationRepository;
         _auditService = auditService;
-        _orderRepository=orderRepository;
-
+        _orderRepository = orderRepository;
+        _hubContext = hubContext;
     }
     public async Task<BillResponseDto> GetBill(int sessionId)
     {
@@ -79,6 +81,7 @@ public class BillService : IBillService
         await _billRepository.SaveChangesAsync();
 
         _logger.LogInformation("Bill {BillId} marked as paid for session {SessionId}", bill.Id, sessionId);
+        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
         return _mapper.Map<BillResponseDto>(bill);
     }
     public ICollection<LookupDto>GetPaymentMethods()
@@ -142,7 +145,7 @@ public class BillService : IBillService
                 : "Service charge disabled");
 
         await _billRepository.SaveChangesAsync();
-
+        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
         _logger.LogInformation("Service charge updated for session {SessionId}. Grand total: {GrandTotal}", sessionId, bill.GrandTotal);
         return _mapper.Map<BillResponseDto>(bill);
     }

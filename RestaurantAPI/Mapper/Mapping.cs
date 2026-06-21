@@ -13,7 +13,13 @@ public class Mapping : Profile
                 dest => dest.CategoryName,
                 opt => opt.MapFrom(src => src.Category!.Name)
             );
-        CreateMap<Bill, BillResponseDto>();
+        CreateMap<Bill, BillResponseDto>()
+            .ForMember(dest => dest.CgstPercentage,
+                opt => opt.MapFrom(src => src.TaxConfiguration != null ? src.TaxConfiguration.CgstPercentage : 0))
+            .ForMember(dest => dest.SgstPercentage,
+                opt => opt.MapFrom(src => src.TaxConfiguration != null ? src.TaxConfiguration.SgstPercentage : 0))
+            .ForMember(dest => dest.ServiceChargePercentage,
+                opt => opt.MapFrom(src => src.TaxConfiguration != null ? src.TaxConfiguration.ServiceChargePercentage : 0));
         CreateMap<OrderItem, OrderItemResponseDto>()
                     .ForMember(
                     dest => dest.OrderItemId,
