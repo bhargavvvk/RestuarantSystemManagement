@@ -30,7 +30,11 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
     }
     public async Task<int> GetKitchenReadyCount()
     {
-        return await _context.Orders.CountAsync(o =>o.OrderItems!.All(i =>i.Status == OrderItemStatus.Ready));
+        return await _context.Orders.CountAsync(o =>
+            o.OrderItems!.Any(i => i.Status == OrderItemStatus.Ready) &&
+            o.OrderItems!.All(i =>
+                i.Status == OrderItemStatus.Ready ||
+                i.Status == OrderItemStatus.Served));
     }
     public async Task<IEnumerable<Order>> GetKitchenOrders(OrderItemStatus status)
     {
