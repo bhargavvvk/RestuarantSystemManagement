@@ -200,7 +200,6 @@ public class WaiterService:IWaiterService
         await _orderItemRepository.SaveChangesAsync();
         await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("ItemServed", $"{orderItem.ItemName} is served");
         await _hubContext.Clients.Group("kitchen").SendAsync("ItemServed", $"{orderItem.ItemName} is served");
-        
         _logger.LogInformation("Order item {OrderItemId} marked as served by waiter {WaiterId} for table {TableId}", orderItemId, waiterId, tableId);
         return _mapper.Map<OrderItemResponseDto>(orderItem);
     }

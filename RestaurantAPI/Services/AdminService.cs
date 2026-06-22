@@ -183,6 +183,7 @@ public class AdminService : IAdminService
             table.AssignedWaiterId,
             table.Status
         };
+        var previousWaiterId = table.AssignedWaiterId;
         table.AssignedWaiterId = waiterId;
         await _auditService.LogAsync(
             nameof(RestaurantTable),
@@ -193,9 +194,16 @@ public class AdminService : IAdminService
             "Waiter assigned to table");
 
         await _restaurentTableRepository.SaveChangesAsync();
-       var tableNumber=table.TableNumber;
+        var tableNumber = table.TableNumber;
+        _logger.LogInformation("singalr started");
         await _hubContext.Clients.User(waiterId.ToString()).SendAsync("tableassinged", $"{tableNumber} is assinged to you");
-        await _hubContext.Clients.User(waiter.Id.ToString()).SendAsync("tableremoved",$"{tableNumber} is reassinged to other");
+        _logger.LogInformation($"table assined signal r fired {waiterId}");
+        if (previousWaiterId.HasValue && previousWaiterId.Value != waiterId)
+        {
+            await _hubContext.Clients.User(previousWaiterId.Value.ToString()).SendAsync("tableremoved", $"{tableNumber} is reassinged to other");
+            _logger.LogInformation($"table removed signal r fired for previous waiter {previousWaiterId.Value}");
+        }
+
         _logger.LogInformation("Waiter {WaiterId} assigned to table {TableId}", waiterId, tableId);
         return new TableResponseDto
         {
@@ -219,6 +227,7 @@ public class AdminService : IAdminService
             table.AssignedWaiterId,
             table.Status
         };
+        var removedWaiterId = table.AssignedWaiterId;
         table.AssignedWaiterId = null;
         table.Status = TableStatus.Unavailable;
 
@@ -231,7 +240,10 @@ public class AdminService : IAdminService
             "Waiter removed from table");
 
         await _restaurentTableRepository.SaveChangesAsync();
-        await _hubContext.Clients.User(table.AssignedWaiterId.ToString()!).SendAsync("tableremoved",$"{table.TableNumber} is removed");
+        if (removedWaiterId.HasValue)
+        {
+            await _hubContext.Clients.User(removedWaiterId.Value.ToString()).SendAsync("tableremoved", $"{table.TableNumber} is removed");
+        }
         _logger.LogInformation("Waiter removed from table {TableId}", tableId);
         return new TableResponseDto
         {

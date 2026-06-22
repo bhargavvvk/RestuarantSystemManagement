@@ -239,6 +239,8 @@ public class DiningSessionService:IDiningSessionService
                 WaiterId =session.WaiterId
             });
             await transaction.CommitAsync();
+            await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("SessionCreated", $"Session Created at table {table.TableNumber}");
+            _logger.LogInformation("SessionCreated SignalR fired for waiter {WaiterId} on table {TableNumber}", session.WaiterId, table.TableNumber);
             return new CreateSessionResponseDto
             {
                 Token = token,
