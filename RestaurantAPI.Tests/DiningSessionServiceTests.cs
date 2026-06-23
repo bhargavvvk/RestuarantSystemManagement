@@ -61,6 +61,7 @@ public class DiningSessionServiceTests
                 It.IsAny<string>(), It.IsAny<object[]>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
         clientsMock.Setup(c => c.User(It.IsAny<string>())).Returns(proxyMock.Object);
+        clientsMock.Setup(c => c.Group(It.IsAny<string>())).Returns(proxyMock.Object);
         _hubMock = new Mock<IHubContext<NotificationHub>>();
         _hubMock.Setup(h => h.Clients).Returns(clientsMock.Object);
 

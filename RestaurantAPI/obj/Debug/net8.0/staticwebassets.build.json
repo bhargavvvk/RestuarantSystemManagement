@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1j6Xqp05eaiMsQ3MeADqkrJcQgXvccXN9Xp9P2BBPJc=",
+  "Hash": "EMDjIFoKoOlbNGWOy45j247ekGHOqt8YIcKUq/0MmLI=",
   "Source": "RestaurantAPI",
   "BasePath": "_content/RestaurantAPI",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
+      "SourceId": "RestaurantAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "BasePath": "_content/RestaurantAPI",
+      "RelativePath": "images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif"
+    },
     {
       "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg",
       "SourceId": "RestaurantAPI",
@@ -53,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif"
+    },
+    {
+      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/mytext.txt",
+      "SourceId": "RestaurantAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "BasePath": "_content/RestaurantAPI",
+      "RelativePath": "mytext.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/mytext.txt"
     },
     {
       "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/test-signalr.html",

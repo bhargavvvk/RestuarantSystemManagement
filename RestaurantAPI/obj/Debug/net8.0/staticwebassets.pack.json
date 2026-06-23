@@ -1,12 +1,20 @@
 {
   "Files": [
     {
+      "Id": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
+      "PackagePath": "staticwebassets/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif"
+    },
+    {
       "Id": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg",
       "PackagePath": "staticwebassets/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg"
     },
     {
       "Id": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif",
       "PackagePath": "staticwebassets/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif"
+    },
+    {
+      "Id": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/mytext.txt",
+      "PackagePath": "staticwebassets/mytext.txt"
     },
     {
       "Id": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/test-signalr.html",

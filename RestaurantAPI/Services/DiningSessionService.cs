@@ -90,11 +90,9 @@ public class DiningSessionService:IDiningSessionService
             var affectedOrderIds = pendingOrderItems.Select(oi => oi.OrderId).Distinct().ToList();
             foreach(var orderId in affectedOrderIds)
             {
-                var kitchenUser = await _userRepository.GetByRole(UserRole.KitchenStaff);
-                await _hubContext.Clients.User(kitchenUser!.Id.ToString()).SendAsync("ReceiveOrderCancelled",
+                await _hubContext.Clients.Group("kitchen").SendAsync("ReceiveOrderCancelled",
                     new OrderCancelledNotificationDto
                     {
-                        OrderId = orderId,
                         TableNumber = table!.TableNumber,
                         Message ="Dining session closed. Remaining items cancelled."
                     });

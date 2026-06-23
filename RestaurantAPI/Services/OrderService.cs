@@ -149,7 +149,7 @@ public class OrderService : IIOrderService
             };
             _logger.LogInformation("Created the notification");
             var kitchenId = await _userRepository.GetKitchenStaffId();
-            await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("OrderPlaced");
+            await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("OrderPlaced",notification);
             await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
             await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("OrderPlaced", notification);
             _logger.LogInformation("notification sent");

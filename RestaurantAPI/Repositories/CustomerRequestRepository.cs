@@ -19,7 +19,8 @@ public class CustomerRequestRepository:AbstractRepository<int,CustomerRequest>,I
                                 .ThenInclude(ds => ds.Table)
                             .Where(cr =>
                                 cr.Status == CustomerRequestStatus.Pending &&
-                                cr.DiningSession.WaiterId == waiterId)
+                                cr.DiningSession.WaiterId == waiterId &&
+                                cr.DiningSession.Status == DiningSessionStatus.Active)
                             .OrderBy(cr => cr.RequestedAt)
                             .ToListAsync();
 
