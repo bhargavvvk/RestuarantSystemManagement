@@ -14,11 +14,12 @@ public class MenuService : IMenuService
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IMenuItemRepository _menuItemRepository;
     private readonly ILogger<MenuService> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IMapper _mapper;
     private readonly IAuditService _auditService;
     private readonly ICategoryRepository _categoryRepository;
     private readonly RestaurantContext _context;
-    public MenuService(IMenuItemRepository menuItemRepository,ILogger<MenuService> logger,
+    public MenuService(IMenuItemRepository menuItemRepository,ILogger<MenuService> logger,IHttpContextAccessor httpContextAccessor,
     IMapper mapper,IAuditService auditService,ICategoryRepository categoryRepository,RestaurantContext context,IWebHostEnvironment webHostEnvironment)
     {
         _menuItemRepository = menuItemRepository;
@@ -27,7 +28,8 @@ public class MenuService : IMenuService
         _auditService = auditService;
         _categoryRepository = categoryRepository;
         _context = context;
-        _webHostEnvironment=webHostEnvironment;
+        _webHostEnvironment = webHostEnvironment;
+        _httpContextAccessor=httpContextAccessor;
     }
     public async Task ToggleMenuAvailability(int menuItemId,bool isAvailable)
     {
@@ -185,7 +187,10 @@ public class MenuService : IMenuService
         await _menuItemRepository.SaveChangesAsync();
 
         _logger.LogInformation("Menu item {MenuItemId} created",menuItem.Id);
-        return _mapper.Map<MenuItemResponseDto>(menuItem);
+        var result = _mapper.Map<MenuItemResponseDto>(menuItem);
+        if (!string.IsNullOrEmpty(result.ImageUrl))
+            result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
+        return result;
     }
     public async Task<CategoryResponseDto>AddCategory(AddCategoryDto request)
     {
@@ -321,7 +326,10 @@ public class MenuService : IMenuService
             await _menuItemRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             _logger.LogInformation("Menu item {MenuItemId} updated",menuItem.Id);
-            return _mapper.Map<MenuItemResponseDto>(menuItem);
+            var result = _mapper.Map<MenuItemResponseDto>(menuItem);
+            if (!string.IsNullOrEmpty(result.ImageUrl))
+                result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
+            return result;
         }
         catch
         {
@@ -509,7 +517,13 @@ public class MenuService : IMenuService
             query = query.Where(m =>m.IsAvailable ==isAvailable.Value);
         }
         var menuItems =await query.OrderBy(m => m.Name).ToListAsync();
-        return _mapper.Map<ICollection<MenuItemResponseDto>>(menuItems);
+        var result = _mapper.Map<ICollection<MenuItemResponseDto>>(menuItems);
+        foreach (var item in result)
+        {
+            if (!string.IsNullOrEmpty(item.ImageUrl))
+                item.ImageUrl = BuildAbsoluteUrl(item.ImageUrl);
+        }
+        return result;
     }
     public async Task<ICollection<CategoryResponseDto>> GetCategories()
     {
@@ -522,5 +536,11 @@ public class MenuService : IMenuService
                     IsAvailable=c.IsAvailable
                 })
             .ToList();
+    }
+
+    private string BuildAbsoluteUrl(string path)
+    {
+        var request = _httpContextAccessor.HttpContext!.Request;
+        return $"{request.Scheme}://{request.Host}{path}";
     }
 }

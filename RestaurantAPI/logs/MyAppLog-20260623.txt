@@ -22699,3 +22699,15 @@ ORDER BY m."Name"
 2026-06-23 23:21:05.685 +05:30 [INF] Application started. Press Ctrl+C to shut down.
 2026-06-23 23:21:05.686 +05:30 [INF] Hosting environment: Development
 2026-06-23 23:21:05.686 +05:30 [INF] Content root path: /Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI
+2026-06-23 23:21:13.143 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null null
+2026-06-23 23:21:13.164 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-06-23 23:21:13.165 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:21:13.168 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 204 null null 26.0015ms
+2026-06-23 23:21:13.172 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-23 23:21:13.174 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:21:13.217 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-23 23:21:13.221 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-23 23:21:13.221 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 48.9494ms
+2026-06-23 23:21:13.228 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/notificationHub?id=l4v80vkKdRgflr6huCob5Q&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - null null
+2026-06-23 23:21:13.230 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:21:13.231 +05:30 [INF] Executing endpoint '/notificationHub'
