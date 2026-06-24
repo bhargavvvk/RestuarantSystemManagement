@@ -12,9 +12,9 @@ public class TokenService : ITokenService
     readonly string _duration;
     public TokenService(IConfiguration configuration)
     {
-        _key = configuration["JWT:Key"] ?? "This is the alternate key";
-        _issuer = configuration["JWT:Issuer"] ?? "Any Server";
-        _duration = configuration["JWT:DurationInHours"] ?? "8";
+        _key = configuration["Jwt:Key"] ?? "This is the alternate key";
+        _issuer = configuration["Jwt:Issuer"] ?? "Any Server";
+        _duration = configuration["Jwt:ExpiryInHours"] ?? "8";
     }
     private string GenerateToken(IEnumerable<Claim> claims)
     {

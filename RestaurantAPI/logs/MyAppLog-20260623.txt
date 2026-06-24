@@ -22711,3 +22711,551 @@ ORDER BY m."Name"
 2026-06-23 23:21:13.228 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/notificationHub?id=l4v80vkKdRgflr6huCob5Q&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - null null
 2026-06-23 23:21:13.230 +05:30 [INF] CORS policy execution successful.
 2026-06-23 23:21:13.231 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-23 23:24:16.767 +05:30 [INF] Executed endpoint '/notificationHub'
+2026-06-23 23:24:16.797 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/notificationHub?id=l4v80vkKdRgflr6huCob5Q&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - 101 null null 183568.7055ms
+2026-06-23 23:24:17.131 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/3/cart - null null
+2026-06-23 23:24:17.133 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables - null null
+2026-06-23 23:24:17.133 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu/categories - null null
+2026-06-23 23:24:17.135 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null null
+2026-06-23 23:24:17.137 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.137 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.138 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables - 204 null null 5.0205ms
+2026-06-23 23:24:17.138 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/requests - null null
+2026-06-23 23:24:17.139 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.139 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/requests - 204 null null 0.3074ms
+2026-06-23 23:24:17.138 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu/categories - 204 null null 4.7357ms
+2026-06-23 23:24:17.142 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.144 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.152 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/requests - null null
+2026-06-23 23:24:17.153 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/3/cart - 204 null null 21.5388ms
+2026-06-23 23:24:17.149 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu/categories - null null
+2026-06-23 23:24:17.153 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 204 null null 17.4165ms
+2026-06-23 23:24:17.163 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/tables/3/cart - null null
+2026-06-23 23:24:17.163 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/tables - null null
+2026-06-23 23:24:17.166 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-23 23:24:17.166 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.176 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.177 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.177 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.177 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.204 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:24:17.207 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI)'
+2026-06-23 23:24:17.206 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-23 23:24:17.208 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-23 23:24:17.208 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 42.5768ms
+2026-06-23 23:24:17.209 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:24:17.208 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI)'
+2026-06-23 23:24:17.218 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/notificationHub?id=5Ue6-p-WgQpXAVp6SpRRbQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - null null
+2026-06-23 23:24:17.222 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:17.223 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-23 23:24:17.230 +05:30 [INF] Route matched with {action = "GetCategories", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CategoryResponseDto]]] GetCategories() on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:17.230 +05:30 [INF] Route matched with {action = "GetRequests", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CustomerRequestResponseDto]]] GetRequests() on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:24:17.230 +05:30 [INF] Route matched with {action = "GetAssignedTables", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[RestaurantAPI.Models.DTOs.WaiterTableResponseDto]]] GetAssignedTables() on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:24:17.235 +05:30 [INF] Route matched with {action = "GetTableCart", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CartItemResponseDto]]] GetTableCart(Int32) on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:24:17.571 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-06-23 23:24:17.573 +05:30 [INF] Fetching assigned tables for waiter 7
+2026-06-23 23:24:17.575 +05:30 [INF] Fetching active requests for waiter 7
+2026-06-23 23:24:17.580 +05:30 [INF] Retriving cart for table 3
+2026-06-23 23:24:18.145 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "Categories" AS c
+WHERE NOT (c."IsDeleted")
+2026-06-23 23:24:18.162 +05:30 [INF] Executed DbCommand (31ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId", c."Id", c."CreatedAt", c."DiningSessionId"
+FROM "DiningSessions" AS d
+LEFT JOIN "Carts" AS c ON d."Id" = c."DiningSessionId"
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:24:18.162 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[@__waiterId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber", d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "RestaurantTables" AS r
+LEFT JOIN "DiningSessions" AS d ON r."Id" = d."TableId"
+WHERE r."AssignedWaiterId" = @__waiterId_0 AND NOT (r."IsDeleted")
+ORDER BY r."Id"
+2026-06-23 23:24:18.163 +05:30 [INF] Executed DbCommand (33ms) [Parameters=[@__waiterId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CompletedAt", c."DiningSessionId", c."RequestType", c."RequestedAt", c."Status", d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId", r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "CustomerRequests" AS c
+INNER JOIN "DiningSessions" AS d ON c."DiningSessionId" = d."Id"
+INNER JOIN "RestaurantTables" AS r ON d."TableId" = r."Id"
+WHERE c."Status" = 'Pending' AND d."WaiterId" = @__waiterId_0 AND d."Status" = 'Active'
+ORDER BY c."RequestedAt"
+2026-06-23 23:24:18.180 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CategoryResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:18.180 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[RestaurantAPI.Models.RestaurantTable, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[RestaurantAPI.Models.DTOs.WaiterTableResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:18.180 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CustomerRequestResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:18.187 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__cartId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CartId", c."MenuItemId", c."Quantity", m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price"
+FROM "CartItems" AS c
+INNER JOIN "MenuItems" AS m ON c."MenuItemId" = m."Id"
+WHERE c."CartId" = @__cartId_0
+2026-06-23 23:24:18.200 +05:30 [INF] Retrieved 2 cart items for cart 40
+2026-06-23 23:24:18.201 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CartItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:18.201 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI) in 966.2498ms
+2026-06-23 23:24:18.202 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI)'
+2026-06-23 23:24:18.205 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI) in 971.9231ms
+2026-06-23 23:24:18.205 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI)'
+2026-06-23 23:24:18.205 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI) in 973.5799ms
+2026-06-23 23:24:18.205 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:24:18.208 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/tables - 200 null application/json; charset=utf-8 1044.6288ms
+2026-06-23 23:24:18.208 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/requests - 200 null application/json; charset=utf-8 1055.3933ms
+2026-06-23 23:24:18.208 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu/categories - 200 null application/json; charset=utf-8 1058.4695ms
+2026-06-23 23:24:18.208 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI) in 973.2082ms
+2026-06-23 23:24:18.208 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:24:18.209 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/tables/3/cart - 200 null application/json; charset=utf-8 1045.5721ms
+2026-06-23 23:24:20.850 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/4/cart - null null
+2026-06-23 23:24:20.852 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=3 - null null
+2026-06-23 23:24:20.853 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:20.853 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:20.853 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/4/cart - 204 null null 3.0245ms
+2026-06-23 23:24:20.853 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=3 - 204 null null 1.0816ms
+2026-06-23 23:24:20.854 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu/categories - null null
+2026-06-23 23:24:20.855 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:20.857 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:24:20.858 +05:30 [INF] Route matched with {action = "GetCategories", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CategoryResponseDto]]] GetCategories() on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:20.860 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/tables/4/cart - null null
+2026-06-23 23:24:20.860 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=3 - null null
+2026-06-23 23:24:20.861 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:20.861 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:20.862 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:24:20.862 +05:30 [INF] Route matched with {action = "GetTableCart", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CartItemResponseDto]]] GetTableCart(Int32) on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:24:20.862 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:20.868 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:20.873 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:20.874 +05:30 [INF] Retriving cart for table 4
+2026-06-23 23:24:20.894 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId", c."Id", c."CreatedAt", c."DiningSessionId"
+FROM "DiningSessions" AS d
+LEFT JOIN "Carts" AS c ON d."Id" = c."DiningSessionId"
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:24:20.895 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "Categories" AS c
+WHERE NOT (c."IsDeleted")
+2026-06-23 23:24:20.895 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CategoryResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:20.896 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI) in 37.2351ms
+2026-06-23 23:24:20.896 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:24:20.896 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu/categories - 200 null application/json; charset=utf-8 42.1077ms
+2026-06-23 23:24:20.906 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[@__cartId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CartId", c."MenuItemId", c."Quantity", m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price"
+FROM "CartItems" AS c
+INNER JOIN "MenuItems" AS m ON c."MenuItemId" = m."Id"
+WHERE c."CartId" = @__cartId_0
+2026-06-23 23:24:20.906 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:20.907 +05:30 [INF] Retrieved 3 cart items for cart 41
+2026-06-23 23:24:20.907 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CartItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:20.907 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI) in 44.5144ms
+2026-06-23 23:24:20.907 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:24:20.908 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/tables/4/cart - 200 null application/json; charset=utf-8 47.3505ms
+2026-06-23 23:24:20.915 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:20.920 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 51.4941ms
+2026-06-23 23:24:20.920 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:20.920 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=3 - 200 null application/json; charset=utf-8 59.9735ms
+2026-06-23 23:24:22.642 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=2 - null null
+2026-06-23 23:24:22.643 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:22.644 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=2 - 204 null null 1.8974ms
+2026-06-23 23:24:22.646 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=2 - null null
+2026-06-23 23:24:22.646 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:22.647 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:22.647 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:22.648 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:22.654 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:22.658 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:22.659 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 11.3693ms
+2026-06-23 23:24:22.659 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:22.659 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=2 - 200 null application/json; charset=utf-8 13.1163ms
+2026-06-23 23:24:22.670 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif - null null
+2026-06-23 23:24:22.674 +05:30 [INF] The file /images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif was not modified
+2026-06-23 23:24:22.675 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif - 304 null image/avif 5.1743ms
+2026-06-23 23:24:40.962 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=5 - null null
+2026-06-23 23:24:40.964 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:40.965 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=5 - 204 null null 2.8002ms
+2026-06-23 23:24:40.968 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=5 - null null
+2026-06-23 23:24:40.968 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:40.969 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:40.969 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:40.970 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:40.977 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:40.977 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:40.978 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 8.7122ms
+2026-06-23 23:24:40.978 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:40.978 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=5 - 200 null application/json; charset=utf-8 10.5539ms
+2026-06-23 23:24:41.435 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=6 - null null
+2026-06-23 23:24:41.436 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:41.437 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=6 - 204 null null 2.1242ms
+2026-06-23 23:24:41.439 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=6 - null null
+2026-06-23 23:24:41.439 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:41.440 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:41.440 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:41.441 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:41.447 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:41.448 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:41.448 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 7.7702ms
+2026-06-23 23:24:41.448 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:41.448 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=6 - 200 null application/json; charset=utf-8 9.4753ms
+2026-06-23 23:24:41.882 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=7 - null null
+2026-06-23 23:24:41.883 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:41.883 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=7 - 204 null null 2.0077ms
+2026-06-23 23:24:41.886 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7 - null null
+2026-06-23 23:24:41.886 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:41.887 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:41.887 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:41.888 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:41.891 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:41.892 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:41.892 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 5.0406ms
+2026-06-23 23:24:41.892 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:41.892 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7 - 200 null application/json; charset=utf-8 6.8608ms
+2026-06-23 23:24:42.623 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=7&foodType=Veg - null null
+2026-06-23 23:24:42.624 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:42.625 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu?categoryId=7&foodType=Veg - 204 null null 1.7625ms
+2026-06-23 23:24:42.627 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7&foodType=Veg - null null
+2026-06-23 23:24:42.628 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:42.629 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:42.629 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:42.631 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:42.646 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32), @__foodType_Value_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0 AND m."FoodType" = @__foodType_Value_1
+ORDER BY m."Name"
+2026-06-23 23:24:42.647 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:42.647 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 17.5034ms
+2026-06-23 23:24:42.647 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:42.647 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7&foodType=Veg - 200 null application/json; charset=utf-8 20.1031ms
+2026-06-23 23:24:42.988 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7 - null null
+2026-06-23 23:24:42.989 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:24:42.989 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:42.989 +05:30 [INF] Route matched with {action = "GetMenu", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.MenuItemResponseDto]]] GetMenu(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Boolean], System.Nullable`1[RestaurantAPI.Models.FoodType]) on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:24:42.989 +05:30 [INF] Fetching menu items
+2026-06-23 23:24:42.991 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__categoryId_Value_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price", c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "MenuItems" AS m
+INNER JOIN "Categories" AS c ON m."CategoryId" = c."Id"
+WHERE NOT (m."IsDeleted") AND m."CategoryId" = @__categoryId_Value_0
+ORDER BY m."Name"
+2026-06-23 23:24:42.992 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.MenuItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:24:42.992 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI) in 2.632ms
+2026-06-23 23:24:42.992 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetMenu (RestaurantAPI)'
+2026-06-23 23:24:42.992 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu?categoryId=7 - 200 null application/json; charset=utf-8 3.6485ms
+2026-06-23 23:25:01.210 +05:30 [INF] Executed endpoint '/notificationHub'
+2026-06-23 23:25:01.210 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/notificationHub?id=5Ue6-p-WgQpXAVp6SpRRbQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - 101 null null 43991.9659ms
+2026-06-23 23:25:01.480 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/menu/categories - null null
+2026-06-23 23:25:01.480 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.480 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables - null null
+2026-06-23 23:25:01.480 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.481 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables - 204 null null 0.3947ms
+2026-06-23 23:25:01.481 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/4/cart - null null
+2026-06-23 23:25:01.482 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.483 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/tables/4/cart - 204 null null 2.1202ms
+2026-06-23 23:25:01.480 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/menu/categories - 204 null null 0.8697ms
+2026-06-23 23:25:01.481 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/requests - null null
+2026-06-23 23:25:01.494 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/menu/categories - null null
+2026-06-23 23:25:01.494 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null null
+2026-06-23 23:25:01.494 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.495 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.495 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/waiter/requests - 204 null null 14.3655ms
+2026-06-23 23:25:01.495 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.495 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 204 null null 1.0621ms
+2026-06-23 23:25:01.495 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:25:01.496 +05:30 [INF] Route matched with {action = "GetCategories", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CategoryResponseDto]]] GetCategories() on controller RestaurantAPI.Controllers.MenuController (RestaurantAPI).
+2026-06-23 23:25:01.496 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/requests - null null
+2026-06-23 23:25:01.496 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/tables/4/cart - null null
+2026-06-23 23:25:01.496 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.496 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/waiter/tables - null null
+2026-06-23 23:25:01.496 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-23 23:25:01.497 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.497 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.497 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI)'
+2026-06-23 23:25:01.497 +05:30 [INF] Route matched with {action = "GetRequests", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CustomerRequestResponseDto]]] GetRequests() on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:25:01.497 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI)'
+2026-06-23 23:25:01.497 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.498 +05:30 [INF] Route matched with {action = "GetAssignedTables", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[RestaurantAPI.Models.DTOs.WaiterTableResponseDto]]] GetAssignedTables() on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:25:01.497 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:25:01.498 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-23 23:25:01.498 +05:30 [INF] Route matched with {action = "GetTableCart", controller = "Waiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.ICollection`1[RestaurantAPI.Models.DTOs.CartItemResponseDto]]] GetTableCart(Int32) on controller RestaurantAPI.Controllers.WaiterController (RestaurantAPI).
+2026-06-23 23:25:01.498 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-23 23:25:01.498 +05:30 [INF] Fetching active requests for waiter 7
+2026-06-23 23:25:01.498 +05:30 [INF] Fetching assigned tables for waiter 7
+2026-06-23 23:25:01.498 +05:30 [INF] Retriving cart for table 4
+2026-06-23 23:25:01.498 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 1.7033ms
+2026-06-23 23:25:01.501 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/notificationHub?id=_XxSRet9oPXgQlGHipVIMQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - null null
+2026-06-23 23:25:01.501 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:01.502 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-23 23:25:01.507 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CreatedAt", c."Description", c."IsAvailable", c."IsDeleted", c."Name"
+FROM "Categories" AS c
+WHERE NOT (c."IsDeleted")
+2026-06-23 23:25:01.508 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CategoryResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:25:01.508 +05:30 [INF] Executed action RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI) in 12.4755ms
+2026-06-23 23:25:01.509 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.MenuController.GetCategories (RestaurantAPI)'
+2026-06-23 23:25:01.509 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/menu/categories - 200 null application/json; charset=utf-8 14.7987ms
+2026-06-23 23:25:01.524 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[@__waiterId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber", d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "RestaurantTables" AS r
+LEFT JOIN "DiningSessions" AS d ON r."Id" = d."TableId"
+WHERE r."AssignedWaiterId" = @__waiterId_0 AND NOT (r."IsDeleted")
+ORDER BY r."Id"
+2026-06-23 23:25:01.533 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[RestaurantAPI.Models.RestaurantTable, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[RestaurantAPI.Models.DTOs.WaiterTableResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:25:01.533 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI) in 35.3279ms
+2026-06-23 23:25:01.533 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetAssignedTables (RestaurantAPI)'
+2026-06-23 23:25:01.533 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/tables - 200 null application/json; charset=utf-8 37.2238ms
+2026-06-23 23:25:01.536 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId", c."Id", c."CreatedAt", c."DiningSessionId"
+FROM "DiningSessions" AS d
+LEFT JOIN "Carts" AS c ON d."Id" = c."DiningSessionId"
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:01.541 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__cartId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CartId", c."MenuItemId", c."Quantity", m."Id", m."CategoryId", m."CreatedAt", m."Description", m."FoodType", m."ImageUrl", m."IsAvailable", m."IsDeleted", m."Name", m."Price"
+FROM "CartItems" AS c
+INNER JOIN "MenuItems" AS m ON c."MenuItemId" = m."Id"
+WHERE c."CartId" = @__cartId_0
+2026-06-23 23:25:01.542 +05:30 [INF] Retrieved 3 cart items for cart 41
+2026-06-23 23:25:01.542 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CartItemResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:25:01.543 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI) in 44.7069ms
+2026-06-23 23:25:01.543 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetTableCart (RestaurantAPI)'
+2026-06-23 23:25:01.543 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/tables/4/cart - 200 null application/json; charset=utf-8 46.5213ms
+2026-06-23 23:25:01.618 +05:30 [INF] Executed DbCommand (119ms) [Parameters=[@__waiterId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."CompletedAt", c."DiningSessionId", c."RequestType", c."RequestedAt", c."Status", d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId", r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "CustomerRequests" AS c
+INNER JOIN "DiningSessions" AS d ON c."DiningSessionId" = d."Id"
+INNER JOIN "RestaurantTables" AS r ON d."TableId" = r."Id"
+WHERE c."Status" = 'Pending' AND d."WaiterId" = @__waiterId_0 AND d."Status" = 'Active'
+ORDER BY c."RequestedAt"
+2026-06-23 23:25:01.620 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RestaurantAPI.Models.DTOs.CustomerRequestResponseDto, RestaurantAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-23 23:25:01.620 +05:30 [INF] Executed action RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI) in 122.241ms
+2026-06-23 23:25:01.620 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.WaiterController.GetRequests (RestaurantAPI)'
+2026-06-23 23:25:01.620 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/waiter/requests - 200 null application/json; charset=utf-8 123.861ms
+2026-06-23 23:25:02.321 +05:30 [INF] Executed endpoint '/notificationHub'
+2026-06-23 23:25:02.322 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/notificationHub?id=_XxSRet9oPXgQlGHipVIMQ&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - 101 null null 820.5218ms
+2026-06-23 23:25:02.474 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null null
+2026-06-23 23:25:02.474 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:02.475 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 204 null null 0.978ms
+2026-06-23 23:25:02.477 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - null 0
+2026-06-23 23:25:02.477 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:02.478 +05:30 [INF] Executing endpoint '/notificationHub/negotiate'
+2026-06-23 23:25:02.478 +05:30 [INF] Executed endpoint '/notificationHub/negotiate'
+2026-06-23 23:25:02.478 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5178/notificationHub/negotiate?negotiateVersion=1 - 200 316 application/json 1.4747ms
+2026-06-23 23:25:02.552 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/notificationHub?id=UE3AMMfZ-2FVlaOZNQ8BQA&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - null null
+2026-06-23 23:25:02.566 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:02.570 +05:30 [INF] Executing endpoint '/notificationHub'
+2026-06-23 23:25:06.776 +05:30 [INF] Executed endpoint '/notificationHub'
+2026-06-23 23:25:06.776 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/notificationHub?id=UE3AMMfZ-2FVlaOZNQ8BQA&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjciLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmF2aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldhaXRlciIsImV4cCI6MTc4MjI0NTQ5OCwiaXNzIjoiUmVzdGF1cmFudEFQSSJ9.jkudBoqcxhT6YT4oQfMcQVhjzOa_DLvtmlYy4x4iTuM - 101 null null 4223.628ms
+2026-06-23 23:25:06.882 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:06.882 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/user/session/validate - null null
+2026-06-23 23:25:06.882 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:06.882 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:06.882 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/user/session/validate - 204 null null 0.4298ms
+2026-06-23 23:25:06.883 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/Customer/tables/TBL_002 - 204 null null 0.3455ms
+2026-06-23 23:25:06.884 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:06.885 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/user/session/validate - null null
+2026-06-23 23:25:06.887 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:06.888 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:06.888 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:06.890 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Customer)
+2026-06-23 23:25:06.894 +05:30 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-06-23 23:25:06.894 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/user/session/validate - 403 0 null 8.7135ms
+2026-06-23 23:25:06.895 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:06.897 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:06.913 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:06.923 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:06.924 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:06.925 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:06.926 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 31.1722ms
+2026-06-23 23:25:06.926 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:06.926 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 42.6344ms
+2026-06-23 23:25:08.661 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:08.661 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:08.661 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:08.662 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:08.662 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:08.669 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:08.673 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:08.673 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:08.673 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:08.674 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 11.9293ms
+2026-06-23 23:25:08.674 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:08.674 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 13.0708ms
+2026-06-23 23:25:09.322 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:09.323 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:09.323 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:09.323 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:09.324 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:09.330 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:09.331 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:09.331 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:09.331 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:09.332 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 8.4045ms
+2026-06-23 23:25:09.332 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:09.332 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 9.5939ms
+2026-06-23 23:25:17.151 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:17.152 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:17.153 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:17.153 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:17.155 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:17.174 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:17.183 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:17.184 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:17.184 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:17.186 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 32.0767ms
+2026-06-23 23:25:17.187 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:17.188 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 36.4645ms
+2026-06-23 23:25:17.501 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:17.503 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:17.503 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:17.503 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:17.504 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:17.517 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:17.520 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:17.520 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:17.520 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:17.521 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 17.6786ms
+2026-06-23 23:25:17.521 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:17.521 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 20.3674ms
+2026-06-23 23:25:24.964 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:24.965 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:24.965 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:24.965 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:24.966 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:24.974 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:24.978 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:24.978 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:24.979 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:24.979 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 14.0432ms
+2026-06-23 23:25:24.980 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:24.980 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 16.2831ms
+2026-06-23 23:25:25.428 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:25.429 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:25.429 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:25.429 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:25.430 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:25.434 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:25.436 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:25.436 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:25.436 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:25.436 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 6.9195ms
+2026-06-23 23:25:25.437 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:25.437 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 8.1564ms
+2026-06-23 23:25:25.788 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:25.792 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:25.794 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:25.794 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:25.795 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:25.801 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:25.803 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:25.803 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:25.803 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:25.803 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 8.843ms
+2026-06-23 23:25:25.803 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:25.804 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 15.7111ms
+2026-06-23 23:25:34.644 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - null null
+2026-06-23 23:25:34.647 +05:30 [INF] CORS policy execution successful.
+2026-06-23 23:25:34.648 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:34.649 +05:30 [INF] Route matched with {action = "GetTableStatus", controller = "Customer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.TableStatusResponseDto]] GetTableStatus(System.String) on controller RestaurantAPI.Controllers.CustomerController (RestaurantAPI).
+2026-06-23 23:25:34.651 +05:30 [INF] Checking table status for QR identifier TBL_002
+2026-06-23 23:25:34.718 +05:30 [INF] Executed DbCommand (49ms) [Parameters=[@__qrIdentifier_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+WHERE r."QrIdentifier" = @__qrIdentifier_0 AND NOT (r."IsDeleted")
+LIMIT 1
+2026-06-23 23:25:34.735 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@__tableId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d."Id", d."CustomerId", d."EndedAt", d."SessionOtp", d."StartedAt", d."Status", d."TableId", d."WaiterId"
+FROM "DiningSessions" AS d
+WHERE d."TableId" = @__tableId_0 AND d."Status" = 'Active'
+LIMIT 1
+2026-06-23 23:25:34.735 +05:30 [INF] Table T2 found. Active Session Exists: false
+2026-06-23 23:25:34.737 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.TableStatusResponseDto'.
+2026-06-23 23:25:34.740 +05:30 [INF] Executed action RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI) in 90.916ms
+2026-06-23 23:25:34.740 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.CustomerController.GetTableStatus (RestaurantAPI)'
+2026-06-23 23:25:34.740 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Customer/tables/TBL_002 - 200 null application/json; charset=utf-8 96.425ms

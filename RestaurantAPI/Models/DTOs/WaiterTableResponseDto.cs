@@ -7,4 +7,6 @@ public class WaiterTableResponseDto
     public string TableNumber { get; set; } = string.Empty;
 
     public string Status { get; set; } = string.Empty;
+
+    public int? SessionId { get; set; }
 }

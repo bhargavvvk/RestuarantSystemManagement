@@ -34,12 +34,13 @@ public class TableService:ITableService
         var result = tables.Select(table =>
         {
             string status;
+            var activeSession = table.DiningSessions?.FirstOrDefault(ds => ds.Status == DiningSessionStatus.Active);
 
             if (table.Status == TableStatus.Unavailable)
             {
                 status = "Unavailable";
             }
-            else if (table.DiningSessions != null && table.DiningSessions.Any(ds => ds.Status == DiningSessionStatus.Active))
+            else if (activeSession != null)
             {
                 status = "Occupied";
             }
@@ -52,7 +53,8 @@ public class TableService:ITableService
             {
                 TableId = table.Id,
                 TableNumber = table.TableNumber,
-                Status = status
+                Status = status,
+                SessionId = activeSession?.Id
             };
         });
 
