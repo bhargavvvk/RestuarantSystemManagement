@@ -104,6 +104,7 @@ public class DiningSessionService:IDiningSessionService
             throw;
         }
         await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("SessionClosed");
+        await _hubContext.Clients.Group("kitchen").SendAsync("SessionClosed", $"Sessiom Closed {table!.TableNumber}");
     }
     public async Task<JoinSessionResponseDto> JoinSession(string qrIdentifier,JoinSessionRequestDto request)
     {

@@ -44,7 +44,7 @@ public class KitchenService:IKitchenService
         var waiterId = order.DiningSession!.WaiterId.ToString();
         var notification = new
         {
-            OrderId = order.Id,
+            OrderNumber = order.OrderNumber,
             TableNumber = order.DiningSession!.Table!.TableNumber,
             ItemName = orderItem.ItemName
         };
