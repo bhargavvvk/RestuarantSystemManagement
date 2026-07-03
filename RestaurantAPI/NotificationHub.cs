@@ -17,11 +17,22 @@ public class NotificationHub:Hub
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId,$"session-{sessionId}");
             }
+            await Groups.AddToGroupAsync(Context.ConnectionId, "customers");
         }
 
         if (role == "KitchenStaff")
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, "kitchen");
+        }
+
+        if (role == "Waiter")
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "waiters");
+        }
+
+        if (role == "Admin")
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "admins");
         }
 
         await base.OnConnectedAsync();

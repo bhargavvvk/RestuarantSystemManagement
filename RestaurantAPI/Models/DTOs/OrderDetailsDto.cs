@@ -15,6 +15,8 @@ public class OrderDetailsDto
 
     public decimal BillTotal { get; set; }
 
+    public decimal OrderTotal { get; set; }
+
     public PaymentMethod? PaymentMethod { get; set; }
 
     public ICollection<OrderItemSummaryDto> Items { get; set; }

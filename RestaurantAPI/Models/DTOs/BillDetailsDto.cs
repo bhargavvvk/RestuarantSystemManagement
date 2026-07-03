@@ -12,9 +12,9 @@ public class BillDetailsDto
 
     public string WaiterName { get; set; } = string.Empty;
 
-    public PaymentMethod? PaymentMethod { get; set; }
+    public string? PaymentMethod { get; set; }
 
-    public PaymentStatus PaymentStatus { get; set; }
+    public string PaymentStatus { get; set; } = string.Empty;
 
     public decimal FoodTotal { get; set; }
 

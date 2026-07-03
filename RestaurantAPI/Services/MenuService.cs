@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Contexts;
 using RestaurantAPI.Exceptions;
@@ -19,8 +20,11 @@ public class MenuService : IMenuService
     private readonly IAuditService _auditService;
     private readonly ICategoryRepository _categoryRepository;
     private readonly RestaurantContext _context;
-    public MenuService(IMenuItemRepository menuItemRepository,ILogger<MenuService> logger,IHttpContextAccessor httpContextAccessor,
-    IMapper mapper,IAuditService auditService,ICategoryRepository categoryRepository,RestaurantContext context,IWebHostEnvironment webHostEnvironment)
+    private readonly IHubContext<NotificationHub> _hubContext;
+
+    public MenuService(IMenuItemRepository menuItemRepository, ILogger<MenuService> logger, IHttpContextAccessor httpContextAccessor,
+    IMapper mapper, IAuditService auditService, ICategoryRepository categoryRepository, RestaurantContext context, IWebHostEnvironment webHostEnvironment,
+    IHubContext<NotificationHub> hubContext)
     {
         _menuItemRepository = menuItemRepository;
         _logger = logger;
@@ -29,7 +33,8 @@ public class MenuService : IMenuService
         _categoryRepository = categoryRepository;
         _context = context;
         _webHostEnvironment = webHostEnvironment;
-        _httpContextAccessor=httpContextAccessor;
+        _httpContextAccessor = httpContextAccessor;
+        _hubContext = hubContext;
     }
     public async Task ToggleMenuAvailability(int menuItemId,bool isAvailable)
     {
@@ -59,6 +64,7 @@ public class MenuService : IMenuService
             : "Menu item disabled");
     await _menuItemRepository.SaveChangesAsync();
         _logger.LogInformation("Menu item {MenuItemId} availability set to {IsAvailable}", menuItemId, isAvailable);
+        await SendMenuUpdated();
     }
 
     public async Task ToggleCategoryAvailability(int categoryId, bool isAvailable)
@@ -101,6 +107,7 @@ public class MenuService : IMenuService
             await _menuItemRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             _logger.LogInformation("Category {CategoryId} availability set to {IsAvailable}", categoryId, isAvailable);
+            await SendMenuUpdated();
         }
         catch (Exception e)
         {
@@ -116,9 +123,9 @@ public class MenuService : IMenuService
         {
             throw new Exception( "Menu item name is required");
         }
-        if(request.Name.Length > 15)
+        if(request.Name.Length > 50)
         {
-            throw new Exception(" name cannot exceed 15 characters");
+            throw new Exception("Menu item name cannot exceed 50 characters");
         }
         if (request.Price <= 0)
         {
@@ -164,6 +171,7 @@ public class MenuService : IMenuService
             Price = request.Price,
             CategoryId = request.CategoryId,
             ImageUrl = imagePath,
+            FoodType = request.FoodType,
             IsAvailable =category.IsAvailable
                     ? request.IsAvailable
                     : false
@@ -187,6 +195,7 @@ public class MenuService : IMenuService
         await _menuItemRepository.SaveChangesAsync();
 
         _logger.LogInformation("Menu item {MenuItemId} created",menuItem.Id);
+        await SendMenuUpdated();
         var result = _mapper.Map<MenuItemResponseDto>(menuItem);
         if (!string.IsNullOrEmpty(result.ImageUrl))
             result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
@@ -198,7 +207,7 @@ public class MenuService : IMenuService
         {
             throw new Exception("Category name is required");
         }
-        if(request.Name.Length > 15)
+        if(request.Name.Length > 50)
         {
             throw new Exception("Category name cannot exceed 50 characters");
         }
@@ -238,6 +247,7 @@ public class MenuService : IMenuService
             await _categoryRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             _logger.LogInformation("Category {CategoryId} '{CategoryName}' created", category.Id, category.Name);
+            await SendMenuUpdated();
             return _mapper.Map<CategoryResponseDto>(category);
         }
         catch
@@ -259,9 +269,9 @@ public class MenuService : IMenuService
         {
             throw new Exception("Menu item name is required");
         }
-        if (request.Name.Length > 15)
+        if (request.Name.Length > 50)
         {
-            throw new Exception("Menu item name cannot exceed 15 characters");
+            throw new Exception("Menu item name cannot exceed 50 characters");
         }
 
         if (request.Price <= 0)
@@ -326,6 +336,7 @@ public class MenuService : IMenuService
             await _menuItemRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             _logger.LogInformation("Menu item {MenuItemId} updated",menuItem.Id);
+            await SendMenuUpdated();
             var result = _mapper.Map<MenuItemResponseDto>(menuItem);
             if (!string.IsNullOrEmpty(result.ImageUrl))
                 result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
@@ -389,6 +400,7 @@ public class MenuService : IMenuService
             _logger.LogInformation(
                 "Category {CategoryId} updated",
                 category.Id);
+            await SendMenuUpdated();
             return _mapper.Map<CategoryResponseDto>(category);
         }
         catch
@@ -437,6 +449,7 @@ public class MenuService : IMenuService
             await transaction.CommitAsync();
 
             _logger.LogInformation("Menu item {MenuItemId} deleted",menuItem.Id);
+            await SendMenuUpdated();
         }
         catch
         {
@@ -487,6 +500,7 @@ public class MenuService : IMenuService
             await _categoryRepository.SaveChangesAsync();
             await transaction.CommitAsync();
             _logger.LogInformation("Category {CategoryId} and {MenuItemCount} menu items deleted", categoryId, category.MenuItems.Count);
+            await SendMenuUpdated();
         }
         catch
         {
@@ -542,5 +556,13 @@ public class MenuService : IMenuService
     {
         var request = _httpContextAccessor.HttpContext!.Request;
         return $"{request.Scheme}://{request.Host}{path}";
+    }
+
+    private async Task SendMenuUpdated()
+    {
+        await Task.WhenAll(
+            _hubContext.Clients.Group("waiters").SendAsync("MenuUpdated", "Menu Updated"),
+            _hubContext.Clients.Group("customers").SendAsync("MenuUpdated", "Menu Updated")
+        );
     }
 }

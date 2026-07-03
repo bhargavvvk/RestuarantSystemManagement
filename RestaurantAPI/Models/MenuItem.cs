@@ -15,7 +15,7 @@ public class MenuItem
     public int CategoryId { get; set; }
 
     [Required(ErrorMessage = "Menu item name is required.")]
-    [StringLength(100, ErrorMessage = "Menu item name cannot exceed 100 characters.")]
+    [StringLength(50, ErrorMessage = "Menu item name cannot exceed 50 characters.")]
     public string Name { get; set; } = string.Empty;
 
     public string? Description { get; set; }

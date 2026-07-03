@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestaurantAPI.Contexts;
@@ -11,9 +12,11 @@ using RestaurantAPI.Contexts;
 namespace RestaurantAPI.Migrations
 {
     [DbContext(typeof(RestaurantContext))]
-    partial class RestaurantContextModelSnapshot : ModelSnapshot
+    [Migration("20260630092825_updated_name_length")]
+    partial class updated_name_length
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,7 +230,48 @@ namespace RestaurantAPI.Migrations
                     b.HasKey("Id")
                         .HasName("PK_Category");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Appetizers",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Starters"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Main dishes",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Main Course"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Sweet dishes",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Desserts"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Drinks",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Beverages"
+                        });
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.Customer", b =>
@@ -392,11 +436,56 @@ namespace RestaurantAPI.Migrations
                     b.HasKey("Id")
                         .HasName("PK_InventoryItem");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("InventoryItems", t =>
                         {
                             t.HasCheckConstraint("CK_InventoryItem_AvailableQuantity", "\"AvailableQuantity\" >= 0");
 
                             t.HasCheckConstraint("CK_InventoryItem_MinimumStockThreshold", "\"MinimumStockThreshold\" >= 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableQuantity = 50m,
+                            IsDeleted = false,
+                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MinimumStockThreshold = 10m,
+                            Name = "Rice",
+                            Unit = "Kg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableQuantity = 20m,
+                            IsDeleted = false,
+                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MinimumStockThreshold = 5m,
+                            Name = "Paneer",
+                            Unit = "Kg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableQuantity = 25m,
+                            IsDeleted = false,
+                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MinimumStockThreshold = 5m,
+                            Name = "Chicken",
+                            Unit = "Kg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableQuantity = 30m,
+                            IsDeleted = false,
+                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MinimumStockThreshold = 5m,
+                            Name = "Cooking Oil",
+                            Unit = "Litre"
                         });
                 });
 
@@ -452,6 +541,118 @@ namespace RestaurantAPI.Migrations
                     b.ToTable("MenuItems", t =>
                         {
                             t.HasCheckConstraint("CK_MenuItem_Price", "\"Price\" >= 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Paneer Tikka",
+                            Price = 220m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "NonVeg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Chicken 65",
+                            Price = 260m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Veg Biryani",
+                            Price = 180m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "NonVeg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Chicken Biryani",
+                            Price = 250m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Butter Naan",
+                            Price = 40m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Paneer Butter",
+                            Price = 210m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Brownie",
+                            Price = 120m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Ice Cream",
+                            Price = 90m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Coke",
+                            Price = 50m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodType = "Veg",
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Lemon Soda",
+                            Price = 60m
                         });
                 });
 
@@ -509,8 +710,8 @@ namespace RestaurantAPI.Migrations
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<decimal>("ItemPrice")
                         .HasColumnType("numeric(10,2)");
@@ -600,6 +801,63 @@ namespace RestaurantAPI.Migrations
                         {
                             t.HasCheckConstraint("CK_RestaurantTable_Capacity", "\"Capacity\" > 0");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssignedWaiterId = 3,
+                            Capacity = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            QrIdentifier = "TBL_001",
+                            Status = "Available",
+                            TableNumber = "T1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AssignedWaiterId = 3,
+                            Capacity = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            QrIdentifier = "TBL_002",
+                            Status = "Available",
+                            TableNumber = "T2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AssignedWaiterId = 4,
+                            Capacity = 6,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            QrIdentifier = "TBL_003",
+                            Status = "Available",
+                            TableNumber = "T3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AssignedWaiterId = 4,
+                            Capacity = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            QrIdentifier = "TBL_004",
+                            Status = "Available",
+                            TableNumber = "T4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AssignedWaiterId = 3,
+                            Capacity = 8,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            QrIdentifier = "TBL_005",
+                            Status = "Available",
+                            TableNumber = "T5"
+                        });
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.TaxConfiguration", b =>
@@ -639,6 +897,18 @@ namespace RestaurantAPI.Migrations
                         .HasName("PK_TaxConfiguration");
 
                     b.ToTable("TaxConfigurations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CgstPercentage = 2.5m,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EffectiveFrom = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            ServiceChargePercentage = 5m,
+                            SgstPercentage = 2.5m
+                        });
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.User", b =>
@@ -698,7 +968,75 @@ namespace RestaurantAPI.Migrations
                     b.HasKey("Id")
                         .HasName("PK_User");
 
+                    b.HasIndex("MobileNumberHash")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EncryptedMobileNumber = "ADMIN_ENCRYPTED",
+                            HashKey = new byte[0],
+                            IsActive = true,
+                            IsDeleted = false,
+                            MobileNumberHash = "ADMIN_HASH",
+                            MustChangePassword = true,
+                            Name = "System Admin",
+                            PasswordHash = new byte[] { 1, 2, 3 },
+                            Role = "Admin",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EncryptedMobileNumber = "KITCHEN_ENCRYPTED",
+                            HashKey = new byte[0],
+                            IsActive = true,
+                            IsDeleted = false,
+                            MobileNumberHash = "KITCHEN_HASH",
+                            MustChangePassword = true,
+                            Name = "Kitchen Staff",
+                            PasswordHash = new byte[] { 1, 2, 3 },
+                            Role = "KitchenStaff",
+                            Username = "kitchen"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EncryptedMobileNumber = "WAITER1_ENCRYPTED",
+                            HashKey = new byte[0],
+                            IsActive = true,
+                            IsDeleted = false,
+                            MobileNumberHash = "WAITER1_HASH",
+                            MustChangePassword = true,
+                            Name = "Ramesh",
+                            PasswordHash = new byte[] { 1, 2, 3 },
+                            Role = "Waiter",
+                            Username = "waiter1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EncryptedMobileNumber = "WAITER2_ENCRYPTED",
+                            HashKey = new byte[0],
+                            IsActive = true,
+                            IsDeleted = false,
+                            MobileNumberHash = "WAITER2_HASH",
+                            MustChangePassword = true,
+                            Name = "Suresh",
+                            PasswordHash = new byte[] { 1, 2, 3 },
+                            Role = "Waiter",
+                            Username = "waiter2"
+                        });
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.Bill", b =>

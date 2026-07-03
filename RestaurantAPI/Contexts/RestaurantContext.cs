@@ -32,69 +32,13 @@ public class RestaurantContext: DbContext
             user.Property(u => u.Role)
                 .HasConversion<string>();
 
-            user.HasIndex(u => u.Username)
-                .IsUnique();
-
             user.Property(u => u.IsDeleted)
                 .HasDefaultValue(false);
-
-            user.HasIndex(u => u.MobileNumberHash)
-                .IsUnique();
 
             user.Property(u => u.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone");
 
-            user.HasData(
-                new User
-                {
-                    Id = 1,
-                    Username = "admin",
-                    Name = "System Admin",
-                    EncryptedMobileNumber = "ADMIN_ENCRYPTED",
-                    MobileNumberHash = "ADMIN_HASH",
-                    IsActive = true,
-                    IsDeleted = false,
-                    PasswordHash = new byte[] { 1, 2, 3 },
-                    Role = UserRole.Admin
-                },
-                new User
-                {
-                    Id = 2,
-                    Username = "kitchen",
-                    Name = "Kitchen Staff",
-                    EncryptedMobileNumber = "KITCHEN_ENCRYPTED",
-                    MobileNumberHash = "KITCHEN_HASH",
-                    IsActive = true,
-                    IsDeleted = false,
-                    PasswordHash = new byte[] { 1, 2, 3 },
-                    Role = UserRole.KitchenStaff
-                },
-                new User
-                {
-                    Id = 3,
-                    Username = "waiter1",
-                    Name = "Ramesh",
-                    EncryptedMobileNumber = "WAITER1_ENCRYPTED",
-                    MobileNumberHash = "WAITER1_HASH",
-                    IsActive = true,
-                    IsDeleted = false,
-                    PasswordHash = new byte[] { 1, 2, 3 },
-                    Role = UserRole.Waiter
-                },
-                new User
-                {
-                    Id = 4,
-                    Username = "waiter2",
-                    Name = "Suresh",
-                    EncryptedMobileNumber = "WAITER2_ENCRYPTED",
-                    MobileNumberHash = "WAITER2_HASH",
-                    IsActive = true,
-                    IsDeleted = false,
-                    PasswordHash = new byte[] { 1, 2, 3 },
-                    Role = UserRole.Waiter
-                }
-            );
         });
         modelBuilder.Entity<Customer>(customer =>
         {
@@ -141,66 +85,12 @@ public class RestaurantContext: DbContext
                 .HasColumnType("timestamp without time zone");
 
 
-            table.HasData(
-                new RestaurantTable
-                {
-                    Id = 1,
-                    TableNumber = "T1",
-                    QrIdentifier = "TBL_001",
-                    Capacity = 4,
-                    AssignedWaiterId = 3,
-                    Status = TableStatus.Available,
-                    IsDeleted = false
-                },
-                new RestaurantTable
-                {
-                    Id = 2,
-                    TableNumber = "T2",
-                    QrIdentifier = "TBL_002",
-                    Capacity = 4,
-                    AssignedWaiterId = 3,
-                    Status = TableStatus.Available,
-                    IsDeleted = false
-                },
-                new RestaurantTable
-                {
-                    Id = 3,
-                    TableNumber = "T3",
-                    QrIdentifier = "TBL_003",
-                    Capacity = 6,
-                    AssignedWaiterId = 4,
-                    Status = TableStatus.Available,
-                    IsDeleted = false
-                },
-                new RestaurantTable
-                {
-                    Id = 4,
-                    TableNumber = "T4",
-                    QrIdentifier = "TBL_004",
-                    Capacity = 2,
-                    AssignedWaiterId = 4,
-                    Status = TableStatus.Available,
-                    IsDeleted = false
-                },
-                new RestaurantTable
-                {
-                    Id = 5,
-                    TableNumber = "T5",
-                    QrIdentifier = "TBL_005",
-                    Capacity = 8,
-                    AssignedWaiterId = 3,
-                    Status = TableStatus.Available,
-                    IsDeleted = false
-                }
-            );
+
         });
         modelBuilder.Entity<Category>(category =>
         {
             category.HasKey(c => c.Id)
                 .HasName("PK_Category");
-
-            category.HasIndex(c => c.Name)
-                .IsUnique();
 
             category.Property(c => c.IsAvailable)
                 .HasDefaultValue(true);
@@ -211,41 +101,6 @@ public class RestaurantContext: DbContext
             category.Property(c => c.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone");
-
-            category.HasData(
-                new Category
-                {
-                    Id = 1,
-                    Name = "Starters",
-                    Description = "Appetizers",
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new Category
-                {
-                    Id = 2,
-                    Name = "Main Course",
-                    Description = "Main dishes",
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new Category
-                {
-                    Id = 3,
-                    Name = "Desserts",
-                    Description = "Sweet dishes",
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new Category
-                {
-                    Id = 4,
-                    Name = "Beverages",
-                    Description = "Drinks",
-                    IsAvailable = true,
-                    IsDeleted = false
-                }
-            );
         });
         modelBuilder.Entity<MenuItem>(item =>
         {
@@ -280,109 +135,6 @@ public class RestaurantContext: DbContext
                 .HasForeignKey(m => m.CategoryId)
                 .HasConstraintName("FK_MenuItem_Category")
                 .OnDelete(DeleteBehavior.Restrict);
-
-            item.HasData(
-                new MenuItem
-                {
-                    Id = 1,
-                    CategoryId = 1,
-                    Name = "Paneer Tikka",
-                    Price = 220m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 2,
-                    CategoryId = 1,
-                    Name = "Chicken 65",
-                    Price = 260m,
-                    FoodType = FoodType.NonVeg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 3,
-                    CategoryId = 2,
-                    Name = "Veg Biryani",
-                    Price = 180m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 4,
-                    CategoryId = 2,
-                    Name = "Chicken Biryani",
-                    Price = 250m,
-                    FoodType = FoodType.NonVeg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 5,
-                    CategoryId = 2,
-                    Name = "Butter Naan",
-                    Price = 40m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 6,
-                    CategoryId = 2,
-                    Name = "Paneer Butter",
-                    Price = 210m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 7,
-                    CategoryId = 3,
-                    Name = "Brownie",
-                    Price = 120m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 8,
-                    CategoryId = 3,
-                    Name = "Ice Cream",
-                    Price = 90m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 9,
-                    CategoryId = 4,
-                    Name = "Coke",
-                    Price = 50m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                },
-                new MenuItem
-                {
-                    Id = 10,
-                    CategoryId = 4,
-                    Name = "Lemon Soda",
-                    Price = 60m,
-                    FoodType = FoodType.Veg,
-                    IsAvailable = true,
-                    IsDeleted = false
-                }
-            );
         });
         modelBuilder.Entity<DiningSession>(session =>
         {
@@ -648,9 +400,6 @@ public class RestaurantContext: DbContext
             inventory.HasKey(i => i.Id)
                 .HasName("PK_InventoryItem");
 
-            inventory.HasIndex(i => i.Name)
-                .IsUnique();
-
             inventory.Property(i => i.AvailableQuantity)
                 .HasColumnType("numeric(10,2)");
 
@@ -674,45 +423,6 @@ public class RestaurantContext: DbContext
             inventory.Property(i => i.LastUpdatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone");
-
-            inventory.HasData(
-                new InventoryItem
-                {
-                    Id = 1,
-                    Name = "Rice",
-                    AvailableQuantity = 50m,
-                    Unit = "Kg",
-                    MinimumStockThreshold = 10m,
-                    IsDeleted = false
-                },
-                new InventoryItem
-                {
-                    Id = 2,
-                    Name = "Paneer",
-                    AvailableQuantity = 20m,
-                    Unit = "Kg",
-                    MinimumStockThreshold = 5m,
-                    IsDeleted = false
-                },
-                new InventoryItem
-                {
-                    Id = 3,
-                    Name = "Chicken",
-                    AvailableQuantity = 25m,
-                    Unit = "Kg",
-                    MinimumStockThreshold = 5m,
-                    IsDeleted = false
-                },
-                new InventoryItem
-                {
-                    Id = 4,
-                    Name = "Cooking Oil",
-                    AvailableQuantity = 30m,
-                    Unit = "Litre",
-                    MinimumStockThreshold = 5m,
-                    IsDeleted = false
-                }
-            );
         });
         modelBuilder.Entity<TaxConfiguration>(entity =>
         {
@@ -734,24 +444,6 @@ public class RestaurantContext: DbContext
             entity.Property(tc => tc.CreatedAt)
                 .HasColumnType("timestamp without time zone")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            modelBuilder.Entity<TaxConfiguration>().HasData(
-            new TaxConfiguration
-            {
-                Id = 1,
-                CgstPercentage = 2.5m,
-                SgstPercentage = 2.5m,
-                ServiceChargePercentage = 5m,
-                EffectiveFrom = new DateTime(
-                    2026,
-                    1,
-                    1,
-                    0,
-                    0,
-                    0,
-                    DateTimeKind.Utc),
-                IsActive = true
-            }
-        );
         });
 
     }

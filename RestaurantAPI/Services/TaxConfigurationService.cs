@@ -62,17 +62,6 @@ public class TaxConfigurationService:ITaxConfigurationService
         {
             throw new Exception("At least one tax percentage must be provided");
         }
-        if ((request.CgstPercentage == null ||
-            request.CgstPercentage == currentConfiguration.CgstPercentage)
-        &&
-            (request.SgstPercentage == null ||
-            request.SgstPercentage == currentConfiguration.SgstPercentage)
-        &&
-            (request.ServiceChargePercentage == null ||
-            request.ServiceChargePercentage == currentConfiguration.ServiceChargePercentage))
-        {
-            throw new Exception("New values must be different from current values");
-        }
 
         await using var transaction =await _context.Database.BeginTransactionAsync();
 

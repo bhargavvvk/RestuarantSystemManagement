@@ -150,6 +150,7 @@ public class OrderService : IIOrderService
             _logger.LogInformation("Created the notification");
             var kitchenId = await _userRepository.GetKitchenStaffId();
             await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("OrderPlaced",notification);
+            await _hubContext.Clients.Group("admins").SendAsync("OrderPlaced", notification);
             await _hubContext.Clients.User(session.WaiterId.ToString()).SendAsync("ReceiveOrderPlaced", notification);
             await _hubContext.Clients.User(kitchenId.ToString()).SendAsync("OrderPlaced", notification);
             _logger.LogInformation("notification sent");
@@ -561,6 +562,7 @@ public class OrderService : IIOrderService
                         : "Active",
             BillNumber =bill?.BillNumber ?? string.Empty,
             BillTotal =bill?.GrandTotal ?? 0,
+            OrderTotal = order.OrderItems!.Sum(oi => oi.ItemPrice * oi.Quantity),
             PaymentMethod = bill?.PaymentMethod,
             Items = order.OrderItems!
                 .Select(oi =>

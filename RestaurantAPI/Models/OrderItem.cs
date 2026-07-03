@@ -22,7 +22,7 @@ public class OrderItem
     public int MenuItemId { get; set; }
 
     [Required(ErrorMessage = "Item name is required.")]
-    [StringLength(20, ErrorMessage = "Item name cannot exceed 20 characters.")]
+    [StringLength(100, ErrorMessage = "Item name cannot exceed 100 characters.")]
     public string ItemName { get; set; } = string.Empty;
 
     [Range(0, double.MaxValue, ErrorMessage = "Item price cannot be negative.")]

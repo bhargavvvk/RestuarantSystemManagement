@@ -29,8 +29,9 @@ public class RestaurantTableRepository:AbstractRepository<int,RestaurantTable>,I
     public async Task<ICollection<RestaurantTable>> GetAllNonDeletedTables()
     {
         return await _context.RestaurantTables
+            .Include(t => t.AssignedWaiter)
             .Where(t => !t.IsDeleted)
-            .OrderBy(t => t.TableNumber)
+            .OrderBy(t => t.Id)
             .ToListAsync();
     }
     public async Task<RestaurantTable?> GetTableDetails(int tableId)

@@ -1,6 +1,7 @@
 
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.SignalR;
 using RestaurantAPI.Exceptions;
 using RestaurantAPI.Models;
 using RestaurantAPI.Models.DTOs;
@@ -16,14 +17,16 @@ public class TableService:ITableService
     private readonly IDiningSessionRepository _diningSessionRepository;
     private readonly IAuditService _auditService;
     private readonly IUserRepository _userRepository;
+     private readonly IHubContext<NotificationHub> _hubContext;
     public TableService(IRestaurentTableRepository restaurentTableRepository, ILogger<ITableService> logger, IDiningSessionRepository diningSessionRepository
-    ,IAuditService auditService,IUserRepository userRepository)
+    ,IAuditService auditService,IUserRepository userRepository,IHubContext<NotificationHub> hubContext)
     {
         _restaurentTableRepository = restaurentTableRepository;
         _logger = logger;
         _diningSessionRepository = diningSessionRepository;
         _auditService = auditService;
-        _userRepository=userRepository;
+        _userRepository = userRepository;
+        _hubContext=hubContext;
     }
 
     public async Task<IEnumerable<WaiterTableResponseDto>> GetAssignedTablesAsync(int waiterId)
@@ -123,7 +126,9 @@ public class TableService:ITableService
             {
                 Id = table.Id,
                 TableNumber = table.TableNumber,
-                Status = status
+                Status = status,
+                AssignedWaiterId = table.AssignedWaiterId,
+                AssignedWaiterName = table.AssignedWaiter?.Name
             });
         }
 
@@ -173,8 +178,19 @@ public class TableService:ITableService
             "Table availability updated");
 
         await _restaurentTableRepository.SaveChangesAsync();
-
         _logger.LogInformation("Table {TableId} availability updated to {Status}", tableId, status);
+
+        if (table.AssignedWaiterId.HasValue)
+        {
+            var notification = new
+            {
+                TableId = table.Id,
+                TableNumber = table.TableNumber,
+                Status = status.ToString()
+            };
+            await _hubContext.Clients.User(table.AssignedWaiterId.Value.ToString())
+                .SendAsync("TableStatusChanged", notification);
+        }
         return table;
     }
     public async Task DeleteTable(int tableId)
@@ -259,6 +275,8 @@ public class TableService:ITableService
         await _restaurentTableRepository.SaveChangesAsync();
 
         _logger.LogInformation("Table {TableNumber} created with ID {TableId}", table.TableNumber, table.Id);
+            await _hubContext.Clients.User(table.AssignedWaiterId!.Value.ToString())
+                .SendAsync("tableassinged", $"{table.TableNumber} is assigned to you");
         return new TableResponseDto
         {
             Id = table.Id,

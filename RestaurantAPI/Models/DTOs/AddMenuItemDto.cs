@@ -1,5 +1,5 @@
-
 using System.ComponentModel.DataAnnotations;
+using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Models.DTOs;
 
@@ -17,6 +17,9 @@ public class AddMenuItemDto
     public string? Description { get; set; }
 
     public bool IsAvailable { get; set; }
+
+    [Required]
+    public FoodType FoodType { get; set; }
 
     public IFormFile? Image { get; set; }
 }
