@@ -13,10 +13,12 @@ public class AdminTableController : ControllerBase
 {
     private readonly ITableService _tableService;
     private readonly IAdminService _adminService;
-    public AdminTableController(ITableService tableService,IAdminService adminService)
+    private readonly IQrCodeService _qrCodeService;
+    public AdminTableController(ITableService tableService,IAdminService adminService,IQrCodeService qrCodeService)
     {
         _tableService = tableService;
-        _adminService=adminService;
+        _adminService = adminService;
+        _qrCodeService=qrCodeService;
     }
 
     [HttpGet("tables/dashboard")]
@@ -100,5 +102,11 @@ public class AdminTableController : ControllerBase
     {
         await _tableService.DeleteTable(tableId);
         return NoContent();
+    }
+    [HttpGet("{tableId}/qr")]
+    public async Task<IActionResult> DownloadQr(int tableId)
+    {
+        var qrBytes = await _qrCodeService.GenerateTableQr(tableId);
+        return File(qrBytes, "image/png", $"Table-QR.png");
     }
 }

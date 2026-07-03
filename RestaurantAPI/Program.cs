@@ -151,7 +151,8 @@ builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<ITaxConfigurationService,TaxConfigurationService>();
-builder.Services.AddScoped<IKitchenService,KitchenService>();
+builder.Services.AddScoped<IKitchenService, KitchenService>();
+builder.Services.AddScoped<IQrCodeService,QrCodeService>();
 #endregion
 var app = builder.Build();
 

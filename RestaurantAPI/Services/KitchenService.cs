@@ -50,6 +50,7 @@ public class KitchenService:IKitchenService
         };
         await _hubContext.Clients.User(waiterId).SendAsync("OrderItemStatusReady", notification);
         await _hubContext.Clients.Group($"session-{order.DiningSessionId}").SendAsync("OrderItemStatusReady", notification);
+        await _hubContext.Clients.Group("admins").SendAsync("OrderItemStatusReady", notification);
         _logger.LogInformation("Order item {OrderItemId} marked ready for waiter {WaiterId}",orderItemId,waiterId);
     }
     public async Task StartPreparing(int orderId)
@@ -71,6 +72,7 @@ public class KitchenService:IKitchenService
 
         await _orderRepository.SaveChangesAsync();
         await _hubContext.Clients.Group($"session-{order.DiningSessionId}").SendAsync("OrderStatusPreparing");
+        await _hubContext.Clients.Group("admins").SendAsync("OrderStatusPreparing");
         _logger.LogInformation("Order {OrderId} is now being prepared", orderId);
     }
 }
