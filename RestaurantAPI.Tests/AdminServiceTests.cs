@@ -78,7 +78,8 @@ public class AdminServiceTests
             _sessionRepoMock.Object,
             _auditMock.Object,
             _context,
-            _hubMock.Object);
+            _hubMock.Object,
+            NullLogger<AdminService>.Instance);
     }
 
     [TearDown]

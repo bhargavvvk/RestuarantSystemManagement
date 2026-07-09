@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using RestaurantAPI.Contexts;
@@ -40,7 +41,8 @@ public class InventoryServiceTests
         _inventoryService = new InventoryService(
             _inventoryRepoMock.Object,
             _context,
-            _auditMock.Object);
+            _auditMock.Object,
+            NullLogger<InventoryService>.Instance);
     }
 
     [TearDown]

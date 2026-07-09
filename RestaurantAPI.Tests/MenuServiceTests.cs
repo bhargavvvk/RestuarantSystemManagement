@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,8 @@ public class MenuServiceTests
     private Mock<IMapper>              _mapperMock;
     private Mock<IAuditService>        _auditMock;
     private Mock<IWebHostEnvironment>  _webHostEnvMock;
+    private Mock<IHttpContextAccessor>  _httpContextMock;
+    private Mock<IHubContext<NotificationHub>> _hubContextMock;
     private RestaurantContext          _context;
     private MenuService                _menuService;
 
@@ -32,6 +36,13 @@ public class MenuServiceTests
         _mapperMock       = new Mock<IMapper>();
         _auditMock        = new Mock<IAuditService>();
         _webHostEnvMock   = new Mock<IWebHostEnvironment>();
+        _httpContextMock  = new Mock<IHttpContextAccessor>();
+        var clientsMock = new Mock<IHubClients>();
+        var proxyMock   = new Mock<IClientProxy>();
+        proxyMock.Setup(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object[]>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        clientsMock.Setup(c => c.All).Returns(proxyMock.Object);
+        _hubContextMock   = new Mock<IHubContext<NotificationHub>>();
+        _hubContextMock.Setup(h => h.Clients).Returns(clientsMock.Object);
 
         var options = new DbContextOptionsBuilder<RestaurantContext>()
             .UseSqlite("DataSource=:memory:")
@@ -49,11 +60,13 @@ public class MenuServiceTests
         _menuService = new MenuService(
             _menuItemRepoMock.Object,
             NullLogger<MenuService>.Instance,
+            _httpContextMock.Object,
             _mapperMock.Object,
             _auditMock.Object,
             _categoryRepoMock.Object,
             _context,
-            _webHostEnvMock.Object);
+            _webHostEnvMock.Object,
+            _hubContextMock.Object);
     }
 
     [TearDown]

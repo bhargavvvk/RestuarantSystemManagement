@@ -13,4 +13,8 @@ public interface IBillService
     Task<PagedResponseDto<BillRegistryDto>>GetBills(string search,DateOnly? date,int pageNumber,int pageSize);
     Task<BillDashboardSummaryDto>GetBillDashboardSummary(DateOnly? date);
     Task<BillDetailsDto> GetBillDetails(int billId);
+    Task<SplitBillResponseDto> GetSplitBill(int sessionId);
+    Task SaveCustomSplits(int sessionId, string customSplitsJson);
+    string? GetCustomSplits(int sessionId);
+    void ClearCustomSplits(int sessionId);
 }

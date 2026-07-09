@@ -20,6 +20,8 @@ public class BillService : IBillService
     private readonly IAuditService _auditService;
     private readonly IOrderRepository _orderRepository;
     private readonly IHubContext<NotificationHub> _hubContext;
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<int, string> _customSplits = new();
+
     public BillService(IDiningSessionRepository diningSessionRepository, ILogger<BillService> logger, IBillRepository billRepository, IMapper mapper,
     ITaxConfigurationRepository taxConfigurationRepository,IAuditService auditService, IOrderRepository orderRepository,IHubContext<NotificationHub> hubContext)
     {
@@ -46,7 +48,9 @@ public class BillService : IBillService
         {
             throw new BillNotFoundException();
         }
-        return _mapper.Map<BillResponseDto>(bill);
+        var dto = _mapper.Map<BillResponseDto>(bill);
+        dto.CustomSplitsJson = GetCustomSplits(sessionId);
+        return dto;
     }
     public async Task<BillResponseDto> MarkBillAsPaid(int sessionId,PaymentMethod paymentMethod)
     {
@@ -79,6 +83,8 @@ public class BillService : IBillService
         await _billRepository.Update(bill.Id,bill);
 
         await _billRepository.SaveChangesAsync();
+
+        ClearCustomSplits(sessionId);
 
         _logger.LogInformation("Bill {BillId} marked as paid for session {SessionId}", bill.Id, sessionId);
         await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
@@ -267,5 +273,124 @@ public class BillService : IBillService
             ServiceChargeAmount =bill.ServiceChargeAmount,
             GrandTotal =bill.GrandTotal
         };
+    }
+
+    public async Task<SplitBillResponseDto> GetSplitBill(int sessionId)
+    {
+        _logger.LogInformation("Calculating split bill for session {SessionId}", sessionId);
+        var session = await _diningSessionRepository.Get(sessionId);
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        var bill = await _billRepository.GetBySessionId(sessionId);
+        if (bill == null)
+        {
+            throw new BillNotFoundException();
+        }
+
+        var taxConfiguration = await _taxConfigurationRepository.Get(bill.TaxConfigurationId);
+        if (taxConfiguration == null)
+        {
+            throw new Exception("Tax configuration not found");
+        }
+
+        var orders = await _orderRepository.GetBySessionId(sessionId);
+
+        var response = new SplitBillResponseDto
+        {
+            FoodTotal = bill.FoodTotal,
+            CgstPercentage = taxConfiguration.CgstPercentage,
+            SgstPercentage = taxConfiguration.SgstPercentage,
+            ServiceChargePercentage = taxConfiguration.ServiceChargePercentage,
+            GrandTotal = bill.GrandTotal,
+            CustomSplitsJson = GetCustomSplits(sessionId)
+        };
+
+        bool includeServiceCharge = bill.ServiceChargeAmount > 0;
+
+        foreach (var order in orders)
+        {
+            var orderFoodTotal = order.TotalAmount;
+            var orderCgst = orderFoodTotal * taxConfiguration.CgstPercentage / 100;
+            var orderSgst = orderFoodTotal * taxConfiguration.SgstPercentage / 100;
+            var orderServiceCharge = includeServiceCharge ? (orderFoodTotal * taxConfiguration.ServiceChargePercentage / 100) : 0;
+            var orderGrandTotal = orderFoodTotal + orderCgst + orderSgst + orderServiceCharge;
+
+            var orderSplit = new OrderSplitOptionDto
+            {
+                OrderId = order.Id,
+                OrderNumber = order.OrderNumber,
+                FoodTotal = orderFoodTotal,
+                CgstAmount = orderCgst,
+                SgstAmount = orderSgst,
+                ServiceChargeAmount = orderServiceCharge,
+                GrandTotal = orderGrandTotal,
+                Items = order.OrderItems?.Select(oi => new OrderItemResponseDto
+                {
+                    OrderItemId = oi.Id,
+                    ItemName = oi.ItemName,
+                    ItemPrice = oi.ItemPrice,
+                    Quantity = oi.Quantity,
+                    Status = oi.Status
+                }).ToList() ?? new List<OrderItemResponseDto>()
+            };
+
+            response.OrderSplits.Add(orderSplit);
+        }
+
+        if (orders != null)
+        {
+            foreach (var order in orders)
+            {
+                if (order.OrderItems != null)
+                {
+                    foreach (var item in order.OrderItems)
+                    {
+                        var itemFoodTotal = item.ItemPrice * item.Quantity;
+                        var itemCgst = itemFoodTotal * taxConfiguration.CgstPercentage / 100;
+                        var itemSgst = itemFoodTotal * taxConfiguration.SgstPercentage / 100;
+                        var itemServiceCharge = includeServiceCharge ? (itemFoodTotal * taxConfiguration.ServiceChargePercentage / 100) : 0;
+                        var itemGrandTotal = itemFoodTotal + itemCgst + itemSgst + itemServiceCharge;
+
+                        var itemSplit = new ItemSplitOptionDto
+                        {
+                            OrderItemId = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            ItemPrice = item.ItemPrice,
+                            FoodTotal = itemFoodTotal,
+                            CgstAmount = itemCgst,
+                            SgstAmount = itemSgst,
+                            ServiceChargeAmount = itemServiceCharge,
+                            GrandTotal = itemGrandTotal
+                        };
+
+                        response.ItemSplits.Add(itemSplit);
+                    }
+                }
+            }
+        }
+
+        return response;
+    }
+
+    public async Task SaveCustomSplits(int sessionId, string customSplitsJson)
+    {
+        _logger.LogInformation("Saving custom splits for session {SessionId}", sessionId);
+        _customSplits[sessionId] = customSplitsJson;
+        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
+    }
+
+    public string? GetCustomSplits(int sessionId)
+    {
+        _customSplits.TryGetValue(sessionId, out var customSplitsJson);
+        return customSplitsJson;
+    }
+
+    public void ClearCustomSplits(int sessionId)
+    {
+        _customSplits.TryRemove(sessionId, out _);
     }
 }

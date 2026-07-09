@@ -14,4 +14,6 @@ public interface IWaiterService
     Task<BillResponseDto> GetTableBill(int waiterId, int tableId);
     Task<BillResponseDto> MarkTableBillAsPaid(int waiterId, int tableId, MarkBillPaidDto request);
     Task<OrderItemResponseDto> MarkOrderItemAsServed(int waiterId, int tableId, int orderItemId);
+    Task<SplitBillResponseDto> GetTableBillSplit(int waiterId, int tableId);
+    Task SaveTableBillSplit(int waiterId, int tableId, string customSplitsJson);
 }

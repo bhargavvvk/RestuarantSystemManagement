@@ -56,4 +56,6 @@ public class Bill
     public DateTime GeneratedAt { get; set; }
 
     public DateTime? PaidAt { get; set; }
+
+    public string? CustomSplitsJson { get; set; }
 }

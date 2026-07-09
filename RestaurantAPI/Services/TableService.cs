@@ -275,8 +275,11 @@ public class TableService:ITableService
         await _restaurentTableRepository.SaveChangesAsync();
 
         _logger.LogInformation("Table {TableNumber} created with ID {TableId}", table.TableNumber, table.Id);
-            await _hubContext.Clients.User(table.AssignedWaiterId!.Value.ToString())
+        if (table.AssignedWaiterId.HasValue)
+        {
+            await _hubContext.Clients.User(table.AssignedWaiterId.Value.ToString())
                 .SendAsync("tableassinged", $"{table.TableNumber} is assigned to you");
+        }
         return new TableResponseDto
         {
             Id = table.Id,

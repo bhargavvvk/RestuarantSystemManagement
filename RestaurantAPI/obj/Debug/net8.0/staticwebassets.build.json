@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dVOai1reklz1wrc9NChDpFByZv6F5LSOgppZsv7J6os=",
+  "Hash": "52TOBbxz/vH1ao9Q9SWJ/RFKOvBBKHNWYLANvovtMIM=",
   "Source": "RestaurantAPI",
   "BasePath": "_content/RestaurantAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "RestaurantAPI/wwwroot",
       "Source": "RestaurantAPI",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/085a9461-848e-4ada-a1bb-b0b46edba36b.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/085a9461-848e-4ada-a1bb-b0b46edba36b.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/085a9461-848e-4ada-a1bb-b0b46edba36b.avif",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/085a9461-848e-4ada-a1bb-b0b46edba36b.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/0d1a9056-0747-489b-a86d-ffdcea45634a.jpg",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/0d1a9056-0747-489b-a86d-ffdcea45634a.jpg",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/0d1a9056-0747-489b-a86d-ffdcea45634a.jpg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/0d1a9056-0747-489b-a86d-ffdcea45634a.jpg"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/11039768-2743-4567-9659-16b43cd1a1e4.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/11039768-2743-4567-9659-16b43cd1a1e4.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/11039768-2743-4567-9659-16b43cd1a1e4.avif",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/11039768-2743-4567-9659-16b43cd1a1e4.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/2408d88f-32cc-404b-9bbd-657d6e61590e.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/36b88a1b-37c3-4ac7-bbcc-6a79055d84b4.jpg"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/3b8ae555-250a-4c3a-9a11-4c775d3c692d.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/3b8ae555-250a-4c3a-9a11-4c775d3c692d.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/3b8ae555-250a-4c3a-9a11-4c775d3c692d.avif",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/3b8ae555-250a-4c3a-9a11-4c775d3c692d.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/8e5b5e28-4cc4-4f01-90ce-e27bd1c816fe.jpeg",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/8e5b5e28-4cc4-4f01-90ce-e27bd1c816fe.jpeg",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/8e5b5e28-4cc4-4f01-90ce-e27bd1c816fe.jpeg",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/8e5b5e28-4cc4-4f01-90ce-e27bd1c816fe.jpeg"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/935e0c7d-104f-475d-afa4-9cea7cdaa354.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/images/menu/b2abe65e-e230-4383-9517-4b2d4deffea2.avif",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/images/menu/b2abe65e-e230-4383-9517-4b2d4deffea2.avif",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "images/menu/b2abe65e-e230-4383-9517-4b2d4deffea2.avif",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot/images/menu/b2abe65e-e230-4383-9517-4b2d4deffea2.avif"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/mytext.txt",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/mytext.txt",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "mytext.txt",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot/mytext.txt"
     },
     {
-      "Identity": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/test-signalr.html",
+      "Identity": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/test-signalr.html",
       "SourceId": "RestaurantAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/wwwroot/",
+      "ContentRoot": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/wwwroot/",
       "BasePath": "_content/RestaurantAPI",
       "RelativePath": "test-signalr.html",
       "AssetKind": "All",

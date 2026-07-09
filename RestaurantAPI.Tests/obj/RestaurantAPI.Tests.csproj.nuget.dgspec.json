@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {}
+    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {}
   },
   "projects": {
-    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {
+    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
+        "projectUniqueName": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
         "projectName": "RestaurantAPI.Tests",
-        "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
-        "packagesPath": "/Users/bhargavkokkula/.nuget/packages/",
-        "outputPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/",
+        "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
+        "packagesPath": "/Users/sivaprakashs/.nuget/packages/",
+        "outputPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bhargavkokkula/.nuget/NuGet/NuGet.Config"
+          "/Users/sivaprakashs/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {
-                "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj"
+              "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {
+                "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj"
               }
             }
           }
@@ -96,17 +96,17 @@
         }
       }
     },
-    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {
+    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
+        "projectUniqueName": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
         "projectName": "RestaurantAPI",
-        "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
-        "packagesPath": "/Users/bhargavkokkula/.nuget/packages/",
-        "outputPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/",
+        "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
+        "packagesPath": "/Users/sivaprakashs/.nuget/packages/",
+        "outputPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bhargavkokkula/.nuget/NuGet/NuGet.Config"
+          "/Users/sivaprakashs/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

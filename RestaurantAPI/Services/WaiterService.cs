@@ -203,4 +203,36 @@ public class WaiterService:IWaiterService
         _logger.LogInformation("Order item {OrderItemId} marked as served by waiter {WaiterId} for table {TableId}", orderItemId, waiterId, tableId);
         return _mapper.Map<OrderItemResponseDto>(orderItem);
     }
+
+    public async Task<SplitBillResponseDto> GetTableBillSplit(int waiterId, int tableId)
+    {
+        _logger.LogInformation("Waiter {WaiterId} retrieving bill split for table {TableId}", waiterId, tableId);
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        if (session.WaiterId != waiterId)
+        {
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+        }
+        return await _billService.GetSplitBill(session.Id);
+    }
+
+    public async Task SaveTableBillSplit(int waiterId, int tableId, string customSplitsJson)
+    {
+        _logger.LogInformation("Waiter {WaiterId} saving bill split for table {TableId}", waiterId, tableId);
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        if (session.WaiterId != waiterId)
+        {
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+        }
+        await _billService.SaveCustomSplits(session.Id, customSplitsJson);
+    }
 }

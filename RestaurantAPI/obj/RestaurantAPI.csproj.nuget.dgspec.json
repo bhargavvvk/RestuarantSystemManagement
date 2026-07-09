@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {}
+    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {}
   },
   "projects": {
-    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {
+    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
+        "projectUniqueName": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
         "projectName": "RestaurantAPI",
-        "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
-        "packagesPath": "/Users/bhargavkokkula/.nuget/packages/",
-        "outputPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/",
+        "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
+        "packagesPath": "/Users/sivaprakashs/.nuget/packages/",
+        "outputPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/bhargavkokkula/.nuget/NuGet/NuGet.Config"
+          "/Users/sivaprakashs/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
