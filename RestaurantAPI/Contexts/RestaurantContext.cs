@@ -23,6 +23,7 @@ public class RestaurantContext: DbContext
     public DbSet<AuditLog> AuditLogs { get; set; }
     public DbSet<TaxConfiguration> TaxConfigurations { get; set; }
     public DbSet<InventoryItem> InventoryItems { get; set; }
+    public DbSet<DiningSessionTable> DiningSessionTables { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(user =>
@@ -203,7 +204,8 @@ public class RestaurantContext: DbContext
             cartItem.HasIndex(ci => new
             {
                 ci.CartId,
-                ci.MenuItemId
+                ci.MenuItemId,
+                ci.TableId
             })
             .IsUnique();
             cartItem.ToTable(t =>
@@ -222,6 +224,12 @@ public class RestaurantContext: DbContext
                 .WithMany(mi => mi.CartItems)
                 .HasForeignKey(ci => ci.MenuItemId)
                 .HasConstraintName("FK_CartItem_MenuItem")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            cartItem.HasOne(ci => ci.Table)
+                .WithMany()
+                .HasForeignKey(ci => ci.TableId)
+                .HasConstraintName("FK_CartItem_Table")
                 .OnDelete(DeleteBehavior.Restrict);
         });
         modelBuilder.Entity<Order>(order =>
@@ -264,7 +272,8 @@ public class RestaurantContext: DbContext
             orderItem.HasIndex(oi => new
             {
                 oi.OrderId,
-                oi.MenuItemId
+                oi.MenuItemId,
+                oi.TableId
             })
             .IsUnique();
 
@@ -289,6 +298,12 @@ public class RestaurantContext: DbContext
                 .WithMany(mi => mi.OrderItems)
                 .HasForeignKey(oi => oi.MenuItemId)
                 .HasConstraintName("FK_OrderItem_MenuItem")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            orderItem.HasOne(oi => oi.Table)
+                .WithMany()
+                .HasForeignKey(oi => oi.TableId)
+                .HasConstraintName("FK_OrderItem_Table")
                 .OnDelete(DeleteBehavior.Restrict);
         });
         modelBuilder.Entity<CustomerRequest>(request =>
@@ -446,5 +461,25 @@ public class RestaurantContext: DbContext
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<DiningSessionTable>(dst =>
+        {
+            dst.HasKey(x => x.Id).HasName("PK_DiningSessionTable");
+
+            dst.HasOne(x => x.DiningSession)
+                .WithMany(ds => ds.DiningSessionTables)
+                .HasForeignKey(x => x.DiningSessionId)
+                .HasConstraintName("FK_DiningSessionTable_DiningSession")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            dst.HasOne(x => x.Table)
+                .WithMany()
+                .HasForeignKey(x => x.TableId)
+                .HasConstraintName("FK_DiningSessionTable_Table")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            dst.Property(x => x.LinkedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone");
+        });
     }
 }

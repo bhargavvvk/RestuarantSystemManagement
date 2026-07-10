@@ -119,7 +119,8 @@ public class OrderService : IIOrderService
                         ItemName =cartItem.MenuItem!.Name,
                         ItemPrice =cartItem.MenuItem.Price,
                         Quantity =cartItem.Quantity,
-                        Status =OrderItemStatus.Placed
+                        Status =OrderItemStatus.Placed,
+                        TableId = cartItem.TableId
                     });
             }
             await _orderItemRepository.SaveChangesAsync();
@@ -331,7 +332,8 @@ public class OrderService : IIOrderService
                     ItemName = oldItem.ItemName,
                     ItemPrice = oldItem.ItemPrice,
                     Quantity = oldItem.Quantity,
-                    Status = OrderItemStatus.Placed
+                    Status = OrderItemStatus.Placed,
+                    TableId = oldItem.TableId
                 });
 
             var newOrder = await CreateReplacementOrder(order, replacementItems);
@@ -431,7 +433,8 @@ public class OrderService : IIOrderService
                                 oi.Id == orderItemId
                                     ? quantity
                                     : oi.Quantity,
-                            Status = OrderItemStatus.Placed
+                            Status = OrderItemStatus.Placed,
+                            TableId = oi.TableId
                         })
                     .ToList();
 
@@ -510,25 +513,32 @@ public class OrderService : IIOrderService
             var normalizedSearch =search.Trim();
             query = query.Where(o =>o.OrderNumber.Contains(normalizedSearch));
         }
-        var orders = await query
+        var rawOrders = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .Select(o => new OrderRegistryDto
+            .ToListAsync();
+
+        var orders = rawOrders.Select(o => {
+            var tables = new List<string> { o.DiningSession!.Table!.TableNumber };
+            if (o.DiningSession.DiningSessionTables != null && o.DiningSession.DiningSessionTables.Any())
+            {
+                tables.AddRange(o.DiningSession.DiningSessionTables.Select(dst => dst.Table!.TableNumber));
+            }
+
+            return new OrderRegistryDto
             {
                 OrderId = o.Id,
-                OrderNumber=o.OrderNumber,
-                TableNumber =o.DiningSession!.Table!.TableNumber,
+                OrderNumber = o.OrderNumber,
+                TableNumber = string.Join(", ", tables.Distinct()),
                 PlacedAt = o.PlacedAt,
-                ItemCount =o.OrderItems!.Count,
-                Status =
-                    o.CancelledAt != null
-                        ? "Cancelled"
-                        : o.DiningSession.Status ==
-                            DiningSessionStatus.Completed
-                            ? "Completed"
-                            : "Active"
-            })
-            .ToListAsync();
+                ItemCount = o.OrderItems!.Count,
+                Status = o.CancelledAt != null
+                            ? "Cancelled"
+                            : o.DiningSession.Status == DiningSessionStatus.Completed
+                                ? "Completed"
+                                : "Active"
+            };
+        }).ToList();
         return new PagedResponseDto<OrderRegistryDto>
         {
             Items = orders,
@@ -547,21 +557,25 @@ public class OrderService : IIOrderService
         }
 
         var bill = order.DiningSession?.Bill;
+        var tables = new List<string> { order.DiningSession!.Table!.TableNumber };
+        if (order.DiningSession.DiningSessionTables != null && order.DiningSession.DiningSessionTables.Any())
+        {
+            tables.AddRange(order.DiningSession.DiningSessionTables.Select(dst => dst.Table!.TableNumber));
+        }
 
         return new OrderDetailsDto
         {
             OrderId = order.Id,
-            OrderNumber=order.OrderNumber,
-            TableNumber =order.DiningSession!.Table!.TableNumber,
+            OrderNumber = order.OrderNumber,
+            TableNumber = string.Join(", ", tables.Distinct()),
             PlacedAt = order.PlacedAt,
-            Status =order.CancelledAt != null
+            Status = order.CancelledAt != null
                     ? "Cancelled"
-                    : order.DiningSession.Status ==
-                        DiningSessionStatus.Completed
+                    : order.DiningSession.Status == DiningSessionStatus.Completed
                         ? "Completed"
                         : "Active",
-            BillNumber =bill?.BillNumber ?? string.Empty,
-            BillTotal =bill?.GrandTotal ?? 0,
+            BillNumber = bill?.BillNumber ?? string.Empty,
+            BillTotal = bill?.GrandTotal ?? 0,
             OrderTotal = order.OrderItems!.Sum(oi => oi.ItemPrice * oi.Quantity),
             PaymentMethod = bill?.PaymentMethod,
             Items = order.OrderItems!

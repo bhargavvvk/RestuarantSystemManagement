@@ -277,7 +277,7 @@ public class DiningSessionService:IDiningSessionService
         var nextSequence =(int.Parse(sequencePart) + 1).ToString("D3");
         return $"{todayPart}{nextSequence}";
     }
-    public async Task<SessionValidationResponseDto>ValidateSession(int sessionId)
+    public async Task<SessionValidationResponseDto>ValidateSession(int sessionId, int? tableId = null)
     {
         var session =await _diningSessionRepository.Get(sessionId);
         if (session == null)
@@ -287,10 +287,21 @@ public class DiningSessionService:IDiningSessionService
                 IsActive = false
             };
         }
+
+        string? qrIdentifier = session.Table?.QrIdentifier;
+        if (tableId.HasValue && session.TableId != tableId.Value)
+        {
+            var linkedTable = session.DiningSessionTables?.FirstOrDefault(dst => dst.TableId == tableId.Value)?.Table;
+            if (linkedTable != null)
+            {
+                qrIdentifier = linkedTable.QrIdentifier;
+            }
+        }
+
         return new SessionValidationResponseDto
         {
             IsActive = session.Status == DiningSessionStatus.Active,
-            TableIdentifier = session.Table?.QrIdentifier
+            TableIdentifier = qrIdentifier
         };
     }
 }

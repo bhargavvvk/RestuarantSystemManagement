@@ -20,7 +20,6 @@ public class BillService : IBillService
     private readonly IAuditService _auditService;
     private readonly IOrderRepository _orderRepository;
     private readonly IHubContext<NotificationHub> _hubContext;
-    private static readonly System.Collections.Concurrent.ConcurrentDictionary<int, string> _customSplits = new();
 
     public BillService(IDiningSessionRepository diningSessionRepository, ILogger<BillService> logger, IBillRepository billRepository, IMapper mapper,
     ITaxConfigurationRepository taxConfigurationRepository,IAuditService auditService, IOrderRepository orderRepository,IHubContext<NotificationHub> hubContext)
@@ -49,7 +48,7 @@ public class BillService : IBillService
             throw new BillNotFoundException();
         }
         var dto = _mapper.Map<BillResponseDto>(bill);
-        dto.CustomSplitsJson = GetCustomSplits(sessionId);
+        dto.CustomSplitsJson = bill.CustomSplitsJson;
         return dto;
     }
     public async Task<BillResponseDto> MarkBillAsPaid(int sessionId,PaymentMethod paymentMethod)
@@ -211,19 +210,26 @@ public class BillService : IBillService
         }
         query = query.OrderByDescending(b => b.GeneratedAt);
         var totalCount =await query.CountAsync();
-        var bills = await query.Skip((pageNumber - 1) * pageSize)
+        var rawBills = await query.Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .Select(b => new BillRegistryDto
+            .ToListAsync();
+
+        var bills = rawBills.Select(b => {
+            var tables = new List<string> { b.DiningSession!.Table!.TableNumber };
+            if (b.DiningSession.DiningSessionTables != null && b.DiningSession.DiningSessionTables.Any())
+            {
+                tables.AddRange(b.DiningSession.DiningSessionTables.Select(dst => dst.Table!.TableNumber));
+            }
+            
+            return new BillRegistryDto
             {
                 BillId = b.Id,
                 BillNumber = b.BillNumber,
-                TableNumber =
-                    b.DiningSession!.Table!
-                        .TableNumber,
+                TableNumber = string.Join(", ", tables.Distinct()),
                 GeneratedAt = b.GeneratedAt,
                 GrandTotal = b.GrandTotal
-            })
-            .ToListAsync();
+            };
+        }).ToList();
 
         return new PagedResponseDto<BillRegistryDto>
         {
@@ -255,11 +261,17 @@ public class BillService : IBillService
         {
             throw new BillNotFoundException();
         }
+        var tables = new List<string> { bill.DiningSession!.Table!.TableNumber };
+        if (bill.DiningSession.DiningSessionTables != null && bill.DiningSession.DiningSessionTables.Any())
+        {
+            tables.AddRange(bill.DiningSession.DiningSessionTables.Select(dst => dst.Table!.TableNumber));
+        }
+
         return new BillDetailsDto
         {
             BillNumber = bill.BillNumber,
             GeneratedAt = bill.GeneratedAt,
-            TableNumber =bill.DiningSession!.Table!.TableNumber,
+            TableNumber = string.Join(", ", tables.Distinct()),
             WaiterId =bill.DiningSession.WaiterId,
             WaiterName =bill.DiningSession.Waiter!.Name,
             PaymentMethod = bill.PaymentMethod?.ToString(),
@@ -305,7 +317,7 @@ public class BillService : IBillService
             SgstPercentage = taxConfiguration.SgstPercentage,
             ServiceChargePercentage = taxConfiguration.ServiceChargePercentage,
             GrandTotal = bill.GrandTotal,
-            CustomSplitsJson = GetCustomSplits(sessionId)
+            CustomSplitsJson = bill.CustomSplitsJson
         };
 
         bool includeServiceCharge = bill.ServiceChargeAmount > 0;
@@ -373,24 +385,149 @@ public class BillService : IBillService
             }
         }
 
+        // ---- Table-wise splits ----
+        // Collect all order items across all orders, flattened
+        var allOrderItems = orders
+            .Where(o => o.OrderItems != null)
+            .SelectMany(o => o.OrderItems!)
+            .ToList();
+
+        // Build a lookup from tableId -> table number
+        var tableNumberLookup = new Dictionary<int, string>();
+        // Primary table
+        if (session.Table != null)
+            tableNumberLookup[session.TableId] = session.Table.TableNumber;
+        // Linked tables
+        if (session.DiningSessionTables != null)
+        {
+            foreach (var dst in session.DiningSessionTables)
+            {
+                if (dst.Table != null)
+                    tableNumberLookup[dst.TableId] = dst.Table.TableNumber;
+            }
+        }
+
+        // Group by TableId (null goes to primary table)
+        var grouped = allOrderItems
+            .GroupBy(oi => oi.TableId ?? session.TableId);
+
+        foreach (var group in grouped)
+        {
+            var tblId = group.Key;
+            var tblNumber = tableNumberLookup.TryGetValue(tblId, out var tn) ? tn : $"Table {tblId}";
+            var tblFoodTotal = group.Sum(oi => oi.ItemPrice * oi.Quantity);
+            var tblCgst = tblFoodTotal * taxConfiguration.CgstPercentage / 100;
+            var tblSgst = tblFoodTotal * taxConfiguration.SgstPercentage / 100;
+            var tblServiceCharge = includeServiceCharge ? (tblFoodTotal * taxConfiguration.ServiceChargePercentage / 100) : 0;
+            var tblTotal = tblFoodTotal + tblCgst + tblSgst + tblServiceCharge;
+
+            var tableSplit = new TableSplitOptionDto
+            {
+                TableId = tblId,
+                TableNumber = tblNumber,
+                FoodSubtotal = tblFoodTotal,
+                CgstAmount = tblCgst,
+                SgstAmount = tblSgst,
+                ServiceChargeAmount = tblServiceCharge,
+                TableTotal = tblTotal,
+                Items = group.Select(oi => new TableSplitItemDto
+                {
+                    ItemName = oi.ItemName,
+                    Quantity = oi.Quantity,
+                    ItemPrice = oi.ItemPrice,
+                    LineTotal = oi.ItemPrice * oi.Quantity
+                }).ToList()
+            };
+
+            response.TableSplits.Add(tableSplit);
+        }
+
         return response;
     }
 
     public async Task SaveCustomSplits(int sessionId, string customSplitsJson)
     {
         _logger.LogInformation("Saving custom splits for session {SessionId}", sessionId);
-        _customSplits[sessionId] = customSplitsJson;
-        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
-    }
+        var bill = await _billRepository.GetBySessionId(sessionId);
+        if (bill == null) throw new BillNotFoundException();
 
-    public string? GetCustomSplits(int sessionId)
-    {
-        _customSplits.TryGetValue(sessionId, out var customSplitsJson);
-        return customSplitsJson;
+        bill.CustomSplitsJson = customSplitsJson;
+        await _billRepository.Update(bill.Id, bill);
+        await _billRepository.SaveChangesAsync();
+
+        await _hubContext.Clients.Group($"session-{sessionId}").SendAsync("BillStatusChanged");
     }
 
     public void ClearCustomSplits(int sessionId)
     {
-        _customSplits.TryRemove(sessionId, out _);
+        // No-op or we can clear DB if necessary, but typically closing session clears it or we just don't care.
+    }
+
+    public async Task<TableBillDto> GetTableBill(int sessionId, int tableId)
+    {
+        _logger.LogInformation("Getting table bill for session {SessionId}, table {TableId}", sessionId, tableId);
+        var session = await _diningSessionRepository.Get(sessionId);
+        if (session == null) throw new SessionNotFoundException();
+
+        var bill = await _billRepository.GetBySessionId(sessionId);
+        if (bill == null) throw new BillNotFoundException();
+
+        var taxConfig = bill.TaxConfiguration ?? await _taxConfigurationRepository.GetActiveConfiguration()
+            ?? throw new Exception("Tax configuration not found");
+
+        // Determine linked tables count (1 = no group order, >1 = group order)
+        var linkedTableIds = session.DiningSessionTables?.Select(dst => dst.TableId).ToList() ?? new List<int>();
+        var isGroupOrder = linkedTableIds.Count > 0;
+
+        // Build table number lookup
+        var tableNumberLookup = new Dictionary<int, string>();
+        if (session.Table != null)
+            tableNumberLookup[session.TableId] = session.Table.TableNumber;
+        foreach (var dst in session.DiningSessionTables ?? Enumerable.Empty<RestaurantAPI.Models.DiningSessionTable>())
+        {
+            if (dst.Table != null)
+                tableNumberLookup[dst.TableId] = dst.Table.TableNumber;
+        }
+
+        var tableNumber = tableNumberLookup.TryGetValue(tableId, out var tn) ? tn : $"Table {tableId}";
+
+        var orders = await _orderRepository.GetBySessionId(sessionId);
+        var includeServiceCharge = taxConfig.ServiceChargePercentage > 0;
+
+        // Filter to active (non-cancelled) items for this specific table
+        // Items with null TableId fall back to the session's primary table
+        var myItems = orders
+            .Where(o => o.OrderItems != null)
+            .SelectMany(o => o.OrderItems!)
+            .Where(oi => oi.Status != OrderItemStatus.Cancelled)
+            .Where(oi => (oi.TableId ?? session.TableId) == tableId)
+            .ToList();
+
+        var myFoodTotal = myItems.Sum(oi => oi.ItemPrice * oi.Quantity);
+        var myCgst = myFoodTotal * taxConfig.CgstPercentage / 100;
+        var mySgst = myFoodTotal * taxConfig.SgstPercentage / 100;
+        var myServiceCharge = includeServiceCharge ? myFoodTotal * taxConfig.ServiceChargePercentage / 100 : 0;
+        var myTotal = myFoodTotal + myCgst + mySgst + myServiceCharge;
+
+        return new TableBillDto
+        {
+            BillNumber = bill.BillNumber,
+            TableId = tableId,
+            TableNumber = tableNumber,
+            MyTableFoodTotal = myFoodTotal,
+            CgstPercentage = taxConfig.CgstPercentage,
+            CgstAmount = myCgst,
+            SgstPercentage = taxConfig.SgstPercentage,
+            SgstAmount = mySgst,
+            ServiceChargePercentage = taxConfig.ServiceChargePercentage,
+            ServiceChargeAmount = myServiceCharge,
+            MyTableTotal = myTotal,
+            SessionGrandTotal = bill.GrandTotal,
+            IsGroupOrder = isGroupOrder,
+            LinkedTablesCount = linkedTableIds.Count + 1, // +1 for primary table
+            PaymentStatus = (int)bill.PaymentStatus,
+            GeneratedAt = bill.GeneratedAt,
+            CustomSplitsJson = bill.CustomSplitsJson
+        };
     }
 }

@@ -44,4 +44,6 @@ public class DiningSession
     public ICollection<CustomerRequest>? CustomerRequests { get; set; }
 
     public Bill? Bill { get; set; }
+
+    public ICollection<DiningSessionTable>? DiningSessionTables { get; set; }
 }

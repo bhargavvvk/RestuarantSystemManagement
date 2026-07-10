@@ -34,6 +34,16 @@ public class BillController : ControllerBase
     }
 
     [Authorize(Roles = "Customer")]
+    [HttpGet("Customer/my-table")]
+    public async Task<ActionResult<TableBillDto>> GetMyTableBill()
+    {
+        var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
+        var tableId = int.Parse(User.FindFirst("TableId")!.Value);
+        var result = await _billService.GetTableBill(sessionId, tableId);
+        return Ok(result);
+    }
+
+    [Authorize(Roles = "Customer")]
     [HttpPut("Customer/split")]
     public async Task<IActionResult> SaveCustomSplits([FromBody] SaveCustomSplitsDto request)
     {

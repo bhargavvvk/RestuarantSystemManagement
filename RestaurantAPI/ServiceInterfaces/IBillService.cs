@@ -15,6 +15,6 @@ public interface IBillService
     Task<BillDetailsDto> GetBillDetails(int billId);
     Task<SplitBillResponseDto> GetSplitBill(int sessionId);
     Task SaveCustomSplits(int sessionId, string customSplitsJson);
-    string? GetCustomSplits(int sessionId);
-    void ClearCustomSplits(int sessionId);
+    /// <summary>Returns a bill summary scoped to a specific table within a group-order session.</summary>
+    Task<TableBillDto> GetTableBill(int sessionId, int tableId);
 }

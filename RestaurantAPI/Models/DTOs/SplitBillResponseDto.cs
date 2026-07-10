@@ -10,5 +10,6 @@ public class SplitBillResponseDto
 
     public ICollection<OrderSplitOptionDto> OrderSplits { get; set; } = new List<OrderSplitOptionDto>();
     public ICollection<ItemSplitOptionDto> ItemSplits { get; set; } = new List<ItemSplitOptionDto>();
+    public ICollection<TableSplitOptionDto> TableSplits { get; set; } = new List<TableSplitOptionDto>();
     public string? CustomSplitsJson { get; set; }
 }

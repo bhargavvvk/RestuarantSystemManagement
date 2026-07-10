@@ -55,6 +55,14 @@ public class UserController : ControllerBase
     public async Task<ActionResult<SessionValidationResponseDto>>ValidateSession()
     {
         var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
-        return Ok(await _diningSessionService.ValidateSession(sessionId));
+        var tableIdClaim = User.FindFirst("TableId");
+        
+        int? tableId = null;
+        if (tableIdClaim != null)
+        {
+            tableId = int.Parse(tableIdClaim.Value);
+        }
+
+        return Ok(await _diningSessionService.ValidateSession(sessionId, tableId));
     }
 }

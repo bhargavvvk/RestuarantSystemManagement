@@ -96,6 +96,9 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
             .Include(o => o.OrderItems)
             .Include(o => o.DiningSession)
                 .ThenInclude(ds => ds!.Table)
+            .Include(o => o.DiningSession)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
             .AsQueryable();
     }
     public async Task<Order?> GetOrderDetails(int orderId)
@@ -103,9 +106,12 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
         return await _context.Orders
             .Include(o => o.OrderItems)
             .Include(o => o.DiningSession)
-                .ThenInclude(ds => ds.Table)
+                .ThenInclude(ds => ds!.Table)
             .Include(o => o.DiningSession)
-                .ThenInclude(ds => ds.Bill)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
+            .Include(o => o.DiningSession)
+                .ThenInclude(ds => ds!.Bill)
             .FirstOrDefaultAsync(
                 o => o.Id == orderId);
     }

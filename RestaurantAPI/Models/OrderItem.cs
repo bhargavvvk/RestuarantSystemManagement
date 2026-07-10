@@ -35,4 +35,7 @@ public class OrderItem
     public Order? Order { get; set; }
 
     public MenuItem? MenuItem { get; set; }
+
+    public int? TableId { get; set; }
+    public RestaurantTable? Table { get; set; }
 }
