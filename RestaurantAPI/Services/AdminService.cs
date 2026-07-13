@@ -64,12 +64,12 @@ public class AdminService : IAdminService
         return await _billService.UpdateServiceCharge(session.Id,includeServiceCharge);
     }
 
-    private async Task<DiningSession>GetActiveSessionForTable(int tableId)
+    private async Task<DiningSession> GetActiveSessionForTable(int tableId)
     {
-        var table =await _restaurentTableRepository.GetTableDetails(tableId);
-        if (table == null) throw new TableNotFoundException();
-        var activeSession =table.DiningSessions?.FirstOrDefault(ds =>ds.Status == DiningSessionStatus.Active);
-        if (activeSession == null)throw new SessionNotFoundException();
+        var table = await _restaurentTableRepository.Get(tableId);
+        if (table == null || table.IsDeleted) throw new TableNotFoundException();
+        var activeSession = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (activeSession == null) throw new SessionNotFoundException();
         return activeSession;
     }
 

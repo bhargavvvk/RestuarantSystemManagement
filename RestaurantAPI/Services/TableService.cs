@@ -299,13 +299,9 @@ public class TableService:ITableService
         if (table == null)
             throw new TableNotFoundException();
 
-        var activeSession =
-            table.DiningSessions?
-                .FirstOrDefault(ds =>
-                    ds.Status ==
-                    DiningSessionStatus.Active);
+        var activeSession = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
         if (activeSession == null)
-                throw new SessionNotFoundException();
+            throw new SessionNotFoundException();
 
         return new TableDetailsDto
         {

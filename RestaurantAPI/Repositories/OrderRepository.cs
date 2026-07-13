@@ -15,6 +15,7 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
         return await _context.Orders
             .AsNoTracking()
             .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Table)
             .Where(o =>
                 o.DiningSessionId == sessionId &&
                 o.CancelledAt == null)

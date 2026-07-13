@@ -189,7 +189,9 @@ public class OrderService : IIOrderService
                             ItemName =oi.ItemName,
                             ItemPrice =oi.ItemPrice,
                             Quantity =oi.Quantity,
-                            Status =oi.Status
+                            Status =oi.Status,
+                            TableId = oi.TableId,
+                            TableNumber = oi.Table?.TableNumber
                         })
                     .ToList()
             })

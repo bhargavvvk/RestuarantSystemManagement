@@ -11,4 +11,8 @@ public class OrderItemResponseDto
     public int Quantity { get; set; }
 
     public OrderItemStatus Status { get; set; }
+
+    public int? TableId { get; set; }
+
+    public string? TableNumber { get; set; }
 }
