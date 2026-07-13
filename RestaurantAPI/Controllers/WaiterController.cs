@@ -104,11 +104,35 @@ public class WaiterController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("tables/{tableId}/bill/split")]
+    public async Task<ActionResult<SplitBillResponseDto>> GetTableBillSplit(int tableId)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _waiterService.GetTableBillSplit(waiterId, tableId);
+        return Ok(result);
+    }
+
+    [HttpPut("tables/{tableId}/bill/split")]
+    public async Task<IActionResult> SaveTableBillSplit(int tableId, [FromBody] SaveCustomSplitsDto request)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _waiterService.SaveTableBillSplit(waiterId, tableId, request.CustomSplitsJson);
+        return Ok();
+    }
+
     [HttpPut("tables/{tableId}/bill/pay")]
     public async Task<ActionResult<BillResponseDto>>MarkBillPaid(int tableId,MarkBillPaidDto request)
     {
         var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _waiterService.MarkTableBillAsPaid(waiterId,tableId,request);
+        return Ok(result);
+    }
+
+    [HttpPut("tables/{tableId}/bill/pay-split")]
+    public async Task<ActionResult<BillResponseDto>>MarkTableSplitPaid(int tableId, MarkTableSplitPaidDto request)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _waiterService.MarkTableSplitAsPaid(waiterId, tableId, request);
         return Ok(result);
     }
 
@@ -136,5 +160,31 @@ public class WaiterController : ControllerBase
         var waiterId =int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         await _customerRequestService.CompleteRequest(waiterId,requestId);
         return Ok();
+    }
+
+    // ---- Group table link / unlink ----
+
+    [HttpGet("tables/{tableId}/linked-tables")]
+    public async Task<ActionResult<ICollection<int>>> GetLinkedTables(int tableId)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _waiterService.GetLinkedTables(waiterId, tableId);
+        return Ok(result);
+    }
+
+    [HttpPost("tables/{tableId}/linked-tables/{secondaryTableId}")]
+    public async Task<ActionResult<ICollection<int>>> LinkTable(int tableId, int secondaryTableId)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _waiterService.LinkTableToSession(waiterId, tableId, secondaryTableId);
+        return Ok(result);
+    }
+
+    [HttpDelete("tables/{tableId}/linked-tables/{secondaryTableId}")]
+    public async Task<IActionResult> UnlinkTable(int tableId, int secondaryTableId)
+    {
+        var waiterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _waiterService.UnlinkTableFromSession(waiterId, tableId, secondaryTableId);
+        return NoContent();
     }
 }

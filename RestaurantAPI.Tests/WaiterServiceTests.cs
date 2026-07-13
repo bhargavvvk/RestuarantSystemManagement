@@ -136,11 +136,11 @@ public class WaiterServiceTests
         var request = new AddToCartDto { MenuItemId = 99 };
 
         _sessionRepoMock.Setup(r => r.GetActiveSessionWithCartByTableId(TableId)).ReturnsAsync(session);
-        _cartServiceMock.Setup(s => s.AddToCart(CartId, request)).Returns(Task.CompletedTask);
+        _cartServiceMock.Setup(s => s.AddToCart(SessionId, CartId, request)).Returns(Task.CompletedTask);
 
         await _waiterService.AddItemToTableCart(WaiterId, TableId, request);
 
-        _cartServiceMock.Verify(s => s.AddToCart(CartId, request), Times.Once);
+        _cartServiceMock.Verify(s => s.AddToCart(SessionId, CartId, request), Times.Once);
     }
 
     [Test]
@@ -174,11 +174,11 @@ public class WaiterServiceTests
         var request = new UpdateCartItemDto { Quantity = 3 };
 
         _sessionRepoMock.Setup(r => r.GetActiveSessionWithCartByTableId(TableId)).ReturnsAsync(session);
-        _cartServiceMock.Setup(s => s.UpdateCartItem(CartId, CartItemId, request)).Returns(Task.CompletedTask);
+        _cartServiceMock.Setup(s => s.UpdateCartItem(SessionId, CartId, CartItemId, request)).Returns(Task.CompletedTask);
 
         await _waiterService.UpdateTableCartItem(WaiterId, TableId, CartItemId, request);
 
-        _cartServiceMock.Verify(s => s.UpdateCartItem(CartId, CartItemId, request), Times.Once);
+        _cartServiceMock.Verify(s => s.UpdateCartItem(SessionId, CartId, CartItemId, request), Times.Once);
     }
 
     [Test]
@@ -211,11 +211,11 @@ public class WaiterServiceTests
         var session = ActiveSession();
 
         _sessionRepoMock.Setup(r => r.GetActiveSessionWithCartByTableId(TableId)).ReturnsAsync(session);
-        _cartServiceMock.Setup(s => s.RemoveCartItem(CartId, CartItemId)).Returns(Task.CompletedTask);
+        _cartServiceMock.Setup(s => s.RemoveCartItem(SessionId, CartId, CartItemId)).Returns(Task.CompletedTask);
 
         await _waiterService.RemoveTableCartItem(WaiterId, TableId, CartItemId);
 
-        _cartServiceMock.Verify(s => s.RemoveCartItem(CartId, CartItemId), Times.Once);
+        _cartServiceMock.Verify(s => s.RemoveCartItem(SessionId, CartId, CartItemId), Times.Once);
     }
 
     [Test]

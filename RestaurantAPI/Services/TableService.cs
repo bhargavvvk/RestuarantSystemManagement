@@ -32,18 +32,20 @@ public class TableService:ITableService
     public async Task<IEnumerable<WaiterTableResponseDto>> GetAssignedTablesAsync(int waiterId)
     {
         _logger.LogInformation("Fetching assigned tables for waiter {WaiterId}", waiterId);
-        var tables =
-        await _restaurentTableRepository.GetAssignedTablesWithSessions(waiterId);
-        var result = tables.Select(table =>
+        var tables = await _restaurentTableRepository.GetAssignedTablesWithSessions(waiterId);
+        var occupiedTableIds = (await _diningSessionRepository.GetActiveTableIds()).ToHashSet();
+
+        var result = new List<WaiterTableResponseDto>();
+        foreach(var table in tables)
         {
             string status;
-            var activeSession = table.DiningSessions?.FirstOrDefault(ds => ds.Status == DiningSessionStatus.Active);
+            var activeSession = await _diningSessionRepository.GetActiveSessionByTableId(table.Id);
 
             if (table.Status == TableStatus.Unavailable)
             {
                 status = "Unavailable";
             }
-            else if (activeSession != null)
+            else if (occupiedTableIds.Contains(table.Id))
             {
                 status = "Occupied";
             }
@@ -52,14 +54,14 @@ public class TableService:ITableService
                 status = "Available";
             }
 
-            return new WaiterTableResponseDto
+            result.Add(new WaiterTableResponseDto
             {
                 TableId = table.Id,
                 TableNumber = table.TableNumber,
                 Status = status,
                 SessionId = activeSession?.Id
-            };
-        });
+            });
+        }
 
         return result;
     }
@@ -275,8 +277,11 @@ public class TableService:ITableService
         await _restaurentTableRepository.SaveChangesAsync();
 
         _logger.LogInformation("Table {TableNumber} created with ID {TableId}", table.TableNumber, table.Id);
-            await _hubContext.Clients.User(table.AssignedWaiterId!.Value.ToString())
+        if (table.AssignedWaiterId.HasValue)
+        {
+            await _hubContext.Clients.User(table.AssignedWaiterId.Value.ToString())
                 .SendAsync("tableassinged", $"{table.TableNumber} is assigned to you");
+        }
         return new TableResponseDto
         {
             Id = table.Id,

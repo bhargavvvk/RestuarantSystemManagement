@@ -29,7 +29,8 @@ public class CustomerCartController : ControllerBase
 
         var cartId = int.Parse(User.FindFirst("CartId")!.Value);
         var sessionId = int.Parse(User.FindFirst("SessionId")!.Value);
-        await _cartService.AddToCart(sessionId,cartId,request);
+        var tableId = int.Parse(User.FindFirst("TableId")!.Value);
+        await _cartService.AddToCart(sessionId, cartId, request, tableId);
             return Created();
     }
     [HttpPatch("items/{cartItemId}")]

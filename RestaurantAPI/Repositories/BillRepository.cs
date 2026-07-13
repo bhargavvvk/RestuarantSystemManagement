@@ -25,6 +25,9 @@ public class BillRepository : AbstractRepository<int, Bill>, IBillRepository
         return _context.Bills
             .Include(b => b.DiningSession)
                 .ThenInclude(ds => ds!.Table)
+            .Include(b => b.DiningSession)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
             .AsQueryable();
     }
     public async Task<Bill?> GetBillDetails(int billId)
@@ -32,9 +35,12 @@ public class BillRepository : AbstractRepository<int, Bill>, IBillRepository
         return await _context.Bills
             .Include(b => b.TaxConfiguration)
             .Include(b => b.DiningSession)
-                .ThenInclude(ds => ds.Table)
+                .ThenInclude(ds => ds!.Table)
             .Include(b => b.DiningSession)
-                .ThenInclude(ds => ds.Waiter)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
+            .Include(b => b.DiningSession)
+                .ThenInclude(ds => ds!.Waiter)
             .FirstOrDefaultAsync(
                 b => b.Id == billId);
     }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using AutoMapper;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
@@ -20,6 +21,7 @@ public class BillServiceTests
     private Mock<IOrderRepository>            _orderRepoMock;
     private Mock<IAuditService>               _auditMock;
     private Mock<IMapper>                     _mapperMock;
+    private Mock<IHubContext<NotificationHub>> _hubContextMock;
     private BillService                       _billService;
 
     [SetUp]
@@ -31,6 +33,13 @@ public class BillServiceTests
         _orderRepoMock   = new Mock<IOrderRepository>();
         _auditMock       = new Mock<IAuditService>();
         _mapperMock      = new Mock<IMapper>();
+        var clientsMock = new Mock<IHubClients>();
+        var proxyMock   = new Mock<IClientProxy>();
+        proxyMock.Setup(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object[]>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        clientsMock.Setup(c => c.Group(It.IsAny<string>())).Returns(proxyMock.Object);
+        clientsMock.Setup(c => c.User(It.IsAny<string>())).Returns(proxyMock.Object);
+        _hubContextMock  = new Mock<IHubContext<NotificationHub>>();
+        _hubContextMock.Setup(h => h.Clients).Returns(clientsMock.Object);
 
         _auditMock
             .Setup(a => a.LogAsync(
@@ -50,7 +59,8 @@ public class BillServiceTests
             _mapperMock.Object,
             _taxRepoMock.Object,
             _auditMock.Object,
-            _orderRepoMock.Object);
+            _orderRepoMock.Object,
+            _hubContextMock.Object);
     }
 
     private static Bill PendingBill(int id = 1, int sessionId = 10) => new()
@@ -502,7 +512,107 @@ public class BillServiceTests
 
         Assert.ThrowsAsync<BillNotFoundException>(() =>_billService.GetBillDetails(99));
     }
+    [Test]
+    public async Task GetSplitBill_Success()
+    {
+        // Arrange
+        var sessionId = 10;
+        var session = new DiningSession { Id = sessionId };
+        var bill = PendingBill(1, sessionId);
+        var taxConfig = ActiveTax();
+
+        var orderItems = new List<OrderItem>
+        {
+            new OrderItem { Id = 1, ItemName = "Burger", ItemPrice = 10m, Quantity = 2, Status = OrderItemStatus.Served },
+            new OrderItem { Id = 2, ItemName = "Fries", ItemPrice = 5m, Quantity = 1, Status = OrderItemStatus.Ready }
+        };
+
+        var orders = new List<Order>
+        {
+            new Order
+            {
+                Id = 101,
+                OrderNumber = "ORD001",
+                TotalAmount = 25m, // 10 * 2 + 5 * 1
+                OrderItems = orderItems
+            }
+        };
+
+        _sessionRepoMock.Setup(r => r.Get(sessionId)).ReturnsAsync(session);
+        _billRepoMock.Setup(r => r.GetBySessionId(sessionId)).ReturnsAsync(bill);
+        _taxRepoMock.Setup(r => r.Get(bill.TaxConfigurationId)).ReturnsAsync(taxConfig);
+        _orderRepoMock.Setup(r => r.GetBySessionId(sessionId)).ReturnsAsync(orders);
+
+        // Act
+        var result = await _billService.GetSplitBill(sessionId);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.FoodTotal, Is.EqualTo(bill.FoodTotal));
+            Assert.That(result.GrandTotal, Is.EqualTo(bill.GrandTotal));
+            Assert.That(result.CgstPercentage, Is.EqualTo(taxConfig.CgstPercentage));
+
+            // Order splits checks
+            Assert.That(result.OrderSplits, Has.Count.EqualTo(1));
+            var orderSplit = result.OrderSplits.First();
+            Assert.That(orderSplit.OrderId, Is.EqualTo(101));
+            Assert.That(orderSplit.FoodTotal, Is.EqualTo(25m));
+            Assert.That(orderSplit.CgstAmount, Is.EqualTo(1.25m));
+            Assert.That(orderSplit.SgstAmount, Is.EqualTo(1.25m));
+            Assert.That(orderSplit.ServiceChargeAmount, Is.EqualTo(1.25m));
+            Assert.That(orderSplit.GrandTotal, Is.EqualTo(28.75m));
+
+            // Item splits checks
+            Assert.That(result.ItemSplits, Has.Count.EqualTo(2));
+            var burgerSplit = result.ItemSplits.First(i => i.ItemName == "Burger");
+            Assert.That(burgerSplit.FoodTotal, Is.EqualTo(20m)); // 10 * 2
+            Assert.That(burgerSplit.CgstAmount, Is.EqualTo(1m)); // 20 * 5%
+            Assert.That(burgerSplit.GrandTotal, Is.EqualTo(23m)); // 20 + 1 + 1 + 1
+        });
+    }
+
+    [Test]
+    public void GetSplitBill_SessionNotFound()
+    {
+        _sessionRepoMock.Setup(r => r.Get(99)).ReturnsAsync((DiningSession?)null);
+        Assert.ThrowsAsync<SessionNotFoundException>(() => _billService.GetSplitBill(99));
+    }
+
+    [Test]
+    public void GetSplitBill_BillNotFound()
+    {
+        _sessionRepoMock.Setup(r => r.Get(10)).ReturnsAsync(new DiningSession { Id = 10 });
+        _billRepoMock.Setup(r => r.GetBySessionId(10)).ReturnsAsync((Bill?)null);
+        Assert.ThrowsAsync<BillNotFoundException>(() => _billService.GetSplitBill(10));
+    }
+
+    [Test]
+    public async Task SaveAndGetCustomSplits_Success()
+    {
+        var sessionId = 42;
+        var customJson = "{\"splits\":[]}";
+
+        await _billService.SaveCustomSplits(sessionId, customJson);
+        var retrieved = _billService.GetCustomSplits(sessionId);
+
+        Assert.That(retrieved, Is.EqualTo(customJson));
+    }
+
+    [Test]
+    public async Task ClearCustomSplits_Success()
+    {
+        var sessionId = 42;
+        var customJson = "{\"splits\":[]}";
+
+        await _billService.SaveCustomSplits(sessionId, customJson);
+        _billService.ClearCustomSplits(sessionId);
+        var retrieved = _billService.GetCustomSplits(sessionId);
+
+        Assert.That(retrieved, Is.Null);
+    }
 }
+
 
 internal sealed class TestAsyncQueryProvider<TEntity>(IQueryProvider inner) : IAsyncQueryProvider
 {

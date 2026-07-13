@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
@@ -17,6 +18,7 @@ public class TableServiceTests
     private Mock<IDiningSessionRepository>   _sessionRepoMock;
     private Mock<IAuditService>              _auditMock;
     private Mock<IUserRepository>            _userRepoMock;
+    private Mock<IHubContext<NotificationHub>> _hubContextMock;
     private TableService                     _tableService;
 
     private const int    TableId   = 1;
@@ -30,6 +32,14 @@ public class TableServiceTests
         _sessionRepoMock = new Mock<IDiningSessionRepository>();
         _auditMock       = new Mock<IAuditService>();
         _userRepoMock    = new Mock<IUserRepository>();
+        var clientsMock = new Mock<IHubClients>();
+        var proxyMock   = new Mock<IClientProxy>();
+        proxyMock.Setup(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object[]>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        clientsMock.Setup(c => c.Group(It.IsAny<string>())).Returns(proxyMock.Object);
+        clientsMock.Setup(c => c.User(It.IsAny<string>())).Returns(proxyMock.Object);
+        clientsMock.Setup(c => c.All).Returns(proxyMock.Object);
+        _hubContextMock  = new Mock<IHubContext<NotificationHub>>();
+        _hubContextMock.Setup(h => h.Clients).Returns(clientsMock.Object);
 
         _auditMock
             .Setup(a => a.LogAsync(
@@ -47,7 +57,8 @@ public class TableServiceTests
             NullLogger<ITableService>.Instance,
             _sessionRepoMock.Object,
             _auditMock.Object,
-            _userRepoMock.Object);
+            _userRepoMock.Object,
+            _hubContextMock.Object);
     }
 
     private static RestaurantTable AvailableTable() => new()

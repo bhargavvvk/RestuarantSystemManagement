@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RestaurantAPI.Contexts;
 using RestaurantAPI.Models;
@@ -43,7 +44,8 @@ public class TaxConfigurationServiceTests
             _repoMock.Object,
             _mapperMock.Object,
             _context,
-            _auditMock.Object);
+            _auditMock.Object,
+            NullLogger<TaxConfigurationService>.Instance);
     }
 
     [TearDown]

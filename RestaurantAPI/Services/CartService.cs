@@ -91,7 +91,7 @@ public class CartService : ICartService
                 })
             .ToList();
     }
-    public async Task AddToCart(int sessionId,int cartId, AddToCartDto request)
+    public async Task AddToCart(int sessionId, int cartId, AddToCartDto request, int tableId)
     {   await ValidateBillNotPaid(cartId);
         var menuItem =await _menuItemRepository.Get(request.MenuItemId);
         if(menuItem == null)
@@ -113,7 +113,8 @@ public class CartService : ICartService
         {
             CartId = cartId,
             MenuItemId = request.MenuItemId,
-            Quantity = 1
+            Quantity = 1,
+            TableId = tableId
         };
         await _cartItemRepository.Create(cartItem);
         await _cartItemRepository.SaveChangesAsync();

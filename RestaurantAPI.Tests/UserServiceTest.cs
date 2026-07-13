@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RestaurantAPI.Contexts;
 using RestaurantAPI.Exceptions;
@@ -59,7 +60,8 @@ public class UserServiceTests
             _tokenMock.Object,    
             _auditMock.Object,     
             _context,
-            _httpContextAccessorMock.Object);
+            _httpContextAccessorMock.Object,
+            NullLogger<UserService>.Instance);
     }
 
     [TearDown]

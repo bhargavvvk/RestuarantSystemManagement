@@ -13,13 +13,14 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
     public async Task<ICollection<Order>> GetBySessionId(int sessionId)
     {
         return await _context.Orders
+            .AsNoTracking()
             .Include(o => o.OrderItems)
             .Where(o =>
                 o.DiningSessionId == sessionId &&
                 o.CancelledAt == null)
             .OrderByDescending(o => o.PlacedAt)
             .ToListAsync();
-        }
+    }
     public async Task<int> GetKitchenQueueCount()
     {
         return await _context.Orders.CountAsync(o =>o.OrderItems!.All(i =>i.Status == OrderItemStatus.Placed));
@@ -95,6 +96,9 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
             .Include(o => o.OrderItems)
             .Include(o => o.DiningSession)
                 .ThenInclude(ds => ds!.Table)
+            .Include(o => o.DiningSession)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
             .AsQueryable();
     }
     public async Task<Order?> GetOrderDetails(int orderId)
@@ -102,9 +106,12 @@ public class OrderRepository : AbstractRepository<int, Order>, IOrderRepository
         return await _context.Orders
             .Include(o => o.OrderItems)
             .Include(o => o.DiningSession)
-                .ThenInclude(ds => ds.Table)
+                .ThenInclude(ds => ds!.Table)
             .Include(o => o.DiningSession)
-                .ThenInclude(ds => ds.Bill)
+                .ThenInclude(ds => ds!.DiningSessionTables!)
+                    .ThenInclude(dst => dst.Table)
+            .Include(o => o.DiningSession)
+                .ThenInclude(ds => ds!.Bill)
             .FirstOrDefaultAsync(
                 o => o.Id == orderId);
     }

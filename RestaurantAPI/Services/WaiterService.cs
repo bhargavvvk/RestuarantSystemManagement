@@ -20,8 +20,10 @@ public class WaiterService:IWaiterService
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IMapper _mapper;
     private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly IBillRepository _billRepository;
+
     public WaiterService(ICartService cartService, IDiningSessionRepository diningSessionRepository, ILogger<IWaiterService> logger, IIOrderService orderService,
-    IBillService billService,IOrderItemRepository orderItemRepository, IMapper mapper,IHubContext<NotificationHub> hubContext)
+    IBillService billService,IOrderItemRepository orderItemRepository, IMapper mapper,IHubContext<NotificationHub> hubContext, IBillRepository billRepository)
     {
         _cartService = cartService;
         _diningSessionRepository = diningSessionRepository;
@@ -31,6 +33,7 @@ public class WaiterService:IWaiterService
         _orderItemRepository = orderItemRepository;
         _mapper = mapper;
         _hubContext=hubContext;
+        _billRepository = billRepository;
     }
 
     public async Task<ICollection<CartItemResponseDto>> GetTableCart(int waiterId, int tableId)
@@ -60,7 +63,7 @@ public class WaiterService:IWaiterService
         if (session.WaiterId != waiterId)
             throw new UnauthorizedAccessException( "Table is not assigned to the logged-in waiter.");
 
-        await _cartService.AddToCart(session.Id,session.Cart!.Id,request);
+        await _cartService.AddToCart(session.Id, session.Cart!.Id, request, tableId);
     }
     public async Task UpdateTableCartItem(int waiterId, int tableId, int cartItemId, UpdateCartItemDto request)
     {
@@ -163,6 +166,86 @@ public class WaiterService:IWaiterService
 
         return await _billService.MarkBillAsPaid(session.Id,request.PaymentMethod);
     }
+    
+    public async Task<BillResponseDto> MarkTableSplitAsPaid(int waiterId, int sessionTableId, MarkTableSplitPaidDto request)
+    {
+        if (!Enum.IsDefined(typeof(PaymentMethod), request.PaymentMethod))
+        {
+            throw new ValidationException("Invalid payment method.");
+        }
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(sessionTableId);
+
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        if (session.WaiterId != waiterId)
+        {
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+        }
+
+        var bill = await _billRepository.GetBySessionId(session.Id);
+        if (bill == null)
+        {
+            throw new BillNotFoundException();
+        }
+
+        if (string.IsNullOrEmpty(bill.CustomSplitsJson))
+        {
+            throw new InvalidOperationException("No custom splits configured for this bill.");
+        }
+
+        var jsonNode = System.Text.Json.Nodes.JsonNode.Parse(bill.CustomSplitsJson);
+        if (jsonNode?["splitType"]?.ToString() != "table")
+        {
+            throw new InvalidOperationException("Bill is not split by table.");
+        }
+
+        var tableSplits = jsonNode["tableSplits"]?.AsArray();
+        if (tableSplits == null)
+        {
+             throw new InvalidOperationException("Table splits data is missing.");
+        }
+
+        bool allPaid = true;
+        bool found = false;
+
+        foreach (var split in tableSplits)
+        {
+            if (split?["tableId"]?.GetValue<int>() == request.TargetTableId)
+            {
+                split["paymentStatus"] = 1;
+                split["paymentMethod"] = (int)request.PaymentMethod;
+                found = true;
+            }
+            
+            if (split?["paymentStatus"]?.GetValue<int?>() != 1)
+            {
+                allPaid = false;
+            }
+        }
+
+        if (!found)
+        {
+            throw new ValidationException("Specified table split not found.");
+        }
+
+        bill.CustomSplitsJson = jsonNode.ToJsonString();
+        
+        if (allPaid)
+        {
+            // If all tables have paid their splits, mark the whole bill as paid.
+            return await _billService.MarkBillAsPaid(session.Id, request.PaymentMethod);
+        }
+        else
+        {
+            await _billRepository.Update(bill.Id, bill);
+            await _billRepository.SaveChangesAsync();
+            var mappedBill = _mapper.Map<BillResponseDto>(bill);
+            return mappedBill;
+        }
+    }
     public async Task<OrderItemResponseDto> MarkOrderItemAsServed(int waiterId, int tableId, int orderItemId)
     {
         var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
@@ -202,5 +285,75 @@ public class WaiterService:IWaiterService
         await _hubContext.Clients.Group("kitchen").SendAsync("ItemServed", $"{orderItem.ItemName} is served");
         _logger.LogInformation("Order item {OrderItemId} marked as served by waiter {WaiterId} for table {TableId}", orderItemId, waiterId, tableId);
         return _mapper.Map<OrderItemResponseDto>(orderItem);
+    }
+
+    public async Task<SplitBillResponseDto> GetTableBillSplit(int waiterId, int tableId)
+    {
+        _logger.LogInformation("Waiter {WaiterId} retrieving bill split for table {TableId}", waiterId, tableId);
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        if (session.WaiterId != waiterId)
+        {
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+        }
+        return await _billService.GetSplitBill(session.Id);
+    }
+
+    public async Task SaveTableBillSplit(int waiterId, int tableId, string customSplitsJson)
+    {
+        _logger.LogInformation("Waiter {WaiterId} saving bill split for table {TableId}", waiterId, tableId);
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (session == null)
+        {
+            throw new SessionNotFoundException();
+        }
+
+        if (session.WaiterId != waiterId)
+        {
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+        }
+        await _billService.SaveCustomSplits(session.Id, customSplitsJson);
+    }
+
+    public async Task<ICollection<int>> LinkTableToSession(int waiterId, int primaryTableId, int secondaryTableId)
+    {
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(primaryTableId);
+        if (session == null) throw new SessionNotFoundException();
+        if (session.WaiterId != waiterId)
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+
+        if (await _diningSessionRepository.HasActiveSession(secondaryTableId))
+            throw new InvalidOperationException($"Table {secondaryTableId} already has an active session.");
+
+        await _diningSessionRepository.LinkTable(session.Id, secondaryTableId);
+        var linkedIds = await _diningSessionRepository.GetLinkedTableIds(session.Id);
+        await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("BillStatusChanged");
+        return linkedIds;
+    }
+
+    public async Task UnlinkTableFromSession(int waiterId, int primaryTableId, int secondaryTableId)
+    {
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(primaryTableId);
+        if (session == null) throw new SessionNotFoundException();
+        if (session.WaiterId != waiterId)
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+
+        await _diningSessionRepository.UnlinkTable(session.Id, secondaryTableId);
+        await _hubContext.Clients.Group($"session-{session.Id}").SendAsync("BillStatusChanged");
+    }
+
+    public async Task<ICollection<int>> GetLinkedTables(int waiterId, int tableId)
+    {
+        var session = await _diningSessionRepository.GetActiveSessionByTableId(tableId);
+        if (session == null) throw new SessionNotFoundException();
+        if (session.WaiterId != waiterId)
+            throw new UnauthorizedAccessException("Table is not assigned to the logged-in waiter.");
+
+        var linkedIds = await _diningSessionRepository.GetLinkedTableIds(session.Id);
+        return linkedIds;
     }
 }

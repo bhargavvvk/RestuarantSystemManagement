@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using RestaurantAPI.Exceptions;
@@ -14,6 +15,7 @@ public class CartServiceTests
     private Mock<IMenuItemRepository> _menuItemRepoMock;
     private Mock<ICartRepository>     _cartRepoMock;
     private Mock<IBillRepository>     _billRepoMock;
+    private Mock<IHubContext<NotificationHub>> _hubContextMock;
     private CartService  _cartService;
 
     private const int CartId     = 10;
@@ -34,13 +36,20 @@ public class CartServiceTests
         _menuItemRepoMock = new Mock<IMenuItemRepository>();
         _cartRepoMock     = new Mock<ICartRepository>();
         _billRepoMock     = new Mock<IBillRepository>();
+        var clientsMock = new Mock<IHubClients>();
+        var proxyMock   = new Mock<IClientProxy>();
+        proxyMock.Setup(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object[]>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        clientsMock.Setup(c => c.Group(It.IsAny<string>())).Returns(proxyMock.Object);
+        _hubContextMock  = new Mock<IHubContext<NotificationHub>>();
+        _hubContextMock.Setup(h => h.Clients).Returns(clientsMock.Object);
 
         _cartService = new CartService(
             _cartItemRepoMock.Object,
             _menuItemRepoMock.Object,
             NullLogger<CartService>.Instance,
             _cartRepoMock.Object,
-            _billRepoMock.Object);
+            _billRepoMock.Object,
+            _hubContextMock.Object);
     }
 
     private void SetUpValidCart()
@@ -57,7 +66,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.GetByCartAndMenuItem(CartId, MenuItemId)).ReturnsAsync((CartItem?)null);
         _cartItemRepoMock.Setup(r => r.Create(It.IsAny<CartItem>())).Returns<CartItem>(c => Task.FromResult(c));
         _cartItemRepoMock.Setup(r => r.SaveChangesAsync()).ReturnsAsync(0);
-        await _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId });
+        await _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId });
         _cartItemRepoMock.Verify(r => r.Create(It.IsAny<CartItem>()), Times.Once);
         _cartItemRepoMock.Verify(r => r.SaveChangesAsync(), Times.Once);
     }
@@ -68,7 +77,7 @@ public class CartServiceTests
         _cartRepoMock.Setup(r => r.Get(CartId)).ReturnsAsync((Cart?)null);
 
         Assert.ThrowsAsync<CartNotFoundException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
     }
 
     [Test]
@@ -78,7 +87,7 @@ public class CartServiceTests
         _billRepoMock.Setup(r => r.GetBySessionId(SessionId)).ReturnsAsync((Bill?)null);
 
         Assert.ThrowsAsync<BillNotFoundException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
     }
 
     [Test]
@@ -88,7 +97,7 @@ public class CartServiceTests
         _billRepoMock.Setup(r => r.GetBySessionId(SessionId)).ReturnsAsync(PaidBill);
 
         var ex = Assert.ThrowsAsync<CartException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
 
         Assert.That(ex!.Message, Is.EqualTo("Cannot modify cart after bill payment."));
     }
@@ -100,7 +109,7 @@ public class CartServiceTests
         _menuItemRepoMock.Setup(r => r.Get(MenuItemId)).ReturnsAsync((MenuItem?)null);
 
         Assert.ThrowsAsync<MenuItemNotFoundException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
     }
 
     [Test]
@@ -110,7 +119,7 @@ public class CartServiceTests
         _menuItemRepoMock.Setup(r => r.Get(MenuItemId)).ReturnsAsync(UnavailableItem);
 
         Assert.ThrowsAsync<MenuItemUnavailableException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
     }
 
     [Test]
@@ -122,7 +131,7 @@ public class CartServiceTests
                          .ReturnsAsync(new CartItem { Id = CartItemId, CartId = CartId, MenuItemId = MenuItemId });
 
         var ex = Assert.ThrowsAsync<CartException>(
-            () => _cartService.AddToCart(CartId, new AddToCartDto { MenuItemId = MenuItemId }));
+            () => _cartService.AddToCart(SessionId, CartId, new AddToCartDto { MenuItemId = MenuItemId }));
 
         Assert.That(ex!.Message, Is.EqualTo("Item Already Exists in the cart"));
     }
@@ -145,7 +154,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.Update(CartItemId, cartItem)).ReturnsAsync(cartItem);
         _cartItemRepoMock.Setup(r => r.SaveChangesAsync()).ReturnsAsync(0);
 
-        await _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 3 });
+        await _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 3 });
 
         _cartItemRepoMock.Verify(r => r.Update(CartItemId, It.IsAny<CartItem>()), Times.Once);
         _cartItemRepoMock.Verify(r => r.SaveChangesAsync(), Times.Once);
@@ -158,7 +167,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.GetWithMenuItem(CartItemId)).ReturnsAsync((CartItem?)null);
 
         Assert.ThrowsAsync<CartItemNotFoundException>(
-            () => _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
+            () => _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
     }
 
     [Test]
@@ -176,7 +185,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.GetWithMenuItem(CartItemId)).ReturnsAsync(cartItem);
 
         Assert.ThrowsAsync<UnauthorizedAccessException>(
-            () => _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
+            () => _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
     }
 
     [Test]
@@ -195,7 +204,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.GetWithMenuItem(CartItemId)).ReturnsAsync(cartItem);
 
         Assert.ThrowsAsync<MenuItemNotFoundException>(
-            () => _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
+            () => _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
     }
 
     [Test]
@@ -214,7 +223,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.GetWithMenuItem(CartItemId)).ReturnsAsync(cartItem);
 
         var ex = Assert.ThrowsAsync<CartException>(
-            () => _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 0 }));
+            () => _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 0 }));
 
         Assert.That(ex!.Message, Is.EqualTo("Quantity must be greather than 0"));
     }
@@ -226,7 +235,7 @@ public class CartServiceTests
         _billRepoMock.Setup(r => r.GetBySessionId(SessionId)).ReturnsAsync(PaidBill);
 
         var ex = Assert.ThrowsAsync<CartException>(
-            () => _cartService.UpdateCartItem(CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
+            () => _cartService.UpdateCartItem(SessionId, CartId, CartItemId, new UpdateCartItemDto { Quantity = 2 }));
 
         Assert.That(ex!.Message, Is.EqualTo("Cannot modify cart after bill payment."));
     }
@@ -241,7 +250,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.Delete(CartItemId)).ReturnsAsync(cartItem);
         _cartItemRepoMock.Setup(r => r.SaveChangesAsync()).ReturnsAsync(0);
 
-        await _cartService.RemoveCartItem(CartId, CartItemId);
+        await _cartService.RemoveCartItem(SessionId, CartId, CartItemId);
 
         _cartItemRepoMock.Verify(r => r.Delete(CartItemId), Times.Once);
         _cartItemRepoMock.Verify(r => r.SaveChangesAsync(), Times.Once);
@@ -254,7 +263,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.Get(CartItemId)).ReturnsAsync((CartItem?)null);
 
         Assert.ThrowsAsync<CartItemNotFoundException>(
-            () => _cartService.RemoveCartItem(CartId, CartItemId));
+            () => _cartService.RemoveCartItem(SessionId, CartId, CartItemId));
     }
 
     [Test]
@@ -266,7 +275,7 @@ public class CartServiceTests
         _cartItemRepoMock.Setup(r => r.Get(CartItemId)).ReturnsAsync(cartItem);
 
         Assert.ThrowsAsync<UnauthorizedAccessException>(
-            () => _cartService.RemoveCartItem(CartId, CartItemId));
+            () => _cartService.RemoveCartItem(SessionId, CartId, CartItemId));
     }
 
     [Test]
@@ -276,7 +285,7 @@ public class CartServiceTests
         _billRepoMock.Setup(r => r.GetBySessionId(SessionId)).ReturnsAsync(PaidBill);
 
         var ex = Assert.ThrowsAsync<CartException>(
-            () => _cartService.RemoveCartItem(CartId, CartItemId));
+            () => _cartService.RemoveCartItem(SessionId, CartId, CartItemId));
 
         Assert.That(ex!.Message, Is.EqualTo("Cannot modify cart after bill payment."));
     }
