@@ -7429,3 +7429,87 @@ FROM "RestaurantTables" AS r
 2026-07-14 16:18:51.581 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/index.html - 200 null text/html;charset=utf-8 35.4905ms
 2026-07-14 16:18:51.682 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - null null
 2026-07-14 16:18:51.764 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 82.1795ms
+2026-07-14 16:22:05.125 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/AdminWaiter/waiters - null null
+2026-07-14 16:22:05.126 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:05.126 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/AdminWaiter/waiters - 204 null null 1.8147ms
+2026-07-14 16:22:05.127 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/AdminWaiter/waiters - null null
+2026-07-14 16:22:05.127 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:05.129 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI)'
+2026-07-14 16:22:05.130 +05:30 [INF] Route matched with {action = "GetWaiters", controller = "AdminWaiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.WaiterManagementResponseDto]] GetWaiters(System.String, System.Nullable`1[System.Boolean]) on controller RestaurantAPI.Controllers.AdminWaiterController (RestaurantAPI).
+2026-07-14 16:22:05.131 +05:30 [INF] Getting waiters list (search=null, isActive=null)
+2026-07-14 16:22:05.134 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted")
+2026-07-14 16:22:05.135 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted") AND u."IsActive"
+2026-07-14 16:22:05.140 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted") AND NOT (u."IsActive")
+2026-07-14 16:22:05.142 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."EncryptedMobileNumber", u."HashKey", u."IsActive", u."IsDeleted", u."MobileNumberHash", u."MustChangePassword", u."Name", u."PasswordHash", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted")
+2026-07-14 16:22:05.144 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+2026-07-14 16:22:05.146 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.WaiterManagementResponseDto'.
+2026-07-14 16:22:05.146 +05:30 [INF] Executed action RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI) in 16.6103ms
+2026-07-14 16:22:05.146 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI)'
+2026-07-14 16:22:05.146 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/AdminWaiter/waiters - 200 null application/json; charset=utf-8 19.352ms
+2026-07-14 16:22:11.015 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/AdminWaiter/waiters - null null
+2026-07-14 16:22:11.016 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:11.016 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/AdminWaiter/waiters - 204 null null 0.4221ms
+2026-07-14 16:22:11.016 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/AdminWaiter/waiters - null null
+2026-07-14 16:22:11.017 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:11.017 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI)'
+2026-07-14 16:22:11.017 +05:30 [INF] Route matched with {action = "GetWaiters", controller = "AdminWaiter"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RestaurantAPI.Models.DTOs.WaiterManagementResponseDto]] GetWaiters(System.String, System.Nullable`1[System.Boolean]) on controller RestaurantAPI.Controllers.AdminWaiterController (RestaurantAPI).
+2026-07-14 16:22:11.017 +05:30 [INF] Getting waiters list (search=null, isActive=null)
+2026-07-14 16:22:11.018 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted")
+2026-07-14 16:22:11.019 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted") AND u."IsActive"
+2026-07-14 16:22:11.020 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT count(*)::int
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted") AND NOT (u."IsActive")
+2026-07-14 16:22:11.022 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."EncryptedMobileNumber", u."HashKey", u."IsActive", u."IsDeleted", u."MobileNumberHash", u."MustChangePassword", u."Name", u."PasswordHash", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Role" = 'Waiter' AND NOT (u."IsDeleted")
+2026-07-14 16:22:11.023 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT r."Id", r."AssignedWaiterId", r."Capacity", r."CreatedAt", r."IsDeleted", r."QrIdentifier", r."Status", r."TableNumber"
+FROM "RestaurantTables" AS r
+2026-07-14 16:22:11.023 +05:30 [INF] Executing OkObjectResult, writing value of type 'RestaurantAPI.Models.DTOs.WaiterManagementResponseDto'.
+2026-07-14 16:22:11.023 +05:30 [INF] Executed action RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI) in 6.4141ms
+2026-07-14 16:22:11.023 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.AdminWaiterController.GetWaiters (RestaurantAPI)'
+2026-07-14 16:22:11.024 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/AdminWaiter/waiters - 200 null application/json; charset=utf-8 7.2255ms
+2026-07-14 16:22:40.238 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5178/api/Admin/auditlogs/download?fromDate=2026-07-01&toDate=2026-07-14 - null null
+2026-07-14 16:22:40.241 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:40.241 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5178/api/Admin/auditlogs/download?fromDate=2026-07-01&toDate=2026-07-14 - 204 null null 3.1706ms
+2026-07-14 16:22:40.244 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5178/api/Admin/auditlogs/download?fromDate=2026-07-01&toDate=2026-07-14 - null null
+2026-07-14 16:22:40.246 +05:30 [INF] CORS policy execution successful.
+2026-07-14 16:22:40.248 +05:30 [INF] Executing endpoint 'RestaurantAPI.Controllers.AdminController.DownloadAuditLogs (RestaurantAPI)'
+2026-07-14 16:22:40.255 +05:30 [INF] Route matched with {action = "DownloadAuditLogs", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DownloadAuditLogs(System.DateTime, System.DateTime) on controller RestaurantAPI.Controllers.AdminController (RestaurantAPI).
+2026-07-14 16:22:40.281 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@__fromDate_Date_0='?' (DbType = DateTime2), @__endDate_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."Action", a."EntityId", a."EntityIdentifier", a."EntityName", a."NewValues", a."OldValues", a."PerformedAt", a."Remarks"
+FROM "AuditLogs" AS a
+WHERE a."PerformedAt" >= @__fromDate_Date_0 AND a."PerformedAt" < @__endDate_1
+ORDER BY a."PerformedAt" DESC
+2026-07-14 16:22:40.357 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__fromDate_Date_0='?' (DbType = DateTime2), @__endDate_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."Action", a."EntityId", a."EntityIdentifier", a."EntityName", a."NewValues", a."OldValues", a."PerformedAt", a."Remarks"
+FROM "AuditLogs" AS a
+WHERE a."PerformedAt" >= @__fromDate_Date_0 AND a."PerformedAt" < @__endDate_1
+ORDER BY a."PerformedAt" DESC
+2026-07-14 16:22:40.360 +05:30 [INF] Executing FileContentResult, sending file with download name 'audit-logs-20260714105240.csv' ...
+2026-07-14 16:22:40.363 +05:30 [INF] Executed action RestaurantAPI.Controllers.AdminController.DownloadAuditLogs (RestaurantAPI) in 107.3777ms
+2026-07-14 16:22:40.363 +05:30 [INF] Executed endpoint 'RestaurantAPI.Controllers.AdminController.DownloadAuditLogs (RestaurantAPI)'
+2026-07-14 16:22:40.363 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5178/api/Admin/auditlogs/download?fromDate=2026-07-01&toDate=2026-07-14 - 200 20221 text/csv 118.5115ms
+2026-07-14 16:26:15.607 +05:30 [INF] Application is shutting down...

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {}
+    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {}
   },
   "projects": {
-    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {
+    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
+        "projectUniqueName": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
         "projectName": "RestaurantAPI.Tests",
-        "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
-        "packagesPath": "/Users/sivaprakashs/.nuget/packages/",
-        "outputPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI.Tests/obj/",
+        "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/RestaurantAPI.Tests.csproj",
+        "packagesPath": "/Users/bhargavkokkula/.nuget/packages/",
+        "outputPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sivaprakashs/.nuget/NuGet/NuGet.Config"
+          "/Users/bhargavkokkula/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -24,10 +24,11 @@
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {
-                "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj"
+              "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {
+                "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj"
               }
             }
           }
@@ -41,10 +42,12 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Sqlite": {
@@ -87,26 +90,36 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.421/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj": {
+    "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
+        "projectUniqueName": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
         "projectName": "RestaurantAPI",
-        "projectPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/RestaurantAPI.csproj",
-        "packagesPath": "/Users/sivaprakashs/.nuget/packages/",
-        "outputPath": "/Users/sivaprakashs/Documents/ProjectEnhancement/RestuarantSystemManagement/RestaurantAPI/obj/",
+        "projectPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/RestaurantAPI.csproj",
+        "packagesPath": "/Users/bhargavkokkula/.nuget/packages/",
+        "outputPath": "/Users/bhargavkokkula/Documents/dotnet/RestaurantManagementSystem/RestaurantAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sivaprakashs/.nuget/NuGet/NuGet.Config"
+          "/Users/bhargavkokkula/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -116,6 +129,7 @@
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -129,15 +143,29 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
               "version": "[16.1.1, )"
+            },
+            "Azure.Extensions.AspNetCore.Configuration.Secrets": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.21.0, )"
+            },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.29.1, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -195,6 +223,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -203,7 +245,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.421/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
