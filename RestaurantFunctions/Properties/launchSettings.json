@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "RestaurantFunctions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7083",
+      "launchBrowser": false
+    }
+  }
+}
