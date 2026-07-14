@@ -15,13 +15,18 @@ public class AdminController : ControllerBase
     private readonly IBillService _billService;
     private readonly IMenuService _menuService;
     private readonly ITaxConfigurationService _taxConfigurationService;
-    public AdminController(IUserService userService,IIOrderService orderService,IBillService billService,IMenuService menuService,IAdminService adminService,ITaxConfigurationService taxConfigurationService)
+    private readonly IAuditService _auditService;
+    private readonly IAuditArchiveService _auditArchiveService;
+    public AdminController(IUserService userService, IIOrderService orderService, IBillService billService, IMenuService menuService, IAdminService adminService, ITaxConfigurationService taxConfigurationService, IAuditService auditService,
+    IAuditArchiveService auditArchiveService)
     {
         _userService = userService;
         _orderService = orderService;
         _billService = billService;
         _menuService = menuService;
         _taxConfigurationService = taxConfigurationService;
+        _auditService = auditService;
+        _auditArchiveService=auditArchiveService;
     }
     [HttpGet("orders")]
     public async Task<ActionResult<PagedResponseDto<OrderRegistryDto>>> GetOrders(
@@ -130,5 +135,26 @@ public class AdminController : ControllerBase
     {
         await _taxConfigurationService.UpdateTaxConfiguration(request);
         return NoContent();
+    }
+    [HttpGet("auditlogs/download")]
+    public async Task<IActionResult> DownloadAuditLogs(
+        [FromQuery] DateTime fromDate,
+        [FromQuery] DateTime toDate)
+    {
+        var csvBytes = await _auditService.DownloadLogs(fromDate, toDate);
+
+        var fileName = $"audit-logs-{DateTime.UtcNow:yyyyMMddHHmmss}.csv";
+
+        return File(csvBytes, "text/csv", fileName);
+    }
+    [HttpPost("auditlogs/archive")]
+    public async Task<IActionResult> ArchiveAuditLogs()
+    {
+        await _auditArchiveService.ArchiveOldLogs();
+
+        return Ok(new
+        {
+            message = "Audit logs archived successfully."
+        });
     }
 }

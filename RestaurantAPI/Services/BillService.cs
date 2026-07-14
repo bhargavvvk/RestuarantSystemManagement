@@ -139,7 +139,7 @@ public class BillService : IBillService
             }
         }
 
-        await _auditService.LogAsync(nameof(Bill),bill.Id.ToString(),AuditAction.Updated,oldValues,
+        await _auditService.LogAsync(nameof(Bill), bill.Id.ToString(), bill.BillNumber, AuditAction.Updated, oldValues,
             new
             {
                 bill.ServiceChargeAmount,

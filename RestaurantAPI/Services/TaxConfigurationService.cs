@@ -91,6 +91,7 @@ public class TaxConfigurationService:ITaxConfigurationService
             await _auditService.LogAsync(
                 nameof(TaxConfiguration),
                 newConfiguration.Id.ToString(),
+                "Tax Configuration",
                 AuditAction.Updated,
                 new
                 {

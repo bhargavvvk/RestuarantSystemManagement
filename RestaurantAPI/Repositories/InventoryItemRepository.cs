@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class InventoryItemRepository:AbstractRepository<int,InventoryItem>,IInventoryItemRepository
+public class InventoryItemRepository:AbstractRepository<int,InventoryItem,RestaurantContext>,IInventoryItemRepository
 {
     public InventoryItemRepository(RestaurantContext context) : base(context)
     {

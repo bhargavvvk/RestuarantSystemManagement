@@ -4,10 +4,10 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class AbstractRepository<K,T>: IRepository<K, T> where T : class
+public class AbstractRepository<K,T,TContext>: IRepository<K, T> where T : class where TContext : DbContext
 {
-    protected  readonly RestaurantContext _context;
-        public AbstractRepository(RestaurantContext context)
+   protected readonly TContext _context;
+        public AbstractRepository(TContext context)
         {
             _context = context;
         }

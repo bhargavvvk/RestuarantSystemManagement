@@ -276,6 +276,7 @@ public class OrderService : IIOrderService
             await _auditService.LogAsync(
                 nameof(Order),
                 order.Id.ToString(),
+                order.OrderNumber,
                 AuditAction.Cancelled,
                 remarks: $"Order {order.Id} cancelled");
             await _orderRepository.SaveChangesAsync();
@@ -344,6 +345,7 @@ public class OrderService : IIOrderService
             await _auditService.LogAsync(
                 nameof(Order),
                 order.Id.ToString(),
+                order.OrderNumber,
                 AuditAction.Updated,
                 remarks:
                 $"Order item '{item.ItemName}' removed from order {order.Id}");
@@ -446,6 +448,7 @@ public class OrderService : IIOrderService
             await _auditService.LogAsync(
                 nameof(Order),
                 order.Id.ToString(),
+                order.OrderNumber,
                 AuditAction.Updated,
                 remarks:
                 $"Updated quantity of '{item.ItemName}' from {item.Quantity} to {quantity}");

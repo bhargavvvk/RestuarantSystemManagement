@@ -163,7 +163,7 @@ public class TableService:ITableService
 
         var oldValues = new
         {
-            table.Status
+            Status = table.Status.ToString()
         };
 
         table.Status = status;
@@ -171,11 +171,12 @@ public class TableService:ITableService
         await _auditService.LogAsync(
             nameof(RestaurantTable),
             table.Id.ToString(),
+            table.TableNumber,
             AuditAction.Updated,
             oldValues,
             new
             {
-                table.Status
+                Status = table.Status.ToString()
             },
             "Table availability updated");
 
@@ -213,6 +214,7 @@ public class TableService:ITableService
         await _auditService.LogAsync(
             nameof(RestaurantTable),
             table.Id.ToString(),
+            table.TableNumber,
             AuditAction.Deleted,
             new
             {
@@ -263,6 +265,7 @@ public class TableService:ITableService
         await _auditService.LogAsync(
             nameof(RestaurantTable),
             table.Id.ToString(),
+            table.TableNumber,
             AuditAction.Created,
             null,
             new

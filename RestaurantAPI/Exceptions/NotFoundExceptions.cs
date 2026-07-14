@@ -119,3 +119,15 @@ public class UserNotFoundException : Exception
 
     }
 }
+public class AuditLogsNotFoundException : Exception
+{
+
+    public AuditLogsNotFoundException(string message) : base(message)
+    {
+
+    }
+    public AuditLogsNotFoundException() : base("Audit logs not found")
+    {
+
+    }
+}

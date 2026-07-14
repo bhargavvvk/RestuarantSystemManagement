@@ -188,6 +188,7 @@ public class AdminService : IAdminService
         await _auditService.LogAsync(
             nameof(RestaurantTable),
             table.Id.ToString(),
+            table.TableNumber,
             AuditAction.Updated,
             oldValues,
             new { table.AssignedWaiterId, table.Status },
@@ -234,6 +235,7 @@ public class AdminService : IAdminService
         await _auditService.LogAsync(
             nameof(RestaurantTable),
             table.Id.ToString(),
+            table.TableNumber,
             AuditAction.Updated,
             oldValues,
             new { table.AssignedWaiterId, table.Status },
@@ -276,6 +278,7 @@ public class AdminService : IAdminService
         await _auditService.LogAsync(
             nameof(User),
             waiter.Id.ToString(),
+            waiter.Name,
             AuditAction.Updated,
             oldValues,
             new { waiter.IsActive },
@@ -308,6 +311,7 @@ public class AdminService : IAdminService
             await _auditService.LogAsync(
                 nameof(User),
                 waiter.Id.ToString(),
+                waiter.Name,
                 AuditAction.Deleted,
                 oldValues,
                 new { waiter.IsDeleted },

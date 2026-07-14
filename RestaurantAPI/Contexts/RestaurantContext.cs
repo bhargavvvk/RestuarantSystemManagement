@@ -5,7 +5,7 @@ namespace RestaurantAPI.Contexts;
 
 public class RestaurantContext: DbContext
 {
-    public RestaurantContext(DbContextOptions options): base(options)
+    public RestaurantContext(DbContextOptions<RestaurantContext> options): base(options)
     {
     }
     public DbSet<User> Users { get; set; }

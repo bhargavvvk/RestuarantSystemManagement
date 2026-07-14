@@ -12,19 +12,18 @@ namespace RestaurantAPI.Services;
 
 public class MenuService : IMenuService
 {
-    private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IMenuItemRepository _menuItemRepository;
     private readonly ILogger<MenuService> _logger;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IMapper _mapper;
     private readonly IAuditService _auditService;
     private readonly ICategoryRepository _categoryRepository;
     private readonly RestaurantContext _context;
     private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly IBlobStorageService _blobStorageService;
 
-    public MenuService(IMenuItemRepository menuItemRepository, ILogger<MenuService> logger, IHttpContextAccessor httpContextAccessor,
-    IMapper mapper, IAuditService auditService, ICategoryRepository categoryRepository, RestaurantContext context, IWebHostEnvironment webHostEnvironment,
-    IHubContext<NotificationHub> hubContext)
+    public MenuService(IMenuItemRepository menuItemRepository, ILogger<MenuService> logger,
+    IMapper mapper, IAuditService auditService, ICategoryRepository categoryRepository, RestaurantContext context,
+    IHubContext<NotificationHub> hubContext,IBlobStorageService blobStorageService)
     {
         _menuItemRepository = menuItemRepository;
         _logger = logger;
@@ -32,9 +31,8 @@ public class MenuService : IMenuService
         _auditService = auditService;
         _categoryRepository = categoryRepository;
         _context = context;
-        _webHostEnvironment = webHostEnvironment;
-        _httpContextAccessor = httpContextAccessor;
         _hubContext = hubContext;
+        _blobStorageService=blobStorageService;
     }
     public async Task ToggleMenuAvailability(int menuItemId,bool isAvailable)
     {
@@ -51,8 +49,9 @@ public class MenuService : IMenuService
 
         item.IsAvailable = isAvailable;
         await _auditService.LogAsync(
-        nameof(item),
+        nameof(MenuItem),
         item.Id.ToString(),
+        item.Name,
         AuditAction.Updated,
         oldValues,
         new
@@ -96,6 +95,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
             nameof(Category),
             category.Id.ToString(),
+            category.Name,
             AuditAction.Updated,
             oldValues,
             new
@@ -148,21 +148,10 @@ public class MenuService : IMenuService
         {
             throw new Exception("Menu item already exists");
         }
-
-        string? imagePath = null;
-
-        if (request.Image != null &&request.Image.Length > 0)
+        string? imageUrl = null;
+        if (request.Image != null && request.Image.Length > 0)
         {
-            var folderPath =Path.Combine(_webHostEnvironment.WebRootPath,"images","menu");
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-            var fileName =$"{Guid.NewGuid()}" +$"{Path.GetExtension(request.Image.FileName)}";
-            var filePath =Path.Combine(folderPath,fileName);
-            await using var stream =new FileStream(filePath,FileMode.Create);
-            await request.Image.CopyToAsync(stream);
-            imagePath =$"/images/menu/{fileName}";
+            imageUrl = await _blobStorageService.UploadMenuImageAsync(request.Image);
         }
         var menuItem = new MenuItem
         {
@@ -170,7 +159,7 @@ public class MenuService : IMenuService
             Description = request.Description,
             Price = request.Price,
             CategoryId = request.CategoryId,
-            ImageUrl = imagePath,
+            ImageUrl = imageUrl,
             FoodType = request.FoodType,
             IsAvailable =category.IsAvailable
                     ? request.IsAvailable
@@ -181,6 +170,7 @@ public class MenuService : IMenuService
         await _auditService.LogAsync(
             nameof(MenuItem),
             menuItem.Id.ToString(),
+            menuItem.Name,
             AuditAction.Created,
             null,
             new
@@ -197,8 +187,6 @@ public class MenuService : IMenuService
         _logger.LogInformation("Menu item {MenuItemId} created",menuItem.Id);
         await SendMenuUpdated();
         var result = _mapper.Map<MenuItemResponseDto>(menuItem);
-        if (!string.IsNullOrEmpty(result.ImageUrl))
-            result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
         return result;
     }
     public async Task<CategoryResponseDto>AddCategory(AddCategoryDto request)
@@ -236,6 +224,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
                 nameof(Category),
                 category.Id.ToString(),
+                category.Name,
                 AuditAction.Created,
                 null,
                 new
@@ -319,6 +308,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
                 nameof(MenuItem),
                 menuItem.Id.ToString(),
+                menuItem.Name,
                 AuditAction.Updated,
                 oldValues,
                 new
@@ -338,8 +328,6 @@ public class MenuService : IMenuService
             _logger.LogInformation("Menu item {MenuItemId} updated",menuItem.Id);
             await SendMenuUpdated();
             var result = _mapper.Map<MenuItemResponseDto>(menuItem);
-            if (!string.IsNullOrEmpty(result.ImageUrl))
-                result.ImageUrl = BuildAbsoluteUrl(result.ImageUrl);
             return result;
         }
         catch
@@ -386,6 +374,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
                 nameof(Category),
                 category.Id.ToString(),
+                category.Name,
                 AuditAction.Updated,
                 oldValues,
                 new
@@ -435,6 +424,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
                 nameof(MenuItem),
                 menuItem.Id.ToString(),
+                menuItem.Name,
                 AuditAction.Deleted,
                 oldValues,
                 new
@@ -489,6 +479,7 @@ public class MenuService : IMenuService
             await _auditService.LogAsync(
                 nameof(Category),
                 category.Id.ToString(),
+                category.Name,
                 AuditAction.Deleted,
                 oldValues,
                 new
@@ -532,11 +523,6 @@ public class MenuService : IMenuService
         }
         var menuItems =await query.OrderBy(m => m.Name).ToListAsync();
         var result = _mapper.Map<ICollection<MenuItemResponseDto>>(menuItems);
-        foreach (var item in result)
-        {
-            if (!string.IsNullOrEmpty(item.ImageUrl))
-                item.ImageUrl = BuildAbsoluteUrl(item.ImageUrl);
-        }
         return result;
     }
     public async Task<ICollection<CategoryResponseDto>> GetCategories()
@@ -550,12 +536,6 @@ public class MenuService : IMenuService
                     IsAvailable=c.IsAvailable
                 })
             .ToList();
-    }
-
-    private string BuildAbsoluteUrl(string path)
-    {
-        var request = _httpContextAccessor.HttpContext!.Request;
-        return $"{request.Scheme}://{request.Host}{path}";
     }
 
     private async Task SendMenuUpdated()

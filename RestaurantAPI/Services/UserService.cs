@@ -117,6 +117,7 @@ public class UserService : IUserService
             await _auditService.LogAsync(
                 nameof(User),
                 createdWaiter.Id.ToString(),
+                createdWaiter.Name,
                 AuditAction.Created,
                 null,
                 new
@@ -246,7 +247,7 @@ public class UserService : IUserService
         try
         {
             await _userRepository.SaveChangesAsync();
-            await _auditService.LogAsync(nameof(User),user.Id.ToString(),AuditAction.Updated,oldValues,
+            await _auditService.LogAsync(nameof(User), user.Id.ToString(), user.Name, AuditAction.Updated, oldValues,
                 new
                 {
                     user.Name,
@@ -311,6 +312,7 @@ public class UserService : IUserService
             await _auditService.LogAsync(
                 nameof(User),
                 user.Id.ToString(),
+                user.Name,
                 AuditAction.Updated,
                 null,
                 null,

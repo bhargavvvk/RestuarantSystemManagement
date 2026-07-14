@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class BillRepository : AbstractRepository<int, Bill>, IBillRepository
+public class BillRepository : AbstractRepository<int, Bill,RestaurantContext>, IBillRepository
 {
     public BillRepository(RestaurantContext context) : base(context)
     {

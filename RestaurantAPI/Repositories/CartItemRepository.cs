@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class CartItemRepository:AbstractRepository<int,CartItem>,ICartItemRepository
+public class CartItemRepository:AbstractRepository<int,CartItem,RestaurantContext>,ICartItemRepository
 {
     public CartItemRepository(RestaurantContext context) : base(context)
     {

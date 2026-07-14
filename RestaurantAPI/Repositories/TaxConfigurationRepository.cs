@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class TaxConfigurationRepository : AbstractRepository<int, TaxConfiguration>, ITaxConfigurationRepository
+public class TaxConfigurationRepository : AbstractRepository<int, TaxConfiguration,RestaurantContext>, ITaxConfigurationRepository
 {
     public TaxConfigurationRepository(RestaurantContext context) : base(context)
     {

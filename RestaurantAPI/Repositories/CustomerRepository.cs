@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class CustomerRepository:AbstractRepository<int,Customer>,ICustomerRepository
+public class CustomerRepository:AbstractRepository<int,Customer,RestaurantContext>,ICustomerRepository
 {
     public CustomerRepository(RestaurantContext context) : base(context)
     {

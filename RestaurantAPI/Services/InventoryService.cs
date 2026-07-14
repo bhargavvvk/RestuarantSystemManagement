@@ -144,7 +144,8 @@ public class InventoryService:IInventoryService
             updateAction(inventoryItem);
             inventoryItem.LastUpdatedAt =DateTime.Now;
             await _inventoryRepository.SaveChangesAsync();
-            await _auditService.LogAsync(nameof(InventoryItem),inventoryItem.Id.ToString(),
+            await _auditService.LogAsync(nameof(InventoryItem), inventoryItem.Id.ToString(),
+                inventoryItem.Name,
                 AuditAction.Updated,
                 oldValues,
                 newValues,
@@ -202,6 +203,7 @@ public class InventoryService:IInventoryService
             await _auditService.LogAsync(
                 nameof(InventoryItem),
                 item.Id.ToString(),
+                item.Name,
                 AuditAction.Created,
                 null,
                 new
@@ -248,6 +250,7 @@ public class InventoryService:IInventoryService
             await _auditService.LogAsync(
                 nameof(InventoryItem),
                 inventoryItem.Id.ToString(),
+                inventoryItem.Name,
                 AuditAction.Deleted,
                 oldValues,
                 new

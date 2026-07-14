@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class OrderItemRepository : AbstractRepository<int, OrderItem>, IOrderItemRepository
+public class OrderItemRepository : AbstractRepository<int, OrderItem,RestaurantContext>, IOrderItemRepository
 {
     public OrderItemRepository(RestaurantContext context) : base(context)
     {

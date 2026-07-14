@@ -5,7 +5,7 @@ using RestaurantAPI.RepositoryInterfaces;
 
 namespace RestaurantAPI.Repositories;
 
-public class DiningSessionRepository:AbstractRepository<int,DiningSession>,IDiningSessionRepository
+public class DiningSessionRepository:AbstractRepository<int,DiningSession,RestaurantContext>,IDiningSessionRepository
 {
     public DiningSessionRepository(RestaurantContext context) : base(context)
     {

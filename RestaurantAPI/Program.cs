@@ -1,4 +1,5 @@
 using System.Text;
+using Azure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
@@ -16,6 +17,15 @@ using RestaurantAPI.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+var keyVaultUri = builder.Configuration["KeyVaultUri"];
+if (!string.IsNullOrEmpty(keyVaultUri))
+{
+    // If a URI is present, pull secrets from Azure Key Vault
+    builder.Configuration.AddAzureKeyVault(
+        new Uri(keyVaultUri),
+        new DefaultAzureCredential()
+    );
+}
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
@@ -78,6 +88,8 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
 });
+builder.Services.AddDbContext<ArchiveContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Archive")));
 #endregion
 
 #region Authenticaion
@@ -130,6 +142,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
+builder.Services.AddScoped<IArchiveAuditLogRepository, ArchiveAuditLogRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IInventoryItemRepository,InventoryItemRepository>();
 #endregion
@@ -148,11 +161,13 @@ builder.Services.AddScoped<IWaiterService, WaiterService>();
 builder.Services.AddScoped<ICustomerRequestService, CustomerRequestService>();
 builder.Services.AddScoped<IDiningSessionService, DiningSessionService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<IAuditArchiveService, AuditArchiveService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<ITaxConfigurationService,TaxConfigurationService>();
 builder.Services.AddScoped<IKitchenService, KitchenService>();
-builder.Services.AddScoped<IQrCodeService,QrCodeService>();
+builder.Services.AddScoped<IQrCodeService, QrCodeService>();
+builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
 #endregion
 var app = builder.Build();
 
