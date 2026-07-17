@@ -19,7 +19,7 @@ public class ArchiveAuditLogsFunction
 
     [Function("ArchiveAuditLogs")]
     public async Task Run(
-        [TimerTrigger("0 0 2 * * *")] TimerInfo timer)
+        [TimerTrigger("0 */2 * * * *")] TimerInfo timer)
     {
         _logger.LogInformation("Archive Audit Logs function started at {Time}",
             DateTime.UtcNow);

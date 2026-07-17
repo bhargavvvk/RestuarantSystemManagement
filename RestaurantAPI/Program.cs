@@ -14,7 +14,16 @@ using RestaurantAPI.Repositories;
 using RestaurantAPI.RepositoryInterfaces;
 using RestaurantAPI.ServiceInterfaces;
 using RestaurantAPI.Services;
+using RestaurantAPI.Services.AI.Claude;
+using RestaurantAPI.Services.AI.Configuration;
+using RestaurantAPI.Services.AI.Contracts;
+using RestaurantAPI.Services.AI.Conversation;
+using RestaurantAPI.Services.AI.Tools;
+using RestaurantAPI.Services.AI.Tools.Menu;
+using RestaurantAPI.Services.AI.Tools.Restaurant;
+using RestaurantAPI.Services.AI;
 using Serilog;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 var keyVaultUri = builder.Configuration["KeyVaultUri"];
@@ -30,6 +39,7 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 builder.Host.UseSerilog();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -40,6 +50,7 @@ builder.Services.AddCors(options =>
              .AllowCredentials();
     });
 });
+
 
 builder.Services.AddControllers();
 
@@ -128,6 +139,15 @@ builder.Services.AddAuthentication(options =>
 });
 
 #endregion
+builder.Services.Configure<AnthropicSettings>(
+    builder.Configuration.GetSection(AnthropicSettings.SectionName));
+
+builder.Services.AddHttpClient<IClaudeClient, ClaudeClient>((sp, client) =>
+{
+    var settings = sp.GetRequiredService<IOptions<AnthropicSettings>>().Value;
+    client.BaseAddress = new Uri(settings.BaseUrl);
+});
+
 #region Repositories
 builder.Services.AddScoped<IDiningSessionRepository, DiningSessionRepository>();
 builder.Services.AddScoped<IRestaurentTableRepository, RestaurantTableRepository>();
@@ -145,6 +165,10 @@ builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 builder.Services.AddScoped<IArchiveAuditLogRepository, ArchiveAuditLogRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IInventoryItemRepository,InventoryItemRepository>();
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IMenuItemIngredientRepository, MenuItemIngredientRepository>();
+builder.Services.AddScoped<IMenuItemNutritionRepository, MenuItemNutritionRepository>();
+builder.Services.AddScoped<IRestaurantConfigurationRepository, RestaurantConfigurationRepository>();
 #endregion
 
 #region Services
@@ -168,6 +192,15 @@ builder.Services.AddScoped<ITaxConfigurationService,TaxConfigurationService>();
 builder.Services.AddScoped<IKitchenService, KitchenService>();
 builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IRestaurantConfigurationService, RestaurantConfigurationService>();
+builder.Services.AddSingleton<IConversationService, ConversationService>();
+builder.Services.AddScoped<IToolDispatcher, ToolDispatcher>();
+builder.Services.AddScoped<GetMenuCatalogTool>();
+builder.Services.AddScoped<GetMenuItemDetailsTool>();
+builder.Services.AddScoped<GetMenuItemsByIngredientTool>();
+builder.Services.AddScoped<GetRestaurantInfoTool>();
+builder.Services.AddScoped<IAIService, AIService>();
 #endregion
 var app = builder.Build();
 

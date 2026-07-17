@@ -19,4 +19,9 @@ public class MenuItemResponseDto
     public int CategoryId { get; set; }
 
     public string CategoryName { get; set; } = string.Empty;
+
+    // Optional — only populated when explicitly requested via detail endpoints
+    public ICollection<MenuItemIngredientResponseDto>? Ingredients { get; set; }
+
+    public MenuItemNutritionResponseDto? Nutrition { get; set; }
 }

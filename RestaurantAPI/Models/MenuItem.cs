@@ -38,4 +38,8 @@ public class MenuItem
     public ICollection<OrderItem>? OrderItems { get; set; }
 
     public Category? Category { get; set; }
+
+    public ICollection<MenuItemIngredient>? MenuItemIngredients { get; set; }
+
+    public MenuItemNutrition? Nutrition { get; set; }
 }

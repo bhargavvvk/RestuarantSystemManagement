@@ -397,6 +397,42 @@ namespace RestaurantAPI.Migrations
                     b.ToTable("DiningSessionTables");
                 });
 
+            modelBuilder.Entity("RestaurantAPI.Models.Ingredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Ingredient");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("RestaurantAPI.Models.InventoryItem", b =>
                 {
                     b.Property<int>("Id")
@@ -496,6 +532,79 @@ namespace RestaurantAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("RestaurantAPI.Models.MenuItemIngredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("ApproxQuantity")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Unit")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.HasKey("Id")
+                        .HasName("PK_MenuItemIngredient");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("MenuItemId", "IngredientId")
+                        .IsUnique();
+
+                    b.ToTable("MenuItemIngredients");
+                });
+
+            modelBuilder.Entity("RestaurantAPI.Models.MenuItemNutrition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("Calories")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Carbohydrates")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Fat")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Fiber")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Protein")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Sodium")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Sugar")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.HasKey("Id")
+                        .HasName("PK_MenuItemNutrition");
+
+                    b.HasIndex("MenuItemId")
+                        .IsUnique();
+
+                    b.ToTable("MenuItemNutritions");
+                });
+
             modelBuilder.Entity("RestaurantAPI.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -590,6 +699,56 @@ namespace RestaurantAPI.Migrations
 
                             t.HasCheckConstraint("CK_OrderItem_Quantity", "\"Quantity\" > 0");
                         });
+                });
+
+            modelBuilder.Entity("RestaurantAPI.Models.RestaurantConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("About")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<TimeSpan?>("ClosingTime")
+                        .HasColumnType("interval");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("KnowledgeBase")
+                        .HasColumnType("jsonb");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<TimeSpan?>("OpeningTime")
+                        .HasColumnType("interval");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("RestaurantName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RestaurantConfiguration");
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.RestaurantTable", b =>
@@ -883,6 +1042,39 @@ namespace RestaurantAPI.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("RestaurantAPI.Models.MenuItemIngredient", b =>
+                {
+                    b.HasOne("RestaurantAPI.Models.Ingredient", "Ingredient")
+                        .WithMany("MenuItemIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_MenuItemIngredient_Ingredient");
+
+                    b.HasOne("RestaurantAPI.Models.MenuItem", "MenuItem")
+                        .WithMany("MenuItemIngredients")
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_MenuItemIngredient_MenuItem");
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("MenuItem");
+                });
+
+            modelBuilder.Entity("RestaurantAPI.Models.MenuItemNutrition", b =>
+                {
+                    b.HasOne("RestaurantAPI.Models.MenuItem", "MenuItem")
+                        .WithOne("Nutrition")
+                        .HasForeignKey("RestaurantAPI.Models.MenuItemNutrition", "MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_MenuItemNutrition_MenuItem");
+
+                    b.Navigation("MenuItem");
+                });
+
             modelBuilder.Entity("RestaurantAPI.Models.Order", b =>
                 {
                     b.HasOne("RestaurantAPI.Models.DiningSession", "DiningSession")
@@ -961,9 +1153,18 @@ namespace RestaurantAPI.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("RestaurantAPI.Models.Ingredient", b =>
+                {
+                    b.Navigation("MenuItemIngredients");
+                });
+
             modelBuilder.Entity("RestaurantAPI.Models.MenuItem", b =>
                 {
                     b.Navigation("CartItems");
+
+                    b.Navigation("MenuItemIngredients");
+
+                    b.Navigation("Nutrition");
 
                     b.Navigation("OrderItems");
                 });

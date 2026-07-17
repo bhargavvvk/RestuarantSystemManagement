@@ -1,5 +1,5 @@
 param location string = resourceGroup().location
-param keyVaultName string = 'kv-bhar-${uniqueString(resourceGroup().id)}'
+param keyVaultName string = 'kv-bk-${uniqueString(resourceGroup().id)}'
 param adminObjectId string 
 param functionPrincipalId string
 

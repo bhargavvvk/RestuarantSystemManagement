@@ -131,3 +131,14 @@ public class AuditLogsNotFoundException : Exception
 
     }
 }
+
+public class IngredientNotFoundException : NotFoundException
+{
+    public IngredientNotFoundException() : base("Ingredient was not found.") { }
+    public IngredientNotFoundException(string message) : base(message) { }
+}
+
+public class NutritionNotFoundException : NotFoundException
+{
+    public NutritionNotFoundException() : base("Nutrition info was not found for this menu item.") { }
+}

@@ -24,6 +24,10 @@ public class RestaurantContext: DbContext
     public DbSet<TaxConfiguration> TaxConfigurations { get; set; }
     public DbSet<InventoryItem> InventoryItems { get; set; }
     public DbSet<DiningSessionTable> DiningSessionTables { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<MenuItemIngredient> MenuItemIngredients { get; set; }
+    public DbSet<MenuItemNutrition> MenuItemNutritions { get; set; }
+    public DbSet<RestaurantConfiguration> RestaurantConfigurations { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(user =>
@@ -479,6 +483,107 @@ public class RestaurantContext: DbContext
 
             dst.Property(x => x.LinkedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone");
+        });
+        modelBuilder.Entity<Ingredient>(ingredient =>
+        {
+            ingredient.HasKey(i => i.Id)
+                .HasName("PK_Ingredient");
+            ingredient.HasIndex(i => i.Name)
+                .IsUnique();
+            ingredient.Property(i => i.IsDeleted)
+                .HasDefaultValue(false);
+            ingredient.Property(i => i.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone");
+        });
+        modelBuilder.Entity<MenuItemIngredient>(entity =>
+        {
+            entity.HasKey(mi => mi.Id)
+                .HasName("PK_MenuItemIngredient");
+
+            entity.HasIndex(mi => new
+            {
+                mi.MenuItemId,
+                mi.IngredientId
+            }).IsUnique();
+
+            entity.Property(mi => mi.ApproxQuantity)
+                .HasColumnType("numeric(10,2)");
+
+            entity.HasOne(mi => mi.MenuItem)
+                .WithMany(m => m.MenuItemIngredients)
+                .HasForeignKey(mi => mi.MenuItemId)
+                .HasConstraintName("FK_MenuItemIngredient_MenuItem")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(mi => mi.Ingredient)
+                .WithMany(i => i.MenuItemIngredients)
+                .HasForeignKey(mi => mi.IngredientId)
+                .HasConstraintName("FK_MenuItemIngredient_Ingredient")
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+        modelBuilder.Entity<MenuItemNutrition>(entity =>
+        {
+            entity.HasKey(n => n.Id)
+                .HasName("PK_MenuItemNutrition");
+
+            entity.HasIndex(n => n.MenuItemId)
+                .IsUnique();
+
+            entity.Property(n => n.Calories)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Protein)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Carbohydrates)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Fat)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Fiber)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Sugar)
+                .HasColumnType("numeric(10,2)");
+
+            entity.Property(n => n.Sodium)
+                .HasColumnType("numeric(10,2)");
+
+            entity.HasOne(n => n.MenuItem)
+                .WithOne(m => m.Nutrition)
+                .HasForeignKey<MenuItemNutrition>(n => n.MenuItemId)
+                .HasConstraintName("FK_MenuItemNutrition_MenuItem")
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        modelBuilder.Entity<RestaurantConfiguration>(entity =>
+        {
+            entity.ToTable("RestaurantConfiguration");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.RestaurantName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Description)
+                .HasMaxLength(500);
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(500);
+
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(20);
+
+            entity.Property(e => e.Email)
+                .HasMaxLength(100);
+
+            entity.Property(e => e.KnowledgeBase)
+                .HasColumnType("jsonb");
+
+            entity.Property(e => e.LastUpdatedAt)
                 .HasColumnType("timestamp without time zone");
         });
     }
