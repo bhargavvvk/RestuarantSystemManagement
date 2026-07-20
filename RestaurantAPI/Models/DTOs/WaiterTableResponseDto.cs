@@ -9,4 +9,7 @@ public class WaiterTableResponseDto
     public string Status { get; set; } = string.Empty;
 
     public int? SessionId { get; set; }
+
+    /// <summary>OTP of the active dining session. Null when the table has no active session.</summary>
+    public string? SessionOtp { get; set; }
 }

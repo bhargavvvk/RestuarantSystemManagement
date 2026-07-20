@@ -59,7 +59,8 @@ public class TableService:ITableService
                 TableId = table.Id,
                 TableNumber = table.TableNumber,
                 Status = status,
-                SessionId = activeSession?.Id
+                SessionId = activeSession?.Id,
+                SessionOtp = activeSession?.SessionOtp
             });
         }
 
